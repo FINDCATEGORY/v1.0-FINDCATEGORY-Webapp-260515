@@ -6,21 +6,21 @@ const articles = [
   {
     category: "1st project",
     date: "May 5, 2026",
-    title: "곧 공개됩니다.",
-    image: "/images/RebeccaUdall-RebeccaHopePhotography-1254_06b82e3c-bef0-4e13-9e98-ba8750849578.webp",
+    title: "Coming soon",
+    image: "/images/Reb	eccaUdall-RebeccaHopePhotography-1254_06b82e3c-bef0-4e13-9e98-ba8750849578.webp",
     href: "/blog/llm-implementation",
-  },
-  {
-    category: "3rd project",
-    date: "May 5, 2025",
-    title: "곧 공개됩니다.",
-    image: "/images/RebeccaUdall-Nov2023-4539_4b53ffba-cf1d-4e25-a18d-965748bfee39.webp",
-    href: "/blog/generative-ai-design",
   },
   {
     category: "2nd project",
     date: "May 5, 2025",
-    title: "곧 공개됩니다.",
+    title: "Coming soon",
+    image: "/images/RebeccaUdall-Nov2023-4539_4b53ffba-cf1d-4e25-a18d-965748bfee39.webp",
+    href: "/blog/generative-ai-design",
+  },
+  {
+    category: "3nd project",
+    date: "May 5, 2025",
+    title: "Coming soon",
     image: "/images/02_main_image03.jpg",
     href: "/blog/ai-video-generation",
   },
@@ -28,14 +28,14 @@ const articles = [
 
 export default function LatestArticles() {
   return (
-    <section id="blog" className="py-20 px-6">
+    <section id="blog" className="py-10 px-0">
       <div className="mx-auto max-w-7xl">
         {/* 상단 ACME 디자인 섹션 추가 */}
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border mb-16 flex flex-col md:flex-row items-center gap-12">
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border mb-10 flex flex-col md:flex-row items-center gap-5">
           {/* 왼쪽 이미지 */}
-          <div className="w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden relative">
+          <div className="w-full md:w-1/2 aspect-[5/6] rounded-2xl overflow-hidden relative">
             <Image
-              src="/images/04gallery02.jpg" // 이미지 경로를 실제 경로로 수정하세요
+              src="/images/04gallery02.jpg"
               alt="Plates and paper"
               fill
               className="object-cover"
@@ -44,9 +44,7 @@ export default function LatestArticles() {
 
           {/* 오른쪽 텍스트 및 버튼 */}
           <div className="w-full md:w-1/2 flex flex-col items-start md:items-start text-center md:text-left">
-           
-            
-            <h1 className="text-4xl md:text-5xl font-semibold text-black leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl font-semibold text-black leading-tight mb-18">
               What did you think of our service?
             </h1>
             
@@ -63,37 +61,28 @@ export default function LatestArticles() {
           </div>
         </div>
 
-        {/* Section Header */}
-        <div className="flex items-center gap-2 mb-4">
-          
-          <span className="text-left font-medium text-center text-foreground/70"> Get Ready : Coming soon</span>
+        {/* Section Header: justify-center 추가로 중앙 정렬 */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <span className="text-center font-medium text-foreground/70"> Get Ready : Coming soon</span>
         </div>
 
         <h2 className="text-3xl md:text-4xl text-white text-center mb-12">출시예정 콘텐츠</h2>
 
         {/* Articles Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
           {articles.map((article, index) => (
-            <Link key={index} href={article.href} className="group">
-              <div className="rounded-2xl overflow-hidden mb-4">
-                <Image
-                  src={article.image || "/placeholder.svg"}
-                  alt={article.title}
-                  width={400}
-                  height={250}
-                  className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+            <div key={index}>
+              <div style={{ borderRadius: "16px", overflow: "hidden", marginBottom: "16px" }}>
+                <Image src={article.image} alt={article.title} width={400} height={250} style={{ width: "100%", height: "208px", objectFit: "cover" }} />
               </div>
-              <div className="flex items-center gap-4 mb-3">
-                <span className="text-xs font-medium text-foreground/60 bg-secondary px-3 py-1 rounded-full">
+              <div style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
+                <span style={{ fontSize: "12px", background: "#f0f0f0", color: "#000000", padding: "4px 12px", borderRadius: "99px" }}>
                   {article.category}
                 </span>
-                <span className="text-xs text-foreground/50">{article.date}</span>
+                <span style={{ fontSize: "12px", color: "#888" }}>{article.date}</span>
               </div>
-              <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors capitalize">
-                {article.title}
-              </h3>
-            </Link>
+              <h3 style={{ fontSize: "18px", color: "white" }}>{article.title}</h3>
+            </div>
           ))}
         </div>
       </div>

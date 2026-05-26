@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/header";
 
 import { HeroSection } from "@/components/sections/hero-section";
@@ -7,6 +8,8 @@ import { GallerySection } from "@/components/sections/gallery-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 
 import { FooterSection } from "@/components/sections/footer-section";
+
+
 
 // Next.js 메인 페이지는 반드시 export default function이어야 합니다.
 export default function Home() {

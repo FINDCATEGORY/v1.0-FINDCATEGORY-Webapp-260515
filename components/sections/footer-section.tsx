@@ -35,8 +35,7 @@ export function FooterSection() {
               FINDCATEGORYⓇ
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              FINDCATEGORYⓇ가 엄선한 카테고리<br />
-              지속 가능한 라이프스타일 시나리오.
+              지속 가능한 라이프스타일 시나리오를 통해 파인드카테고리를 만나보세요. 
             </p>
           </div>
 
