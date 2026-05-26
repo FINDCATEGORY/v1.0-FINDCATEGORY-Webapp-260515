@@ -1,11 +1,13 @@
 "use client";
 
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { AuthCard } from "@/components/auth/auth-card";
 import { useToast } from "@/components/ui/use-toast";
+
 
 export function Header() {
   const [isMounted, setIsMounted] = useState(false);

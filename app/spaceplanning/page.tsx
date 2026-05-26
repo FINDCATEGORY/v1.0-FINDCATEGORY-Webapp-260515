@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Share2 } from "lucide-react";
 import Image from "next/image";
-import { Background } from "@/components/spaceplanning260521/background";
+import { Background } from "@/components/spaceplanning/background";
 import { ProductCard } from "@/components/product-card";
 import { FooterSection } from "@/components/sections/footer-section";
 import { HeroSection } from "@/components/sections/hero-section";

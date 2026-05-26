@@ -46,9 +46,9 @@ export function Header() {
 
         {/* 페이지 이동 메뉴 */}
         <nav className="hidden md:flex items-center gap-10">
-          <Link href="/product" className="text-sm text-muted-foreground hover:text-foreground">product</Link>
-          <Link href="/shopping" className="text-sm text-muted-foreground hover:text-foreground">Shopping</Link>
-          <Link href="/spaceplanning" className="text-sm text-muted-foreground hover:text-foreground">Space Planning</Link>       
+          <Link href="/product" className="text-sm text-muted-white hover:text-foreground">product</Link>
+          <Link href="/shopping" className="text-sm text-muted-white hover:text-foreground">Shopping</Link>
+          <Link href="/spaceplanning" className="text-sm text-muted-white hover:text-foreground">Space Planning</Link>       
         </nav>
 
         {/* 로그인/로그아웃 버튼 */}

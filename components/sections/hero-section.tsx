@@ -189,24 +189,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Tagline Section - Fixed at bottom */}
-<div 
-  className="pointer-events-none fixed inset-0 z-20 flex items-center justify-center px-6"
-  style={{ opacity: textOpacity }}
-      >
-        <p className="max-w-xl text-center text-white text-[1.2rem] leading-relaxed md:text-[1.5rem] lg:leading-snug">
 
-          FINDCATEGORYⓇ가 엄선한 카테고리
-          <br></br>
-          그 안의 지속 가능한 라이프스타일 시나리오.
-          <br></br><br></br><br></br>
-          
-        
-        </p>
-      </div>
-
-      {/* Scroll space to enable animation */}
-      <div className="h-[100vh]" />
     </section>
   );
 }
