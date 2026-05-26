@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { AuthCard } from "@/components/auth/auth-card";
+import { AuthCard } from "@/components/join/auth/auth-card";
 import { useToast } from "@/components/ui/use-toast";
 
 
@@ -48,9 +48,9 @@ export function Header() {
 
         {/* 페이지 이동 메뉴 */}
         <nav className="hidden md:flex items-center gap-10">
-          <Link href="/news" className="text-sm text-muted-foreground hover:text-foreground">News</Link>
-          <Link href="/product" className="text-sm text-muted-foreground hover:text-foreground">Product</Link>
-          <Link href="/spaceplanning" className="text-sm text-muted-foreground hover:text-foreground">Space Planning</Link>       
+          
+          <Link href="/category" className="text-sm text-muted-foreground hover:text-foreground">제품과소식</Link>
+          <Link href="/project" className="text-sm text-muted-foreground hover:text-foreground">프로젝트</Link>       
         </nav>
 
         {/* 로그인/로그아웃 버튼 */}
@@ -90,9 +90,9 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background/90 backdrop-blur-md px-6 py-8 rounded-b-2xl">
           <nav className="flex flex-col gap-6">
-            <Link href="/news" onClick={() => setIsMenuOpen(false)}>News</Link>
-            <Link href="/product" onClick={() => setIsMenuOpen(false)}>Product</Link>
-            <Link href="/spaceplanning" onClick={() => setIsMenuOpen(false)}>Space Planning</Link>
+            
+            <Link href="/product" onClick={() => setIsMenuOpen(false)}>제품과소식</Link>
+            <Link href="/spaceplanning" onClick={() => setIsMenuOpen(false)}>프로젝트</Link>
           </nav>
         </div>
       )}

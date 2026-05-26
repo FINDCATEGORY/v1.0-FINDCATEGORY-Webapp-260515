@@ -35,8 +35,8 @@ export function FooterSection() {
               FINDCATEGORYⓇ
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Passive Directing reimagining modern workspace.<br></br>
-              Just as solar panels create energy autonomy,<br></br> our curated scenarios empower small businesses to thrive independently.
+              FINDCATEGORYⓇ가 엄선한 카테고리<br />
+              지속 가능한 라이프스타일 시나리오.
             </p>
           </div>
 
@@ -100,17 +100,14 @@ export function FooterSection() {
             2026 FINDCATEGORYⓇ. All rights reserved.
           </p>
 
-          
-
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <Link
               href="#"
-              className="text-xs  transition-colors hover:text-foreground"
+              className="text-xs transition-colors hover:text-foreground"
             >
               Instagram
             </Link>
-           
             <Link
               href="#"
               className="text-xs transition-colors hover:text-foreground"

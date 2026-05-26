@@ -55,17 +55,7 @@ export function EditorialSection() {
 
   return (
     <section className="bg-background">
-      {/* Newsletter Banner */}
-      
-
-      {/* Section Title */}
-      <div className="flex items-center justify-center py-20 md:py-32 px-6">
-        <p className="text-center text-2xl md:text-3xl leading-snug tracking-tight text-foreground max-w-5xl">
-          파인드카테고리만의 엄선된 레시피 <br></br>
-
-          Curated Lifestyle Scenarios Recipe 
-        </p>
-      </div>
+ 
 
       {/* Full-width Video with Parallax */}
       <div ref={videoRef} className="relative aspect-[16/9] w-full md:aspect-[21/9] overflow-hidden">
@@ -82,7 +72,7 @@ export function EditorialSection() {
             WebkitBackfaceVisibility: 'hidden',
             willChange: 'transform',
           }}
-          src="/images/7editorial1.mp4"
+          src="/images/project2.mp4"
         />
       </div>
 
