@@ -8,42 +8,24 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Content */}
           <div>
-            <div className="flex items-center gap-2 mb-6">
-              <Info className="w-5 h-5 text-accent" strokeWidth={2} />
-              <span className="text-sm font-medium text-foreground/70">About us</span>
-            </div>
+        <div className="flex flex-col items-center gap-2 mb-6">
+          <Info className="w-5 h-5 text-accent" strokeWidth={2} />
+          <span className="text-sm font-medium text-foreground/70">FINDCATEGORYⓇTableware</span>
+        </div>
 
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground leading-tight text-balance">
-              We harness the power of AI, LLMs, and generative technology to transform businesses.
-            </h2>
+        {/* 제목 중앙 정렬 */}
+        <h2 className="text-3xl md:text-4xl text-foreground leading-tight text-center">
+          테이블웨어 with 뢰슈티
+        </h2>
 
-            <p className="mt-6 text-foreground/70">
-              Whether you need intelligent chatbots, automated content generation, or custom AI models, we deliver
-              state-of-the-art solutions powered by the latest in artificial intelligence.
-            </p>
-
-            <Link
-              href="/about"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors group"
-            >
-              About Us
-              <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
+        {/* 설명 문구 중앙 정렬 */}
+        <p className="mt-6 text-foreground/70 leading-relaxed text-center">
+          스위스식 감자 팬케이크 Rösti (뢰슈티). 강판에 간 감자를 프라이팬에 노릇하게 구운 감자 팬케이크.<br />
+          전통적으로 스위스의 아침 식사로 알려져 있으며, 한국의 감자채전과 같은 인상을 준다.
+        </p>
           </div>
 
-          {/* Right Content - Technology Card */}
-          <div className="bg-card rounded-3xl p-8 border border-border">
-            <div className="w-12 h-12 rounded-2xl bg-accent flex items-center justify-center mb-6">
-              <Cpu className="h-6 w-6 text-accent-foreground" />
-            </div>
-
-            <h3 className="text-xl font-semibold text-foreground mb-4">AI-Powered Solutions</h3>
-
-            <p className="text-foreground/70">
-              At Genai, we leverage advanced AI technologies including large language models, generative image and video
-              AI to create intelligent, scalable solutions that revolutionize how businesses operate.
-            </p>
-          </div>
+      
         </div>
       </div>
     </section>

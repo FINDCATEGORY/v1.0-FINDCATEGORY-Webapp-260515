@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowDownRight } from "lucide-react"
+import { ArrowDown } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -34,20 +34,20 @@ export default function Hero() {
             Styling by O0i(오공아이)
           </p>
           <Link
-            href="#works"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground hover:opacity-90 transition-opacity"
-          >
+            href="#"
+            className="text-left mt-16 inline-flex gap-2 px-6 py-3 text-sm font-medium hover:opacity-90 "
+          ><ArrowDown className="h-4 w-4" />
             Styling by O0i Works
-            <ArrowDownRight className="h-4 w-4" />
+            <ArrowDown className="h-4 w-4" />
           </Link>
         </div>
       </div>
 
       {/* 영상 컨테이너: h-[200vh]로 높이를 늘려 sticky 고정 구간 확보 */}
-      <div className="mt-32 h-[200vh]">
+      <div className="mt-0 h-[200vh]">
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-6">
           <div
-            className="relative w-full max-w-7xl overflow-hidden transition-transform duration-200 ease-out"
+            className="relative w-full max-w-7xl overflow-hidden transition-transform duration-100 ease-out"
             style={{
               transform: `scale(${scale})`,
               borderRadius: `${borderRadius}px`,
