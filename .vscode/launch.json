@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        
+        {
+            "type": "chrome",
+            "name": "http://findcategory.co.kr",
+            "request": "launch",
+            "url": "http://findcategory.co.kr"
+        }
+    ]
+}
