@@ -91,8 +91,8 @@ export function Header() {
         <div className="md:hidden border-t bg-background/90 backdrop-blur-md px-6 py-8 rounded-b-2xl">
           <nav className="flex flex-col gap-6">
             
-            <Link href="/product" onClick={() => setIsMenuOpen(false)}>제품과소식</Link>
-            <Link href="/spaceplanning" onClick={() => setIsMenuOpen(false)}>프로젝트</Link>
+            <Link href="/category" onClick={() => setIsMenuOpen(false)}>제품과소식</Link>
+            <Link href="/project" onClick={() => setIsMenuOpen(false)}>프로젝트</Link>
           </nav>
         </div>
       )}
