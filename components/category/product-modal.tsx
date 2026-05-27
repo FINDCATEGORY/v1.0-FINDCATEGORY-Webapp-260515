@@ -55,7 +55,7 @@ export function ProductModal({ product, onClose, allProducts, onProductClick }: 
         style={{ animation: "slideUp 0.3s ease-out" }}
       >
         {/* Blue Header */}
-        <div className="flex items-center justify-between bg-[#1a3aa8] px-3 py-2 md:px-4">
+        <div className="flex items-center justify-between bg-[#0a0a0a] px-3 py-2 md:px-4">
           <h2 className="font-mono text-xs font-bold uppercase tracking-wide text-white md:text-sm">{product.name}</h2>
           <button
             onClick={onClose}
@@ -80,7 +80,7 @@ export function ProductModal({ product, onClose, allProducts, onProductClick }: 
         </div>
 
         {/* Footer Info */}
-        <div className="bg-[#e5e5e5] px-3 pb-2 text-center md:px-4 md:pb-3">
+        <div className="bg-[#0a0a0a] px-3 pb-2 text-center md:px-4 md:pb-3">
           <p className="font-mono text-[10px] uppercase tracking-wide md:text-xs">RELEASED JULY 2024 [ARCHIVED]</p>
         </div>
 

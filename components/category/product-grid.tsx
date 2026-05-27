@@ -47,7 +47,7 @@ const productImages = [
   "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-0606_6d5be752-4dea-475f-9a63-ecd65c02c12d.jpg?v=1767354876&width=588",
 ]
 
-const categories = ["10 Year", "Sora II", "GPT-5", "Image Gen.", "Sora I", "OpenAI", "IOI Competition", "Strawberry"]
+const categories = ["플레이트", "Sora II", "GPT-5", "Image Gen.", "Sora I", "OpenAI", "IOI Competition", "Strawberry"]
 
 interface ProductGridProps {
   hoveredCategory: string | null
