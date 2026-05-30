@@ -8,14 +8,13 @@ export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
 
   const categories = [
-    "플레이트", 
-    "커트러리", 
-    "테이블클로스", 
-    "컵", 
-    "액세서리", 
-    "CATEGORY 6", 
-    "CATEGORY 7", 
-    "CATEGORY 8"
+    "테이블웨어 | all item", 
+    "플레이트 | plate",
+    "테이블매트 | tablemat", 
+    "컵 | Drinkware", 
+    "커트러리 | cutlery", 
+    "소품 | Vases & obje", 
+    
   ]
 
 return (

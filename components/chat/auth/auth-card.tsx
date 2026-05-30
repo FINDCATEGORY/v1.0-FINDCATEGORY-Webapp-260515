@@ -10,29 +10,23 @@ import { supabase } from "@/lib/supabase"
 
 interface AuthCardProps {
   isLoading: boolean
-  email: string
-  setEmail: (email: string) => void
-  password: string
-  setPassword: (password: string) => void
-  rememberMe: boolean
-  setRememberMe: (remember: boolean) => void
   onSignIn: (e: React.FormEvent) => void
   onSignUp: (e: React.FormEvent) => void
-  onSocialLogin: (provider: string) => void
-  onForgotPassword: () => void
+  onSocialLogin?: (provider: string) => void
+  onForgotPassword?: () => void
 }
 
 export function AuthCard({
-  isLoading: externalLoading,
-  email,
-  setEmail,
-  password,
-  setPassword,
+  isLoading,
   onSignIn,
   onSignUp,
 }: AuthCardProps) {
   const { toast } = useToast()
   const [activeTab, setActiveTab] = useState("signup")
+  
+  // 입력 상태들
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -45,13 +39,10 @@ export function AuthCard({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0]
-      const maxSize = 5 * 1024 * 1024 // 5MB 제한
+      const maxSize = 5 * 1024 * 1024 // 5MB
 
       if (selectedFile.size > maxSize) {
-        toast({
-          title: "파일 용량 초과",
-          description: "사업자등록증은 5MB 이하의 파일만 가능합니다.",
-        })
+        toast({ title: "파일 용량 초과", description: "5MB 이하만 가능합니다." })
         e.target.value = ""
         setFile(null)
         return
@@ -60,39 +51,36 @@ export function AuthCard({
     }
   }
 
- const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (activeTab === "signin") return onSignIn(e)
+    
+    // 로그인 탭일 때
+    if (activeTab === "signin") {
+      return onSignIn(e)
+    }
 
-    // 파일 미첨부 시 파란색 중앙 팝업 실행
+    // 회원가입 탭일 때 (파일 체크 및 업로드)
     if (!file) {
-      toast({
-        title: "파일 누락",
-        description: "사업자등록증 파일을 반드시 첨부해주세요.",
-      })
+      toast({ title: "파일 누락", description: "사업자등록증 파일을 반드시 첨부해주세요." })
       return
     }
 
     setIsUploading(true)
-    
     try {
       const fileExt = file.name.split('.').pop()
       const fileName = `${Date.now()}_${email}.${fileExt}`
       
-      const { data, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('licenses')
         .upload(fileName, file)
 
       if (uploadError) throw uploadError
       
+      // 파일 업로드 성공 후 회원가입 로직 실행
       onSignUp(e)
     } catch (error) {
       console.error("오류 발생:", error)
-      toast({
-        variant: "destructive",
-        title: "전송 실패",
-        description: "파일 전송 중 오류가 발생했습니다.",
-      })
+      toast({ variant: "destructive", title: "전송 실패", description: "파일 전송 중 오류가 발생했습니다." })
     } finally {
       setIsUploading(false)
     }
@@ -126,7 +114,7 @@ export function AuthCard({
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pl-12" placeholder="이메일" />
               </div>
 
-              <div className="relative group">
+              <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10 text-white/60">+82</div>
                 <Input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pl-16" placeholder="전화번호" />
               </div>
@@ -143,7 +131,7 @@ export function AuthCard({
               <Button 
                 type="submit" 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl h-14 mt-4" 
-                disabled={externalLoading || isUploading}
+                disabled={isLoading || isUploading}
               >
                 {isUploading ? "업로드 중..." : "제출"}
               </Button>
@@ -162,7 +150,7 @@ export function AuthCard({
               <Button 
                 type="submit" 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl h-14 mt-4"
-                disabled={externalLoading}
+                disabled={isLoading}
               >
                 Sign in
               </Button>
