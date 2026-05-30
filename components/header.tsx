@@ -18,7 +18,9 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!isMounted) return <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl h-14 bg-transparent" />;
+  if (!isMounted) {
+    return <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl h-14 bg-transparent" />;
+  }
 
   return (
     <header className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}>
@@ -30,13 +32,13 @@ export function Header() {
           <Link href="/project" className="text-sm text-muted-foreground hover:text-foreground">프로젝트</Link>       
         </nav>
 
-        {/* Join 버튼: 모달 대신 페이지 이동 */}
         <div className="hidden md:flex items-center">
+          {/* 모달 대신 페이지 이동으로 변경 */}
           <button 
-            onClick={() => router.push('/auth')} 
+            onClick={() => router.push('/chat')} 
             className="px-4 py-2 text-sm font-medium rounded-full bg-foreground text-background hover:opacity-80 transition-opacity"
           >
-            Join
+            Talk to us
           </button>
         </div>
 
@@ -44,8 +46,15 @@ export function Header() {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      
-      {/* 모바일 메뉴 생략 (기존 유지) */}
+
+      {isMenuOpen && (
+        <div className="md:hidden border-t bg-background/90 backdrop-blur-md px-6 py-8 rounded-b-2xl">
+          <nav className="flex flex-col gap-6">
+            <Link href="/category" onClick={() => setIsMenuOpen(false)}>제품과소식</Link>
+            <Link href="/project" onClick={() => setIsMenuOpen(false)}>프로젝트</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
