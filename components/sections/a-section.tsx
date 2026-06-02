@@ -61,7 +61,7 @@ export function ASection() {
 
             <div 
                 ref={setControlsEl} 
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[500px] max-h-[500px] z-20 rounded-full cursor-grab active:cursor-grabbing"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[50vw] max-w-[500px] max-h-[300px] z-20 rounded-[50%] cursor-grab active:cursor-grabbing"
                 style={{ touchAction: 'none' }}
             />
 
