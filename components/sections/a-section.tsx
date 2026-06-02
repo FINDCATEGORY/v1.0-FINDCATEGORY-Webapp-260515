@@ -44,7 +44,13 @@ export function ASection() {
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1} />
                 <ParticleSphere />
-                <OrbitControls enablePan={!isMobile} enableZoom={isMobile} enableRotate={true} />
+                <OrbitControls 
+                    enablePan={!isMobile} 
+                    enableZoom={isMobile} 
+                    enableRotate={true} 
+                    minPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 2.5} 
+                    maxPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 1.5} 
+                />
             </Canvas>
 
             <button
