@@ -10,6 +10,7 @@ import { ChevronDown } from "lucide-react"
 export function ASection() {
     const [isVisible, setIsVisible] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
+    const [controlsEl, setControlsEl] = useState<HTMLDivElement | null>(null)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,22 +41,33 @@ export function ASection() {
 
             </div>
 
-            <Canvas camera={{ position: [-10, 1.5, 10], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} />
-                <ParticleSphere />
-                <OrbitControls 
-                    enablePan={!isMobile} 
-                    enableZoom={isMobile} 
-                    enableRotate={true} 
-                    minPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 2.5} 
-                    maxPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 1.5} 
-                />
-            </Canvas>
+            <div className="absolute inset-0 pointer-events-none">
+                <Canvas camera={{ position: [-10, 1.5, 10], fov: 50 }}>
+                    <ambientLight intensity={0.5} />
+                    <pointLight position={[10, 10, 10]} intensity={1} />
+                    <ParticleSphere />
+                    {controlsEl && (
+                        <OrbitControls 
+                            domElement={controlsEl}
+                            enablePan={!isMobile} 
+                            enableZoom={isMobile} 
+                            enableRotate={true} 
+                            minPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 2.5} 
+                            maxPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 1.5} 
+                        />
+                    )}
+                </Canvas>
+            </div>
+
+            <div 
+                ref={setControlsEl} 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[500px] max-h-[500px] z-20 rounded-full cursor-grab active:cursor-grabbing"
+                style={{ touchAction: 'none' }}
+            />
 
             <button
                 onClick={handleScrollDown}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-[#4C050C]/50 hover:text-[#4C050C] transition-colors duration-300"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center text-[#4C050C]/50 hover:text-[#4C050C] transition-colors duration-300"
             >
                 <span className="text-sm tracking-[0.2em] uppercase mb-2">More</span>
                 <ChevronDown size={24} className="animate-bounce" />
