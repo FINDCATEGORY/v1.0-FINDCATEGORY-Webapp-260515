@@ -1,6 +1,7 @@
 
 import { Header } from "@/components/header";
 
+import { ASection } from "@/components/sections/a-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
@@ -17,7 +18,8 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       {/* Header 내부에서 이제 Join 버튼과 모달 로직을 처리합니다 */}
       <Header />
-      
+
+      <ASection />
       <HeroSection />
       <TechnologySection />
       <PhilosophySection />
@@ -28,3 +30,6 @@ export default function Home() {
     </main>
   );
 }
+
+
+//헤더섹션순서 - category, project, talk to us

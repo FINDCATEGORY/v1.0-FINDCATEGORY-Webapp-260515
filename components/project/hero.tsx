@@ -27,7 +27,7 @@ export default function Hero() {
     <section id="home" className="pt-28 pb-16">
       <div className="px-6 mx-auto max-w-7xl flex flex-col items-center text-center">
         <div className="max-w-3xl">
-          <h1 className="leading-tight text-white font-semibold tracking-tight text-5xl">
+          <h1 className="leading-tight text-[#4C050C] font-semibold tracking-tight text-5xl">
             파인드카테고리Ⓡ 스타일링 제안
           </h1>
           <p className="mt-6 text-foreground/70">

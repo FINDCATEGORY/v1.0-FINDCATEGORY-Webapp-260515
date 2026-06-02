@@ -1,95 +1,161 @@
-"use client"
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import { useCart } from "@/components/detail/ui/cart-context";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ProductDetailModal } from "@/components/category/product-detail-modal";
 
-import { useState, useMemo } from "react"
-import { ProductCard } from "./product-card"
-import { ProductModal } from "./product-modal"
-
-const productImages = [
-  "https://rebeccaudall.com/cdn/shop/files/GeorgianaLinenNapkin_Hazelnut.png?v=1774522031&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-Nov2023-3933_0fa3fa6e-fa6f-4ca2-8a65-3c393fc4c001.jpg?v=1747054484&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2024-06-17T112548.067.png?v=1747003502&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/41_356e877b-593e-4284-80da-95c2b177aa0a.png?v=1767348693&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitleddesign_62.jpg?v=1774010030&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2024-09-26T144043.501.png?v=1747003827&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-0248.jpg?v=1763551904&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2025-05-27T141119.804.png?v=1772038792&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/58.png?v=1747134184&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2025-05-27T144322.001.png?v=1772038793&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RestariesShoot-RebeccaHopePhotography-5020.jpg?v=1747221073&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_-_2025-05-13T124054.662.png?v=1767351393&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/62_1d7f5a2d-4a86-42b1-91a2-573d5e849fe9.png?v=1747144443&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Georgiana_Ladderstitch_Placemat_Burgundy_1.png?v=1747002844&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_42.png?v=1767619135&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/241.png?v=1776690515&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_1_16f06516-85bf-42f9-bf50-9255b4bb5424.png?v=1747213486&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/PairofRippledTumblers_Carafe_55.jpg?v=1748356375&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/69_50ee916b-f879-46ab-bc3f-d038d31e746d.png?v=1772207631&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_7.png?v=1746999150&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_11.png?v=1767524174&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/BraidedNapkinRing-Gold.png?v=1760711200&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/12_7ac93d50-d1f3-4a70-8ebc-0c5a9ab4d2c7.jpg?v=1761309733&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2025-09-22T122130.690.png?v=1763638819&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_3.png?v=1747213627&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2024-09-26T113545.420.png?v=1767355127&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/AlmaCandlestick_Tall_Green_0cec6347-de38-4598-8b54-b6d673b3662b.png?v=1772022917&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_39.png?v=1765534571&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_55.png?v=1747132171&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-Oct2024-RebeccaHopePhotography-3914.jpg?v=1767355006&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/2500_x_3000_92.png?v=1769687851&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2024-10-10T121558.658.png?v=1747002859&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/4_53874138-7220-41f2-8b86-1b9cc37f5e6d.png?v=1747138437&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-0067_9a843114-1d56-4392-97f7-2c20000d4131.jpg?v=1772038812&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/8_e9c1392d-8470-46d9-a268-6945736cdbf8.jpg?v=1747055060&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-4826_e28c63d8-0422-4ad3-ad15-061bb6a33181.jpg?v=1747053329&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/64_f18ffe14-bf33-4935-9113-5e770ffd7574.png?v=1748343094&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2024-10-09T145807.792_499c9266-7ad6-42f1-aff1-53268a491094.png?v=1767354767&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-0622_737144e9-6866-4b0b-a22a-d5c785e32f77.jpg?v=1747656242&width=588",
-  "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-0606_6d5be752-4dea-475f-9a63-ecd65c02c12d.jpg?v=1767354876&width=588",
-]
-
-const categories = ["플레이트", "Sora II", "GPT-5", "Image Gen.", "Sora I", "OpenAI", "IOI Competition", "Strawberry"]
-
-interface ProductGridProps {
-  hoveredCategory: string | null
+interface Product {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+  categories: string[];
+  description: string;
 }
 
-export function ProductGrid({ hoveredCategory }: ProductGridProps) {
-  const [selectedProduct, setSelectedProduct] = useState<any>(null)
+const products: Product[] = [
+  {
+    id: 1,
+    name: "골든아워 프린지 라피아 매트",
+    price: "₩3,600",
+    image: "/images/collection/goldenhour/1.png",
+    categories: ["골든아워 콜렉션", "소품"],
+    description: "라피아 소재의 프린지 장식 테이블 매트입니다. 자연스러운 텍스처가 테이블에 따뜻한 감성을 더해줍니다.",
+  },
+  {
+    id: 2,
+    name: "골든아워 라탄 언더 플레이트",
+    price: "₩33,200",
+    image: "/images/collection/goldenhour/2.png",
+    categories: ["골든아워 콜렉션", "플레이트"],
+    description: "라탄 소재로 제작된 언더 플레이트입니다. 골든아워 콜렉션의 따뜻한 톤과 어우러져 테이블을 우아하게 연출합니다.",
+  },
+  {
+    id: 3,
+    name: "골든아워 엣지 보울",
+    price: "₩4,400",
+    image: "/images/collection/goldenhour/3.png",
+    categories: ["골든아워 콜렉션", "플레이트"],
+    description: "섬세한 엣지 디테일이 돋보이는 보울입니다. 수프나 샐러드 등 다양한 요리에 활용할 수 있습니다.",
+  },
+  {
+    id: 4,
+    name: "골든아워 딥 플레이트",
+    price: "₩10,800",
+    image: "/images/collection/goldenhour/4.png",
+    categories: ["골든아워 콜렉션", "플레이트"],
+    description: "깊이감 있는 디자인의 플레이트입니다. 파스타, 리조또 등 깊은 그릇이 필요한 요리에 잘 어울립니다.",
+  },
+  {
+    id: 5,
+    name: "골든아워 엣지 디너플레이트",
+    price: "₩12,500",
+    image: "/images/collection/goldenhour/5.png",
+    categories: ["골든아워 콜렉션", "플레이트"],
+    description: "골든아워 콜렉션의 시그니처 엣지 디자인이 적용된 디너플레이트입니다. 일상적인 식사를 특별하게 만들어줍니다.",
+  },
+  {
+    id: 6,
+    name: "골든아워 플라워 냅킨",
+    price: "₩6,300",
+    image: "/images/collection/goldenhour/6.png",
+    categories: ["골든아워 콜렉션", "소품"],
+    description: "플라워 패턴이 수놓인 패브릭 냅킨입니다. 테이블 세팅에 화사한 포인트를 더해줍니다.",
+  },
+  {
+    id: 7,
+    name: "골든아워 리프 냅킨 버클",
+    price: "₩1,100",
+    image: "/images/collection/goldenhour/7.png",
+    categories: ["골든아워 콜렉션", "오브제"],
+    description: "리프 모양의 냅킨 버클입니다. 냅킨을 우아하게 고정해 테이블 세팅의 완성도를 높여줍니다.",
+  },
+  {
+    id: 8,
+    name: "골든아워 엠버우드 커트러리 set(4pcs)",
+    price: "₩8,800",
+    image: "/images/collection/goldenhour/8.png",
+    categories: ["골든아워 콜렉션", "커트러리"],
+    description: "엠버우드 핸들의 커트러리 4종 세트입니다. 포크, 나이프, 스푼이 포함되어 있으며 따뜻한 나무 소재가 골든아워의 감성을 담았습니다.",
+  },
+  {
+    id: 9,
+    name: "골든아워 선셋 글라스 시리즈",
+    price: "₩4,700",
+    image: "/images/collection/goldenhour/9.png",
+    categories: ["골든아워 콜렉션", "글라스"],
+    description: "노을빛을 담은 선셋 글라스 시리즈입니다. 음료의 색감과 어우러져 감각적인 테이블을 연출합니다.",
+  },
+  {
+    id: 10,
+    name: "골든아워 샌드 암포라 화병",
+    price: "₩25,100",
+    image: "/images/collection/goldenhour/10.png",
+    categories: ["골든아워 콜렉션", "오브제"],
+    description: "모래빛 암포라 형태의 화병입니다. 꽃을 꽂거나 단독으로 오브제로 활용하기에도 아름다운 디자인입니다.",
+  },
+  {
+    id: 11,
+    name: "골든아워 테이블클로스",
+    price: "₩11,700",
+    image: "/images/collection/goldenhour/11.png",
+    categories: ["골든아워 콜렉션", "소품"],
+    description: "골든아워 콜렉션의 무드를 담은 테이블클로스입니다. 부드러운 소재와 따뜻한 컬러로 테이블 전체 분위기를 완성합니다.",
+  },
+];
 
-  const products = useMemo(() => {
-    const shuffledImages = [...productImages, ...productImages.slice(0, 8)]
+interface ProductGridProps {
+  selectedCategory: string | null;
+}
 
-    return shuffledImages.map((image, index) => ({
-      id: index + 1,
-      name: `Product ${index + 1}`,
-      image,
-      category: categories[Math.floor(Math.random() * categories.length)],
-    }))
-  }, [])
+export function ProductGrid({ selectedCategory }: ProductGridProps) {
+  const { addToCart } = useCart();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const filteredProducts = selectedCategory && selectedCategory !== "모든제품"
+    ? products.filter((p) => p.categories.includes(selectedCategory))
+    : products;
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 xl:gap-x-6 xl:gap-y-8">
-        {products.map((product) => {
-          const shouldFade = hoveredCategory && product.category !== hoveredCategory
-
-          return (
-            <ProductCard
-              key={product.id}
-              {...product}
-              onClick={() => setSelectedProduct(product)}
-              isFaded={shouldFade}
-            />
-          )
-        })}
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {filteredProducts.map((p) => (
+          <div key={p.id} className="group block">
+            <button
+              onClick={() => setSelectedProduct(p)}
+              className="w-full text-left"
+            >
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-transparent">
+                <Image src={p.image} alt={p.name} fill className="object-cover" />
+              </div>
+              <h3 className="text-[#4C050C] mt-3">{p.name}</h3>
+              <p className="text-sm text-gray-400">{p.price}</p>
+            </button>
+            <Button
+              onClick={() => addToCart(p)}
+              className="w-full mt-2 bg-[#4C050C] text-white hover:bg-[#4C050C] hover:opacity-100 transition-none border-none"
+            >
+              담기
+            </Button>
+          </div>
+        ))}
       </div>
 
-      <ProductModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        allProducts={products}
-        onProductClick={setSelectedProduct}
-      />
+      <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
+        <DialogContent 
+          onPointerDownOutside={(e) => {
+            if ((e.target as Element).closest('#cart-floating-button')) {
+              e.preventDefault();
+            }
+          }}
+          className="w-screen h-[100dvh] max-w-none sm:w-[95vw] sm:h-auto sm:max-w-[90vw] lg:max-w-[1400px] sm:aspect-video overflow-y-auto bg-[#EBEBDF]/95 sm:border border-[#4C050C]/10 p-0 overflow-x-hidden rounded-none sm:rounded-lg"
+        >
+          <DialogTitle className="sr-only">{selectedProduct?.name || "제품 상세"}</DialogTitle>
+          {selectedProduct && <ProductDetailModal product={selectedProduct} />}
+        </DialogContent>
+      </Dialog>
     </>
-  )
+  );
 }

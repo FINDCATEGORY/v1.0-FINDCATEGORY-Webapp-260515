@@ -1,52 +1,46 @@
 "use client"
 
+import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
 
-interface ProductCardProps {
-  id: number
+interface Product {
+  id: string
   name: string
+  price: string
   image: string
-  onClick: () => void
-  isFaded?: boolean
+  category: string
 }
 
-export function ProductCard({ id, name, image, onClick, isFaded }: ProductCardProps) {
-  const [isShaking, setIsShaking] = useState(false)
+// 예시 상품 데이터
+const products: Product[] = [
+  { id: "1", name: "Premium Plate", price: "₩29,000", image: "/images/plate1.jpg", category: "플레이트 | plate" },
+  { id: "2", name: "Modern Glass", price: "₩18,000", image: "/images/cup1.jpg", category: "컵 | Drinkware" },
+]
 
-  useEffect(() => {
-    const scheduleNextShake = () => {
-      const randomDelay = Math.random() * 1000 + 4500 // Random between 4.5-5.5 seconds
-
-      return setTimeout(() => {
-        setIsShaking(true)
-        setTimeout(() => {
-          setIsShaking(false)
-          scheduleNextShake()
-        }, 500)
-      }, randomDelay)
-    }
-
-    const timeout = scheduleNextShake()
-
-    return () => clearTimeout(timeout)
-  }, [])
+export function ProductCardGrid({ hoveredCategory }: { hoveredCategory: string | null }) {
+  const filteredProducts = hoveredCategory
+    ? products.filter((p) => p.category === hoveredCategory)
+    : products
 
   return (
-    <div
-      className={`group cursor-pointer transition-all duration-300 ease-out hover:-translate-y-2 ${
-        isShaking ? "animate-shake" : ""
-      } ${isFaded ? "opacity-20" : "opacity-100"}`}
-      onClick={onClick}
-    >
-      <div className="relative mb-2 aspect-square overflow-hidden rounded-sm bg-white">
-        <Image
-          src={image || "/placeholder.svg"}
-          alt={name}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
+    // grid-cols 설정을 변경하여 이미지 레이아웃 크기를 키웠습니다.
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+      {filteredProducts.map((product) => (
+        <Link href="/category/detail" key={product.id} className="group block cursor-pointer">
+          <div className="relative aspect-square overflow-hidden rounded-lg bg-neutral-900">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+          <div className="mt-3">
+            <h3 className="text-base font-medium text-[#4C050C]">{product.name}</h3>
+            <p className="text-sm text-gray-400 mt-0.5">{product.price}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   )
 }

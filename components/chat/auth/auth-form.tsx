@@ -48,13 +48,13 @@ export function AuthForm({
       <TabsList className="grid w-full grid-cols-2 bg-white/10 backdrop-blur-sm">
         <TabsTrigger
           value="signin"
-          className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+          className="data-[state=active]:bg-white/20 data-[state=active]:text-[#4C050C] text-[#4C050C]/70"
         >
           Sign In
         </TabsTrigger>
         <TabsTrigger
           value="signup"
-          className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+          className="data-[state=active]:bg-white/20 data-[state=active]:text-[#4C050C] text-[#4C050C]/70"
         >
           Sign Up
         </TabsTrigger>
@@ -63,42 +63,42 @@ export function AuthForm({
       <TabsContent value="signin" className="space-y-4 mt-6">
         <form onSubmit={onSignIn} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="signin-email" className="text-white/90">
+            <Label htmlFor="signin-email" className="text-[#4C050C]/90">
               Email
             </Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <Mail className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="signin-email"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signin-password" className="text-white/90">
+            <Label htmlFor="signin-password" className="text-[#4C050C]/90">
               Password
             </Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <Lock className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="signin-password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 pr-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-white/50 hover:text-white/70"
+                className="absolute right-3 top-3 text-[#4C050C]/50 hover:text-[#4C050C]/70"
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -113,14 +113,14 @@ export function AuthForm({
                 onCheckedChange={setRememberMe}
                 className="border-white/20 data-[state=checked]:bg-white/20"
               />
-              <Label htmlFor="remember" className="text-sm text-white/70">
+              <Label htmlFor="remember" className="text-sm text-[#4C050C]/70">
                 Remember me
               </Label>
             </div>
             <button
               type="button"
               onClick={onForgotPassword}
-              className="text-sm text-white/70 hover:text-white underline"
+              className="text-sm text-[#4C050C]/70 hover:text-[#4C050C] underline"
             >
               Forgot password?
             </button>
@@ -128,7 +128,7 @@ export function AuthForm({
 
           <Button
             type="submit"
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/20 backdrop-blur-sm transition-all duration-200"
+            className="w-full bg-white/20 hover:bg-white/30 text-[#4C050C] border border-white/20 backdrop-blur-sm transition-all duration-200"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -148,60 +148,60 @@ export function AuthForm({
       <TabsContent value="signup" className="space-y-4 mt-6">
         <form onSubmit={onSignUp} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="signup-name" className="text-white/90">
+            <Label htmlFor="signup-name" className="text-[#4C050C]/90">
               Full Name
             </Label>
             <div className="relative">
-              <User className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <User className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="signup-name"
                 type="text"
                 placeholder="Enter your full name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signup-email" className="text-white/90">
+            <Label htmlFor="signup-email" className="text-[#4C050C]/90">
               Email
             </Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <Mail className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="signup-email"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signup-password" className="text-white/90">
+            <Label htmlFor="signup-password" className="text-[#4C050C]/90">
               Password
             </Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <Lock className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="signup-password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 pr-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-white/50 hover:text-white/70"
+                className="absolute right-3 top-3 text-[#4C050C]/50 hover:text-[#4C050C]/70"
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -210,18 +210,18 @@ export function AuthForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirm-password" className="text-white/90">
+            <Label htmlFor="confirm-password" className="text-[#4C050C]/90">
               Confirm Password
             </Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+              <Lock className="absolute left-3 top-3 h-4 w-4 text-[#4C050C]/50" />
               <Input
                 id="confirm-password"
                 type="password"
                 placeholder="Confirm your password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 backdrop-blur-sm"
+                className="pl-10 bg-white/10 border-white/20 text-[#4C050C] placeholder:text-[#4C050C]/50 focus:border-white/40 backdrop-blur-sm"
                 required
               />
             </div>
@@ -232,7 +232,7 @@ export function AuthForm({
 
           <Button
             type="submit"
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/20 backdrop-blur-sm transition-all duration-200"
+            className="w-full bg-white/20 hover:bg-white/30 text-[#4C050C] border border-white/20 backdrop-blur-sm transition-all duration-200"
             disabled={isLoading || password !== confirmPassword}
           >
             {isLoading ? (

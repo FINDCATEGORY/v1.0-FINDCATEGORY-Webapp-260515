@@ -1,6 +1,9 @@
 import React from "react"
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { CartProvider } from '@/components/detail/ui/cart-context'
+import { CartSidebar } from '@/components/detail/ui/cart-sidebar'
+import { CartCheckoutModal } from '@/components/detail/ui/cart-checkout-modal'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -26,15 +29,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        {children}
+        <CartProvider>
+          <CartSidebar />
+          <CartCheckoutModal />
+          {children}
+        </CartProvider>
         <Analytics />
       </body>
     </html>

@@ -88,16 +88,16 @@ export function AuthCard({
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 shadow-2xl transform transition-all duration-300 hover:scale-[1.02]">
+      <div className="bg-[#EBEBDF]/40 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 shadow-2xl transform transition-all duration-300 hover:scale-[1.02]">
         
         <div className="flex items-center justify-center mb-8">
-          <div className="flex bg-black/30 backdrop-blur-sm rounded-full p-1 border border-white/10">
-            <button type="button" onClick={() => setActiveTab("signup")} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "signup" ? "bg-white/20 text-white border border-white/20 shadow-lg" : "text-white/60"}`}>회원가입</button>
-            <button type="button" onClick={() => setActiveTab("signin")} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "signin" ? "bg-white/20 text-white border border-white/20 shadow-lg" : "text-white/60"}`}>로그인</button>
+          <div className="flex bg-[#EBEBDF]/30 backdrop-blur-sm rounded-full p-1 border border-white/10">
+            <button type="button" onClick={() => setActiveTab("signup")} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "signup" ? "bg-white/20 text-[#4C050C] border border-white/20 shadow-lg" : "text-[#4C050C]/60"}`}>회원가입</button>
+            <button type="button" onClick={() => setActiveTab("signin")} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "signin" ? "bg-white/20 text-[#4C050C] border border-white/20 shadow-lg" : "text-[#4C050C]/60"}`}>로그인</button>
           </div>
         </div>
 
-        <h1 className="text-3xl font-normal text-white mb-8 text-center">
+        <h1 className="text-3xl font-normal text-[#4C050C] mb-8 text-center">
           {activeTab === "signup" ? "Create account" : "Welcome back"}
         </h1>
 
@@ -105,18 +105,18 @@ export function AuthCard({
           {activeTab === "signup" ? (
             <>
               <div className="grid grid-cols-2 gap-4">
-                <Input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white" placeholder="성" />
-                <Input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white" placeholder="이름" />
+                <Input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C]" placeholder="성" />
+                <Input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C]" placeholder="이름" />
               </div>
 
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pl-12" placeholder="이메일" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#4C050C]/40" />
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C] pl-12" placeholder="이메일" />
               </div>
 
               <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10 text-white/60">+82</div>
-                <Input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pl-16" placeholder="전화번호" />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10 text-[#4C050C]/60">+82</div>
+                <Input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C] pl-16" placeholder="전화번호" />
               </div>
 
               <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*,application/pdf" />
@@ -130,7 +130,7 @@ export function AuthCard({
 
               <Button 
                 type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl h-14 mt-4" 
+                className="w-full bg-blue-600 hover:bg-blue-700 text-[#4C050C] font-medium rounded-2xl h-14 mt-4" 
                 disabled={isLoading || isUploading}
               >
                 {isUploading ? "업로드 중..." : "제출"}
@@ -139,17 +139,17 @@ export function AuthCard({
           ) : (
             <>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pl-12" placeholder="Enter your email" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#4C050C]/40" />
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C] pl-12" placeholder="Enter your email" />
               </div>
               <div className="relative">
-                <Input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="bg-black/20 border-white/10 rounded-2xl h-14 text-white pr-12" placeholder="Enter your password" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button>
+                <Input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#EBEBDF]/20 border-white/10 rounded-2xl h-14 text-[#4C050C] pr-12" placeholder="Enter your password" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#4C050C]/40 hover:text-[#4C050C]/60">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button>
               </div>
               
               <Button 
                 type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl h-14 mt-4"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-[#4C050C] font-medium rounded-2xl h-14 mt-4"
                 disabled={isLoading}
               >
                 Sign in

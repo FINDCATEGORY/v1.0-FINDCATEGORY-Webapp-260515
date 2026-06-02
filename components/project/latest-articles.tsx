@@ -54,7 +54,7 @@ export default function LatestArticles() {
             
             <div className="w-full flex flex-col items-center md:items-start gap-4">
               <span className="text-sm text-black">Takes less than 2 minutes</span>
-              <button className="w-full bg-black text-white font-medium py-4 rounded-xl hover:bg-[#8A8A8A] transition-colors">
+              <button className="w-full bg-[#EBEBDF] text-[#4C050C] font-medium py-4 rounded-xl hover:bg-[#8A8A8A] transition-colors">
                 Incomplete Setup
               </button>
             </div>
@@ -66,7 +66,7 @@ export default function LatestArticles() {
           <span className="text-center font-medium text-foreground/70"> Get Ready : Coming soon</span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl text-white text-center mb-12">출시예정 콘텐츠</h2>
+        <h2 className="text-3xl md:text-4xl text-[#4C050C] text-center mb-12">출시예정 콘텐츠</h2>
 
         {/* Articles Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>

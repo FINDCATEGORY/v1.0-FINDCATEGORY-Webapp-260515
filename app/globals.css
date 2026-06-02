@@ -12,8 +12,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #F5F5F5;
+  --background: #EBEBDF;
+  --foreground: #4C050C;
   --card: #F5F5F5;
   --card-foreground: #F5F5F5;
   --popover: #F5F5F5;
@@ -49,8 +49,8 @@
 }
 
 .dark {
-  --background: #0A0A0A;
-  --foreground: #FAFAFA;
+  --background: #EBEBDF;
+  --foreground: #4C050C;
   --card: #F5F5F5;
   --card-foreground: #FAFAFA;
   --popover: #0A0A0A;
@@ -275,4 +275,12 @@
 
 .animate-fade-in {
   animation: fadeIn 0.7s ease-out forwards;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
