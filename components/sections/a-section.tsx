@@ -9,13 +9,25 @@ import { ChevronDown } from "lucide-react"
 
 export function ASection() {
     const [isVisible, setIsVisible] = useState(true)
+    const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         const handleScroll = () => {
             setIsVisible(window.scrollY < 50)
         }
+        
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+        
+        checkMobile()
         window.addEventListener("scroll", handleScroll, { passive: true })
-        return () => window.removeEventListener("scroll", handleScroll)
+        window.addEventListener("resize", checkMobile)
+        
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+            window.removeEventListener("resize", checkMobile)
+        }
     }, [])
 
     const handleScrollDown = () => {
@@ -32,7 +44,7 @@ export function ASection() {
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1} />
                 <ParticleSphere />
-                <OrbitControls enablePan={true} enableZoom={false} enableRotate={true} />
+                <OrbitControls enablePan={!isMobile} enableZoom={isMobile} enableRotate={true} />
             </Canvas>
 
             <button
