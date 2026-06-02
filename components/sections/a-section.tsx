@@ -16,15 +16,15 @@ export function ASection() {
         const handleScroll = () => {
             setIsVisible(window.scrollY < 50)
         }
-        
+
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768)
         }
-        
+
         checkMobile()
         window.addEventListener("scroll", handleScroll, { passive: true })
         window.addEventListener("resize", checkMobile)
-        
+
         return () => {
             window.removeEventListener("scroll", handleScroll)
             window.removeEventListener("resize", checkMobile)
@@ -42,25 +42,25 @@ export function ASection() {
             </div>
 
             <div className="absolute inset-0 pointer-events-none">
-                <Canvas camera={{ position: [-10, 1.5, 10], fov: 50 }}>
+                <Canvas camera={{ position: [-10, 0, 10], fov: 60 }}>
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} intensity={1} />
                     <ParticleSphere />
                     {controlsEl && (
-                        <OrbitControls 
+                        <OrbitControls
                             domElement={controlsEl}
-                            enablePan={!isMobile} 
-                            enableZoom={isMobile} 
-                            enableRotate={true} 
-                            minPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 2.5} 
-                            maxPolarAngle={isMobile ? Math.PI / 2 : Math.PI / 1.5} 
+                            enablePan={!isMobile}
+                            enableZoom={isMobile}
+                            enableRotate={true}
+                            minPolarAngle={Math.PI / 2.1}
+                            maxPolarAngle={Math.PI / 2.1}
                         />
                     )}
                 </Canvas>
             </div>
 
-            <div 
-                ref={setControlsEl} 
+            <div
+                ref={setControlsEl}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[50vw] max-w-[500px] max-h-[300px] z-20 rounded-[50%] cursor-grab active:cursor-grabbing"
                 style={{ touchAction: 'none' }}
             />
