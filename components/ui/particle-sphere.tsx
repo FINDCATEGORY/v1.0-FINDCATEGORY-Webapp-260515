@@ -21,16 +21,22 @@ export function ParticleSphere() {
     const groupRef = useRef<THREE.Group>(null)
 
     const textures = useTexture([
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
-        "/images/02-main-image01.png",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour1.jpg",
+
+
     ])
 
     useMemo(() => {
@@ -125,7 +131,7 @@ export function ParticleSphere() {
             {orbitingImages.map((image, index) => (
                 <mesh key={`image-${index}`} position={image.position} rotation={image.rotation}>
                     <planeGeometry args={[IMAGE_SIZE, IMAGE_SIZE * 1.25]} />
-                    <meshBasicMaterial map={textures[image.textureIndex]} opacity={1} side={THREE.DoubleSide} />
+                    <meshBasicMaterial map={textures[image.textureIndex]} opacity={1} side={THREE.DoubleSide} transparent />
                 </mesh>
             ))}
         </group>

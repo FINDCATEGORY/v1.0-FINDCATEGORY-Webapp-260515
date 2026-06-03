@@ -7,31 +7,24 @@ const accessories = [
     id: 1,
     name: `스켈롭 크로커리 플레이트 
     Zita Scalloped Crockery Plate`,
-    description: `
-    Color : Maroon Red, Marine Blue, Juniper Green, Citrus Yellow, Chesnut Brown, Blsh Pink.
 
-    제품의 모든 채색은 수작업으로 작업합니다.`,
-    price: "Price 문의",
-    image: "/images/6collection01.png",
+
+    image: "/images/collection/goldenhour/goldenhour2.jpg",
   },
   {
     id: 2,
     name: `투코드 린넨 냅킨
 Two Cord Linen Napkin`,
-    description: `
-    Color : Burgundy, antique gold, Forest Green, Midnight Blue, Natural, white `,
-    price: "Price 문의",
-    image: "/images/6collection02.png",
+
+
+    image: "/images/collection/goldenhour/goldenhour4.jpg",
   },
   {
     id: 3,
     name: `클래식 커트러리
 Classic Cutlery Model`,
-    description: `
-    Color : Burgundy, Chocolate, Fern Green, Ivory, Pale Ivory, Tortoiseshell.
-    `,
-    price: "Price 문의",
-    image: "/images/6collection03.png",
+
+    image: "/images/collection/goldenhour/goldenhour1.jpg",
   },
 ];
 

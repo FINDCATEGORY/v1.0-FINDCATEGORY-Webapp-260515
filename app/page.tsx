@@ -2,7 +2,6 @@
 import { Header } from "@/components/header";
 
 import { ASection } from "@/components/sections/a-section";
-import { HeroSection } from "@/components/sections/hero-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
 import { GallerySection } from "@/components/sections/gallery-section";
@@ -20,7 +19,6 @@ export default function Home() {
       <Header />
 
       <ASection />
-      <HeroSection />
       <TechnologySection />
       <PhilosophySection />
       <GallerySection />

@@ -51,13 +51,29 @@ export function PhilosophySection() {
             let rotateX = 90;
             let opacity = 0;
 
+            const isLast = i === titles.length - 1;
+
             if (progress >= start && progress < end) {
               const localProgress = (progress - start) / segment;
-              rotateX = (1 - localProgress) * 90;
-              opacity = localProgress;
+
+              if (localProgress < 0.3) {
+                // Animate in (first 30% of segment)
+                const inProgress = localProgress / 0.3;
+                rotateX = (1 - inProgress) * 90;
+                opacity = inProgress;
+              } else if (localProgress < 0.8 || isLast) {
+                // Hold (middle 50% of segment)
+                rotateX = 0;
+                opacity = 1;
+              } else {
+                // Animate out (last 20% of segment)
+                const outProgress = (localProgress - 0.8) / 0.2;
+                rotateX = -outProgress * 90;
+                opacity = 1 - outProgress;
+              }
             } else if (progress >= end) {
-              rotateX = i === titles.length - 1 ? 0 : -90;
-              opacity = i === titles.length - 1 ? 1 : 0;
+              rotateX = isLast ? 0 : -90;
+              opacity = isLast ? 1 : 0;
             }
 
             return (
