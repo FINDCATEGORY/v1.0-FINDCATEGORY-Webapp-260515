@@ -5,26 +5,21 @@ import { FadeImage } from "@/components/fade-image";
 const accessories = [
   {
     id: 1,
-    name: `스켈롭 크로커리 플레이트 
-    Zita Scalloped Crockery Plate`,
-
-
-    image: "/images/collection/goldenhour/goldenhour2.jpg",
-  },
-  {
-    id: 2,
-    name: `투코드 린넨 냅킨
-Two Cord Linen Napkin`,
-
-
+    name: "공간스타일링",
+    description: "고객의 취향과 라이프스타일을 반영하여\n감각적이고 조화로운 공간을 연출합니다.",
     image: "/images/collection/goldenhour/goldenhour4.jpg",
   },
   {
+    id: 2,
+    name: "제품컨설팅",
+    description: "공간에 가장 잘 어울리는 오브제와 가구를\n선별하여 맞춤형 제안을 드립니다.",
+    image: "/images/collection/goldenhour/goldenhour5.jpg",
+  },
+  {
     id: 3,
-    name: `클래식 커트러리
-Classic Cutlery Model`,
-
-    image: "/images/collection/goldenhour/goldenhour1.jpg",
+    name: "제품판매",
+    description: "공간의 가치를 높여주는 파인드카테고리만의\n엄선된 셀렉션 제품들을 만나보세요.",
+    image: "/images/collection/goldenhour/11glass.png",
   },
 ];
 
@@ -33,8 +28,8 @@ export function CollectionSection() {
     <section id="accessories" className="bg-background">
       {/* Section Title */}
       <div className="px-6 py-20 md:px-12 lg:px-20 md:py-10">
-        <h2 className="text-3xl tracking-tight md:text-4xl text-center">
-          Category : Products
+        <h2 className="text-3xl tracking-tight md:text-4xl text-center text-[#4C050C]">
+          FIND your CATEGORY
         </h2>
       </div>
 
@@ -55,19 +50,16 @@ export function CollectionSection() {
               </div>
 
               {/* Content */}
-              <div className="py-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium leading-snug text-foreground" style={{ whiteSpace: "pre-line" }}>
-                      {accessory.name}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground" style={{ whiteSpace: "pre-line" }}>
+              <div className="py-6 text-center">
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <h3 className="text-2xl font-medium leading-snug text-[#4C050C] whitespace-pre-line">
+                    {accessory.name}
+                  </h3>
+                  {accessory.description && (
+                    <p className="mt-1 text-base text-[#4C050C]/70 whitespace-pre-line font-medium">
                       {accessory.description}
                     </p>
-                  </div>
-                  <span className="text-lg font-medium text-foreground">
-                    {accessory.price}
-                  </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -89,19 +81,16 @@ export function CollectionSection() {
               </div>
 
               {/* Content */}
-              <div className="py-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-medium leading-snug text-foreground" style={{ whiteSpace: "pre-line" }}>
-                      {accessory.name}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground" style={{ whiteSpace: "pre-line" }}>
+              <div className="py-6 text-center">
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <h3 className="text-2xl font-medium leading-snug text-[#4C050C] whitespace-pre-line">
+                    {accessory.name}
+                  </h3>
+                  {accessory.description && (
+                    <p className="mt-1 text-base text-[#4C050C]/70 whitespace-pre-line font-medium">
                       {accessory.description}
                     </p>
-                  </div>
-                  <span className="font-medium text-foreground text-2xl">
-                    {accessory.price}
-                  </span>
+                  )}
                 </div>
               </div>
             </div>

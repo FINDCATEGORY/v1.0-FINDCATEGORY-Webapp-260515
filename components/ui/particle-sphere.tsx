@@ -21,20 +21,20 @@ export function ParticleSphere() {
     const groupRef = useRef<THREE.Group>(null)
 
     const textures = useTexture([
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
-        "/images/collection/goldenhour/goldenhour1.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
+        "/images/collection/goldenhour/goldenhour4.jpg",
 
 
     ])

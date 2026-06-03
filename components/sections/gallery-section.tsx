@@ -19,10 +19,10 @@ export function GallerySection() {
   const rafRef = useRef<number | null>(null);
 
   const images = [
-    { src: "/images/05gallery01.png", alt: "Modern architecture at sunrise" },
-    { src: "/images/05gallery02.png", alt: "Modern architecture in daylight" },
-    { src: "/images/05gallery03.png", alt: "Modern architecture at dusk" },
-  ,
+    { src: "/images/collection/goldenhour/goldenhour1.jpg", alt: "Modern architecture at sunrise" },
+    { src: "/images/collection/goldenhour/goldenhour2.jpg", alt: "Modern architecture in daylight" },
+    { src: "/images/collection/goldenhour/goldenhour3.jpg", alt: "Modern architecture at dusk" },
+    ,
   ];
 
   const updateTransform = useCallback(() => {
@@ -74,18 +74,18 @@ export function GallerySection() {
       <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center z-[px-4">
         <div className="relative w-full max-w-5xl h-[70vh] md:h-[80vh]">
 
-<div 
-    className="absolute inset-0 flex items-center justify-center z-[100] pointer-events-none"
-    style={{
-      // 스크롤 초반(0.2 미만)에만 보이고 이후에는 사라지도록 설정
-      opacity: scrollProgress < 0.2 ? 1 : 0,
-      transition: 'opacity 0.5s ease',
-    }}
-  >
-    <h2 className="text-4xl md:text-6xl font-light text-[#4C050C] text-center">
-      
-    </h2>
-  </div>
+          <div
+            className="absolute inset-0 flex items-center justify-center z-[100] pointer-events-none"
+            style={{
+              // 스크롤 초반(0.2 미만)에만 보이고 이후에는 사라지도록 설정
+              opacity: scrollProgress < 0.2 ? 1 : 0,
+              transition: 'opacity 0.5s ease',
+            }}
+          >
+            <h2 className="text-4xl md:text-6xl font-light text-[#4C050C] text-center">
+
+            </h2>
+          </div>
 
           {images.map((image, index) => {
             const isLast = index === isLastImage;

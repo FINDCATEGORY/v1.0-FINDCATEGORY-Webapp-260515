@@ -76,12 +76,14 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/04gallery05.jpg",
+    src: "/images/collection/goldenhour/goldenhour6.png",
     position: "left",
+    alt: "Left side gallery image",
   },
   {
-    src: "/images/04gallery06.jpg",
+    src: "/images/collection/goldenhour/goldenhour7.png",
     position: "right",
+    alt: "Right side gallery image",
   },
 ];
 
