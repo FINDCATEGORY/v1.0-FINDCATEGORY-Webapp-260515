@@ -181,7 +181,7 @@ export function TechnologySection() {
                   src={img.src || "/placeholder.svg"}
                   alt={img.alt}
                   fill
-                  className="object-cover"
+                  className="object-cover object-right"
                 />
               ))}
             </div>
@@ -298,7 +298,7 @@ export function TechnologySection() {
                   src={img.src || "/placeholder.svg"}
                   alt={img.alt}
                   fill
-                  className="object-cover"
+                  className="object-cover object-left"
                 />
               ))}
             </div>

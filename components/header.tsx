@@ -52,6 +52,7 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-10">
           <Link href="/category" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">제품안내</Link>
           <Link href="/project" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">프로젝트</Link>
+          <Link href="/membership" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">멤버십</Link>
         </nav>
 
         <div className="hidden md:flex items-center">
@@ -74,6 +75,7 @@ export function Header() {
           <nav className="flex flex-col gap-6 text-[#4C050C]">
             <Link href="/category" onClick={() => setIsMenuOpen(false)} className="font-medium">제품안내</Link>
             <Link href="/project" onClick={() => setIsMenuOpen(false)} className="font-medium">프로젝트</Link>
+            <Link href="/membership" onClick={() => setIsMenuOpen(false)} className="font-medium">멤버십</Link>
 
             <div className="w-full h-px bg-[#4C050C]/10 my-2" />
 

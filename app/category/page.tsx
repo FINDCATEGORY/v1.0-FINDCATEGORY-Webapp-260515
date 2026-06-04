@@ -4,7 +4,7 @@ import { Header } from "@/components/header"
 import Image from "next/image"
 import { ProductGrid } from "@/components/category/product-grid"
 import { categoryBanners } from "@/components/category/product"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ShoppingCart } from "lucide-react"
 import { useCart } from "@/components/detail/ui/cart-context"
 
@@ -12,6 +12,18 @@ export default function CategoryPage() {
   const { setIsOpen, items } = useCart()
   const totalItems = items.reduce((sum, item) => sum + (item.quantity || 1), 0)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [isCartAnimating, setIsCartAnimating] = useState(false)
+  const prevTotalRef = useRef(totalItems)
+
+  useEffect(() => {
+    if (totalItems > prevTotalRef.current) {
+      setIsCartAnimating(true)
+      const timer = setTimeout(() => setIsCartAnimating(false), 300)
+      prevTotalRef.current = totalItems
+      return () => clearTimeout(timer)
+    }
+    prevTotalRef.current = totalItems
+  }, [totalItems])
 
   const imageCategories = [
     "골든아워 콜렉션",
@@ -95,7 +107,7 @@ export default function CategoryPage() {
         </main>
       </div>
 
-      <button id="cart-floating-button" onClick={() => setIsOpen(true)} className="fixed bottom-6 right-6 p-4 bg-[#4C050C] text-white rounded-full shadow-lg hover:bg-[#4C050C]/90 transition-colors z-[60] flex items-center justify-center pointer-events-auto">
+      <button id="cart-floating-button" onClick={() => setIsOpen(true)} className={`fixed bottom-6 right-6 p-4 bg-[#4C050C] text-white rounded-full shadow-lg hover:bg-[#4C050C]/90 transition-transform duration-300 z-[60] flex items-center justify-center pointer-events-auto ${isCartAnimating ? "scale-125 -rotate-12" : "scale-100 rotate-0"}`}>
         <ShoppingCart size={24} />
         {totalItems > 0 && (
           <span className="absolute -top-1 -right-1 bg-white text-[#4C050C] text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md border-2 border-[#4C050C]">

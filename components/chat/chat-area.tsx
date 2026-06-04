@@ -7,6 +7,8 @@ import { ParticleOrb } from "@/components/chat/particle-orb"
 import Link from "next/link"
 import { useCart } from "@/components/detail/ui/cart-context"
 import Image from "next/image"
+import { SignupForm } from "@/components/chat/signup-form"
+import { ResetPasswordForm } from "@/components/chat/reset-password-form"
 
 export function ChatArea() {
   const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([])
@@ -51,12 +53,14 @@ export function ChatArea() {
     setMessages((prev) => [...prev, { role: 'user', content: trimmedText }])
 
     let fullText = "문의해 주셔서 감사합니다. 안내는 준비 중입니다."
-    if (trimmedText === "회원가입 절차") {
-      fullText = " 라이프스타일 스토어, 파인드카테고리의 회원이 되기위해\n회원 가입을 안내해드릴게요!\n[SHOW_SIGNUP_FORM]";
-    } else if (trimmedText === "구매신청") {
-      fullText = "현재 장바구니에 담긴 내역입니다. 확인 후 결제를 진행해 주세요.\n[SHOW_CART_SUMMARY]";
+    if (trimmedText === "회원가입") {
+      fullText = " 라이프스타일 스토어, 파인드카테고리의 회원이 되기위한\n회원 가입을 안내해드릴게요!\n[SHOW_SIGNUP_FORM]";
+    } else if (trimmedText === "멤버십") {
+      fullText = "멤버십 가입을 위한 결제를 진행해 주세요.\n[SHOW_CART_SUMMARY]";
     } else if (trimmedText === "비즈니스") {
       fullText = "비즈니스 문의를 위한 양식을 안내해 드립니다.\n[SHOW_BUSINESS_FORM]";
+    } else if (trimmedText === "비밀번호 찾기" || trimmedText.includes("비밀번호")) {
+      fullText = "비밀번호를 잊으셨나요?\n가입하신 아이디와 이메일을 입력하시면 임시 비밀번호를 발송해 드립니다.\n[SHOW_RESET_PASSWORD_FORM]";
     } else if (trimmedText === "다른 문의 사항") {
       fullText = "다른 문의 사항이 있으신가요? 자세한 내용을 입력해 주시면 확인 후 답변해 드리겠습니다.";
     }
@@ -108,15 +112,41 @@ export function ChatArea() {
             <div className="flex flex-col items-center pt-12">
               <div className="relative mb-6"><ParticleOrb /></div>
               <h1 className="text-4xl font-semibold text-[#4C050C] mb-8 text-center tracking-tight">무엇을 도와드릴까요?</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full max-w-4xl px-4">
-                {["회원가입 절차", "구매신청", "비즈니스"].map((text, idx) => (
-                  <Button key={idx} onClick={() => executeSend(text)} className="h-auto py-4 px-5 rounded-xl bg-[#4C050C]/5 border border-[#4C050C]/20 hover:bg-[#4C050C]/10 text-[#4C050C] text-sm font-medium">
-                    {text}
-                  </Button>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl px-4">
+                {[
+                  {
+                    main: "회원가입",
+                    sub: ["아이디 찾기", "비밀번호 찾기"]
+                  },
+                  {
+                    main: "멤버십",
+                    sub: ["멤버십 변경", "멤버십 안내"]
+                  },
+                  {
+                    main: "비즈니스",
+                    sub: ["대량구매", "공간 스타일링 신청"]
+                  }
+                ].map((menu, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-3">
+                    <Button 
+                      onClick={() => executeSend(menu.main)} 
+                      className="w-full h-auto py-4 px-5 rounded-md bg-[#4C050C]/5 border border-[#4C050C]/20 hover:bg-[#4C050C]/10 text-[#4C050C] text-base font-medium"
+                    >
+                      {menu.main}
+                    </Button>
+                    <div className="flex flex-col items-center gap-2 mt-1">
+                      {menu.sub.map((subText, subIdx) => (
+                        <button 
+                          key={subIdx} 
+                          onClick={() => executeSend(subText)}
+                          className="text-sm text-[#4C050C]/70 hover:text-[#4C050C] transition-colors"
+                        >
+                          {subText}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ))}
-                <Button onClick={() => executeSend("다른 문의 사항")} className="h-auto py-4 px-5 rounded-xl bg-[#4C050C] hover:bg-[#4C050C]/90 text-white text-sm font-medium">
-                  다른 문의 사항
-                </Button>
               </div>
             </div>
           )}
@@ -124,18 +154,13 @@ export function ChatArea() {
           {messages.map((m, i) => (
             <div key={i} className="flex flex-col space-y-3">
               <div className={`p-4 rounded-2xl max-w-[80%] whitespace-pre-wrap ${m.role === 'user' ? 'bg-[#4C050C] text-white ml-auto' : 'bg-white text-[#4C050C] shadow-sm border border-[#4C050C]/10'}`}>
-                {m.content.replace("[SHOW_SIGNUP_FORM]", "").replace("[SHOW_BUSINESS_FORM]", "").replace("[SHOW_CART_SUMMARY]", "")}
+                {m.content.replace("[SHOW_SIGNUP_FORM]", "").replace("[SHOW_BUSINESS_FORM]", "").replace("[SHOW_CART_SUMMARY]", "").replace("[SHOW_RESET_PASSWORD_FORM]", "")}
               </div>
               {m.role === 'ai' && m.content.includes("[SHOW_SIGNUP_FORM]") && (
-                <div className="w-full max-w-md bg-white border border-[#4C050C]/10 rounded-2xl p-2 shadow-xl overflow-hidden mt-2">
-                  <iframe
-                    data-tally-src="https://tally.so/embed/XxzOLP?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                    width="100%"
-                    height="497"
-                    frameBorder="0"
-                    title="FINDACTEGORY Be a Member"
-                  ></iframe>
-                </div>
+                <SignupForm />
+              )}
+              {m.role === 'ai' && m.content.includes("[SHOW_RESET_PASSWORD_FORM]") && (
+                <ResetPasswordForm />
               )}
               {m.role === 'ai' && m.content.includes("[SHOW_BUSINESS_FORM]") && (
                 <div className="w-full max-w-md bg-white border border-[#4C050C]/10 rounded-2xl p-2 shadow-xl overflow-hidden mt-2">
@@ -209,14 +234,6 @@ export function ChatArea() {
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mb-1 flex-1">
               <Button variant="ghost" onClick={handleResetToHome} className="h-9 shrink-0 px-3 rounded-lg bg-[#4C050C]/5 border border-[#4C050C]/10 text-[#4C050C]/80 hover:bg-[#4C050C]/10 text-sm font-medium">
                 <ArrowLeft className="w-4 h-4 mr-2" /> 처음으로
-              </Button>
-              {["회원가입 절차", "구매신청", "비즈니스"].map((text, idx) => (
-                <Button key={idx} variant="ghost" onClick={() => executeSend(text)} className="h-9 shrink-0 px-3 rounded-lg bg-[#4C050C]/5 border border-[#4C050C]/10 text-[#4C050C]/80 hover:bg-[#4C050C]/10 text-sm font-medium">
-                  {text}
-                </Button>
-              ))}
-              <Button variant="ghost" onClick={() => executeSend("다른 문의 사항")} className="h-9 shrink-0 px-3 rounded-lg bg-[#4C050C] text-white hover:bg-[#4C050C]/90 text-sm font-medium">
-                다른 문의 사항
               </Button>
             </div>
             <Button size="icon" onClick={() => executeSend(input)} className="h-9 w-9 shrink-0 rounded-full bg-[#4C050C] hover:bg-[#4C050C]/90 text-white">

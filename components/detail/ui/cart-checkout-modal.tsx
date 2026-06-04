@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { X, Minus, Plus, CheckCircle } from "lucide-react"
 import { useCart } from "@/components/detail/ui/cart-context"
 import Image from "next/image"
+import { getUserPointsAndName, deductPoints } from "@/app/actions/points"
+import { useEffect } from "react"
 
 interface FormData {
   fullName: string
@@ -39,6 +41,19 @@ export function CartCheckoutModal() {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
+  const [userPoints, setUserPoints] = useState<number>(0)
+  const [username, setUsername] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (isCheckoutOpen) {
+      getUserPointsAndName().then(res => {
+        if (res.username) {
+          setUsername(res.username);
+          setUserPoints(res.points);
+        }
+      });
+    }
+  }, [isCheckoutOpen]);
 
   // 총 가격 계산
   const subTotal = items.reduce((sum, item) => {
@@ -92,8 +107,29 @@ export function CartCheckoutModal() {
 
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    if (formData.paymentMethod === "points") {
+      if (!username) {
+        alert("로그인이 필요합니다.");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (userPoints < finalTotal) {
+        alert("보유 포인트가 부족합니다. 충전 후 다시 시도해주세요.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const result = await deductPoints(username, finalTotal);
+      if (!result.success) {
+        alert(result.error || "포인트 차감 중 오류가 발생했습니다.");
+        setIsSubmitting(false);
+        return;
+      }
+      setUserPoints(result.points || 0);
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+    }
 
     if (typeof window !== "undefined") {
       localStorage.setItem("verifiedBuyer", "true")
@@ -260,7 +296,7 @@ export function CartCheckoutModal() {
                       >
                         <option value="" disabled className="text-[#4C050C]">결제 방식을 선택해주세요</option>
                         <option value="credit-card" className="text-[#4C050C]">계좌이체-토스뱅크 1002 393 50442</option>
-                        <option value="transfer" className="text-[#4C050C]">카드결제(준비중)</option>
+                        <option value="points" className="text-[#4C050C]">보유포인트 사용</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#4C050C]">
                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -321,6 +357,27 @@ export function CartCheckoutModal() {
                       <span>최종 합계:</span>
                       <span>₩{finalTotal.toLocaleString()}</span>
                     </div>
+                    {formData.paymentMethod === "points" && (
+                      <div className="bg-[#4C050C]/5 p-3 rounded-lg mt-4 space-y-2 border border-[#4C050C]/10">
+                        <div className="flex justify-between text-sm text-[#4C050C]">
+                          <span>보유 포인트:</span>
+                          <span className="font-bold">{userPoints.toLocaleString()} P</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-red-600">
+                          <span>차감 포인트:</span>
+                          <span className="font-bold">-{finalTotal.toLocaleString()} P</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-[#4C050C] border-t border-[#4C050C]/10 pt-2">
+                          <span>결제 후 잔여 포인트:</span>
+                          <span className="font-bold">{(userPoints - finalTotal).toLocaleString()} P</span>
+                        </div>
+                        {userPoints - finalTotal < 0 && (
+                          <p className="text-xs text-red-500 mt-1">
+                            * 보유 포인트가 부족합니다. 포인트를 충전해주세요.
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="text-xs text-[#4C050C]/70 space-y-1 mt-4">
