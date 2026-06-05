@@ -24,19 +24,19 @@ export function ProductGrid({ selectedCategory }: ProductGridProps) {
     <>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {filteredProducts.map((p) => (
-          <div key={p.id} className="group block">
+          <div key={p.id} className="group flex flex-col justify-between h-full gap-4">
             <button
               onClick={() => setSelectedProduct(p)}
-              className="w-full text-center"
+              className="w-full text-center flex-1 flex flex-col"
             >
-              <div className="relative aspect-square overflow-hidden rounded-lg bg-transparent mx-auto">
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-transparent mx-auto w-full">
                 <Image src={p.image} alt={p.name} fill className="object-cover" />
               </div>
-              <h3 className="text-[#4C050C] mt-3 text-lg font-medium">{p.name}</h3>
+              <h3 className="text-[#4C050C] mt-3 text-lg font-medium flex-1">{p.name}</h3>
             </button>
             <Button
               onClick={() => addToCart(p)}
-              className="w-full mt-2 bg-[#4C050C] text-white hover:bg-[#4C050C] hover:opacity-100 transition-none border-none"
+              className="w-full mt-auto bg-[#4C050C] text-white hover:bg-[#4C050C] hover:opacity-100 transition-none border-none"
             >
               담기
             </Button>

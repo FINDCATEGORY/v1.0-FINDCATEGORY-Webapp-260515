@@ -32,7 +32,6 @@ export default function CategoryPage() {
   ]
 
   const textCategories = [
-    "모든제품",
     "플레이트",
     "커트러리",
     "소품",
@@ -98,16 +97,47 @@ export default function CategoryPage() {
         </aside>
 
         <main className="flex flex-1 flex-col p-4 md:p-6">
-          <div className="relative mb-6 w-full aspect-[21/9] overflow-hidden rounded-lg bg-neutral-900 shadow-2xl">
-            {currentBanner && <Image src={currentBanner} alt="Banner" fill priority className={`object-cover ${selectedCategory === "셀룰리안 모먼트 콜렉션" ? "object-top" : "object-center"}`} />}
-          </div>
-          <div className="mb-8 text-[#4C050C]">
-            <h2 className="text-xl md:text-2xl font-bold mb-2">{currentText.title}</h2>
-            <p className="text-sm md:text-base opacity-80">{currentText.description}</p>
-          </div>
-          <div className="flex-1">
-            <ProductGrid selectedCategory={selectedCategory} />
-          </div>
+          {(!selectedCategory || selectedCategory === "모든제품") ? (
+            <div className="flex flex-col gap-12">
+              {imageCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="w-full text-left group"
+                >
+                  <div className="relative mb-6 w-full aspect-[21/9] overflow-hidden rounded-lg bg-neutral-900 shadow-lg">
+                    <Image
+                      src={categoryBanners[category]}
+                      alt={category}
+                      fill
+                      className={`object-cover transition-transform duration-500 group-hover:scale-105 ${category === "셀룰리안 모먼트 콜렉션" ? "object-top" : "object-center"}`}
+                    />
+                  </div>
+                  <div className="text-[#4C050C]">
+                    <h2 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#4C050C]/80 transition-colors">
+                      {collectionTexts[category]?.title}
+                    </h2>
+                    <p className="text-sm md:text-base opacity-80">
+                      {collectionTexts[category]?.description}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <>
+              <div className="relative mb-6 w-full aspect-[21/9] overflow-hidden rounded-lg bg-neutral-900 shadow-lg">
+                {currentBanner && <Image src={currentBanner} alt="Banner" fill priority className={`object-cover ${selectedCategory === "셀룰리안 모먼트 콜렉션" ? "object-top" : "object-center"}`} />}
+              </div>
+              <div className="mb-8 text-[#4C050C]">
+                <h2 className="text-xl md:text-2xl font-bold mb-2">{currentText.title}</h2>
+                <p className="text-sm md:text-base opacity-80">{currentText.description}</p>
+              </div>
+              <div className="flex-1">
+                <ProductGrid selectedCategory={selectedCategory} />
+              </div>
+            </>
+          )}
         </main>
       </div>
 

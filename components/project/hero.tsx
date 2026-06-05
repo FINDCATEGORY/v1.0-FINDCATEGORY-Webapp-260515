@@ -31,7 +31,7 @@ export default function Hero() {
             파인드카테고리Ⓡ 스타일링 제안
           </h1>
           <p className="mt-6 text-foreground/70">
-            Styling by O0i(오공아이)
+            Styling by OgongI
           </p>
           <Link
             href="#"

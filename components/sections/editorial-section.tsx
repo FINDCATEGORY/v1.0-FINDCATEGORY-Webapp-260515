@@ -83,10 +83,10 @@ export function EditorialSection() {
             key={spec.label}
             className="border-b border-r border-border p-8 text-center last:border-r-0 md:border-b-0"
           >
-            <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#4C050C]">
               {spec.label}
             </p>
-            <p className="text-4xl">
+            <p className="text-3xl md:text-4xl text-[#4C050C]">
               {spec.value}
             </p>
           </div>

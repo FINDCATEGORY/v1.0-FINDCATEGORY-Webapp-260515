@@ -32,29 +32,19 @@ const services = [
 export default function Services() {
   return (
     <section id="services" className="py-20 px-6">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left Content */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-sm font-medium text-foreground/70">FINDCATEGORYⓇTableware</span>
-            </div>
-
-            <h2 className="text-3xl text-foreground mb-6 md:text-5xl">테이블웨어 with 뢰슈티</h2>
-
-            <p className="text-foreground/70 max-w-lg">
-              스위스 가정식🇨🇭. 스위스식 감자 팬케이크 Rösti (뢰슈티)
-              <br></br>
-              강판에 간 감자를 프라이팬에 노릇하게 구운 감자 팬케이크. 전통적으로 스위스의 아침 식사로 알려져 있으며,
-              한국의 감자채전과 같은 인상을 준다.
-            </p>
-
-        
-          </div>
-
-          
-          </div>
+      <div className="mx-auto max-w-7xl flex flex-col items-center text-center">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <span className="text-sm font-medium text-foreground/70">FINDCATEGORYⓇTableware</span>
         </div>
+
+        <h2 className="text-3xl text-foreground mb-6 md:text-5xl">테이블웨어 with 뢰슈티</h2>
+
+        <p className="text-foreground/70 max-w-3xl mx-auto mt-4 leading-relaxed">
+          스위스 가정식🇨🇭. 스위스식 감자 팬케이크 Rösti (뢰슈티)
+          <br />
+          강판에 간 감자를 프라이팬에 노릇하게 구운 감자 팬케이크. 전통적으로 스위스의 아침 식사로 알려져 있으며,
+          한국의 감자채전과 같은 인상을 준다.
+        </p>
       </div>
     </section>
   )
