@@ -80,7 +80,7 @@ export function CartSidebar() {
               }}
               className="w-full py-3 bg-[#4C050C] text-white font-bold rounded-lg hover:opacity-80 transition-opacity"
             >
-              결제하기
+              다음
             </button>
           </div>
         )}

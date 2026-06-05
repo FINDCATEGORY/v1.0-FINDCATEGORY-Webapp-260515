@@ -18,7 +18,6 @@ interface FormData {
   email: string
   phone: string
   address: string
-  paymentMethod: string
 }
 
 interface FormErrors {
@@ -26,7 +25,6 @@ interface FormErrors {
   email?: string
   phone?: string
   address?: string
-  paymentMethod?: string
 }
 
 export function CartCheckoutModal() {
@@ -36,12 +34,10 @@ export function CartCheckoutModal() {
     email: "",
     phone: "",
     address: "",
-    paymentMethod: "",
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
-  const [userPoints, setUserPoints] = useState<number>(0)
   const [username, setUsername] = useState<string | null>(null)
 
   useEffect(() => {
@@ -49,21 +45,10 @@ export function CartCheckoutModal() {
       getUserPointsAndName().then(res => {
         if (res.username) {
           setUsername(res.username);
-          setUserPoints(res.points);
         }
       });
     }
   }, [isCheckoutOpen]);
-
-  // 총 가격 계산
-  const subTotal = items.reduce((sum, item) => {
-    const price = parseInt(item.price.replace(/[^0-9]/g, ""))
-    const quantity = item.quantity || 1
-    return sum + price * quantity
-  }, 0)
-
-  const vat = Math.floor(subTotal * 0.1)
-  const finalTotal = subTotal + vat
 
   const totalQuantity = items.reduce((sum, item) => sum + (item.quantity || 1), 0)
 
@@ -90,8 +75,8 @@ export function CartCheckoutModal() {
       newErrors.address = "배송 주소를 입력해주세요"
     }
 
-    if (!formData.paymentMethod) {
-      newErrors.paymentMethod = "결제 방식을 선택해주세요"
+    if (!formData.address.trim()) {
+      newErrors.address = "배송 주소를 입력해주세요"
     }
 
     setErrors(newErrors)
@@ -107,28 +92,27 @@ export function CartCheckoutModal() {
 
     setIsSubmitting(true)
 
-    if (formData.paymentMethod === "points") {
-      if (!username) {
-        alert("로그인이 필요합니다.");
-        setIsSubmitting(false);
-        return;
-      }
-      
-      if (userPoints < finalTotal) {
-        alert("보유 포인트가 부족합니다. 충전 후 다시 시도해주세요.");
-        setIsSubmitting(false);
-        return;
-      }
+    try {
+      const res = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formData,
+          items,
+          totalQuantity,
+        }),
+      })
 
-      const result = await deductPoints(username, finalTotal);
-      if (!result.success) {
-        alert(result.error || "포인트 차감 중 오류가 발생했습니다.");
-        setIsSubmitting(false);
-        return;
+      if (!res.ok) {
+        throw new Error("주문 처리 실패")
       }
-      setUserPoints(result.points || 0);
-    } else {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+    } catch (error) {
+      console.error(error)
+      alert("주문 처리 중 오류가 발생했습니다.")
+      setIsSubmitting(false)
+      return
     }
 
     if (typeof window !== "undefined") {
@@ -171,14 +155,14 @@ export function CartCheckoutModal() {
                 <div className="space-y-2 mb-4">
                   {items.map((item, i) => (
                     <div key={i} className="flex justify-between text-sm text-[#4C050C]/80">
-                      <span>{item.name} x {item.quantity || 1}</span>
-                      <span>₩{(parseInt(item.price.replace(/[^0-9]/g, "")) * (item.quantity || 1)).toLocaleString()}</span>
+                      <span>{item.name}</span>
+                      <span>{item.quantity || 1}개</span>
                     </div>
                   ))}
                 </div>
                 <div className="border-t border-[#4C050C]/20 pt-4 flex justify-between font-bold text-[#4C050C]">
-                  <span>합계:</span>
-                  <span>₩{totalPrice.toLocaleString()}</span>
+                  <span>총 수량:</span>
+                  <span>{totalQuantity}개</span>
                 </div>
               </div>
 
@@ -285,25 +269,6 @@ export function CartCheckoutModal() {
                     {errors.address && <p className="text-sm text-red-500 mt-1">{errors.address}</p>}
                   </div>
 
-                  {/* Payment Method */}
-                  <div>
-                    <Label htmlFor="paymentMethod" className="text-[#4C050C]">결제 방식 *</Label>
-                    <div className="relative">
-                      <select
-                        value={formData.paymentMethod}
-                        onChange={(e) => setFormData((prev) => ({ ...prev, paymentMethod: e.target.value }))}
-                        className={`w-full px-3 py-2 text-sm rounded-md bg-white/50 text-[#4C050C] border border-[#4C050C] appearance-none outline-none focus:ring-2 focus:ring-[#4C050C]/20 transition-all ${!formData.paymentMethod ? "text-[#4C050C]" : ""} ${errors.paymentMethod ? "border-red-500" : ""}`}
-                      >
-                        <option value="" disabled className="text-[#4C050C]">결제 방식을 선택해주세요</option>
-                        <option value="credit-card" className="text-[#4C050C]">계좌이체-토스뱅크 1002 393 50442</option>
-                        <option value="points" className="text-[#4C050C]">보유포인트 사용</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#4C050C]">
-                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                      </div>
-                    </div>
-                    {errors.paymentMethod && <p className="text-sm text-red-500 mt-1">{errors.paymentMethod}</p>}
-                  </div>
 
                   <Button
                     type="submit"
@@ -341,48 +306,14 @@ export function CartCheckoutModal() {
                   </div>
 
                   <div className="border-t border-[#4C050C]/20 pt-4 space-y-2">
-                    <div className="flex justify-between text-sm text-[#4C050C]/80">
-                      <span>상품 개수:</span>
+                    <div className="flex justify-between font-bold text-[#4C050C] text-sm mb-2">
+                      <span>멤버십 등급:</span>
+                      <span>{username ? "B2B 프레스티지" : "일반"}</span>
+                    </div>
+                    <div className="flex justify-between font-bold text-[#4C050C] text-lg">
+                      <span>총 상품 개수:</span>
                       <span>{totalQuantity}개</span>
                     </div>
-                    <div className="flex justify-between text-sm text-[#4C050C]/80">
-                      <span>상품 금액:</span>
-                      <span>₩{subTotal.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between text-sm text-[#4C050C]/80">
-                      <span>부가세 (10%):</span>
-                      <span>₩{vat.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between font-bold text-[#4C050C] text-lg border-t border-[#4C050C]/20 pt-4">
-                      <span>최종 합계:</span>
-                      <span>₩{finalTotal.toLocaleString()}</span>
-                    </div>
-                    {formData.paymentMethod === "points" && (
-                      <div className="bg-[#4C050C]/5 p-3 rounded-lg mt-4 space-y-2 border border-[#4C050C]/10">
-                        <div className="flex justify-between text-sm text-[#4C050C]">
-                          <span>보유 포인트:</span>
-                          <span className="font-bold">{userPoints.toLocaleString()} P</span>
-                        </div>
-                        <div className="flex justify-between text-sm text-red-600">
-                          <span>차감 포인트:</span>
-                          <span className="font-bold">-{finalTotal.toLocaleString()} P</span>
-                        </div>
-                        <div className="flex justify-between text-sm text-[#4C050C] border-t border-[#4C050C]/10 pt-2">
-                          <span>결제 후 잔여 포인트:</span>
-                          <span className="font-bold">{(userPoints - finalTotal).toLocaleString()} P</span>
-                        </div>
-                        {userPoints - finalTotal < 0 && (
-                          <p className="text-xs text-red-500 mt-1">
-                            * 보유 포인트가 부족합니다. 포인트를 충전해주세요.
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="text-xs text-[#4C050C]/70 space-y-1 mt-4">
-                    <p>• 사업자등록 첨부 시, 세금계산서 발행</p>
-                    <p>• 부가세 포함</p>
                   </div>
                 </div>
               </div>

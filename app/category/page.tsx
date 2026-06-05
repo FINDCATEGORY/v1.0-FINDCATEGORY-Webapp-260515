@@ -3,7 +3,7 @@
 import { Header } from "@/components/header"
 import Image from "next/image"
 import { ProductGrid } from "@/components/category/product-grid"
-import { categoryBanners } from "@/components/category/product"
+import { categoryBanners, collectionTexts } from "@/components/category/product"
 import { useState, useEffect, useRef } from "react"
 import { ShoppingCart } from "lucide-react"
 import { useCart } from "@/components/detail/ui/cart-context"
@@ -43,6 +43,10 @@ export default function CategoryPage() {
   const currentBanner = selectedCategory
     ? categoryBanners[selectedCategory] || categoryBanners["default"]
     : categoryBanners["default"]
+
+  const currentText = selectedCategory
+    ? collectionTexts[selectedCategory] || collectionTexts["default"]
+    : collectionTexts["default"]
 
   return (
     <div className="flex min-h-screen flex-col bg-[#EBEBDF]">
@@ -95,11 +99,11 @@ export default function CategoryPage() {
 
         <main className="flex flex-1 flex-col p-4 md:p-6">
           <div className="relative mb-6 w-full aspect-[21/9] overflow-hidden rounded-lg bg-neutral-900 shadow-2xl">
-            {currentBanner && <Image src={currentBanner} alt="Banner" fill priority className="object-cover" />}
+            {currentBanner && <Image src={currentBanner} alt="Banner" fill priority className={`object-cover ${selectedCategory === "셀룰리안 모먼트 콜렉션" ? "object-top" : "object-center"}`} />}
           </div>
           <div className="mb-8 text-[#4C050C]">
-            <h2 className="text-xl md:text-2xl font-bold mb-2">FINDCATEGORYⓇcollection : Golden Hour</h2>
-            <p className="text-sm md:text-base opacity-80">골든아워 : 가장 아름답게 빛나는 순간을 담은 프리미엄 다이닝.</p>
+            <h2 className="text-xl md:text-2xl font-bold mb-2">{currentText.title}</h2>
+            <p className="text-sm md:text-base opacity-80">{currentText.description}</p>
           </div>
           <div className="flex-1">
             <ProductGrid selectedCategory={selectedCategory} />

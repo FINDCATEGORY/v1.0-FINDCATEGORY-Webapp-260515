@@ -10,8 +10,8 @@ export interface Product {
 export const categoryBanners: Record<string, string> = {
   "default": "/images/collection/goldenhour/goldenhour1.jpg",
   "골든아워 콜렉션": "/images/collection/goldenhour/goldenhour1.jpg",
-  "셀룰리안 모먼트 콜렉션": "https://rebeccaudall.com/cdn/shop/files/Untitled_design_-_2026-05-05T094640.696.png?v=1777970873&width=1200",
-  "에메랄드 포레스트 콜렉션": "https://rebeccaudall.com/cdn/shop/files/RebeccaUdall-RebeccaHopePhotography-1720.jpg?v=1761035879&width=1200",
+  "셀룰리안 모먼트 콜렉션": "/images/collection/cellullianmoment/cellullianmoment1.png",
+  "에메랄드 포레스트 콜렉션": "/images/collection/emeraldforest/emeraldforest2.png",
   "모든제품": "",
   "플레이트": "",
   "커트러리": "",
@@ -110,4 +110,102 @@ export const products: Product[] = [
     categories: ["골든아워 콜렉션", "소품"],
     description: "골든아워 콜렉션의 무드를 담은 테이블클로스입니다. 부드러운 소재와 따뜻한 컬러로 테이블 전체 분위기를 완성합니다.",
   },
+  {
+    id: 12,
+    name: "셀룰리안 모먼트 모닝 듀 테이블 매트",
+    price: "₩3,600",
+    image: "/images/collection/cellullianmoment/1.png",
+    categories: ["셀룰리안 모먼트 콜렉션", "소품"],
+    description: "셀룰리안 모먼트 콜렉션의 이슬을 머금은 듯한 디자인의 테이블 매트입니다.",
+  },
+  {
+    id: 13,
+    name: "셀룰리안 모먼트 우븐 라탄 플레이트",
+    price: "₩18,500",
+    image: "/images/collection/cellullianmoment/3.png",
+    categories: ["셀룰리안 모먼트 콜렉션", "플레이트"],
+    description: "정교하게 짜인 라탄 디테일이 돋보이는 플레이트입니다. 자연스러운 텍스처가 야외 식사의 무드를 더해줍니다.",
+  },
+  {
+    id: 14,
+    name: "셀룰리안 모먼트 플로럴 엠보싱 디너 플레이트",
+    price: "₩22,000",
+    image: "/images/collection/cellullianmoment/6.png",
+    categories: ["셀룰리안 모먼트 콜렉션", "플레이트"],
+    description: "가장자리의 우아한 플로럴 엠보싱이 특징인 화이트 디너 플레이트입니다. 어떤 요리를 담아도 돋보이게 해줍니다.",
+  },
+  {
+    id: 15,
+    name: "셀룰리안 모먼트 플로럴 엠보싱 딥 보울",
+    price: "₩19,500",
+    image: "/images/collection/cellullianmoment/7.png",
+    categories: ["셀룰리안 모먼트 콜렉션", "플레이트"],
+    description: "플로럴 엠보싱 장식의 딥 보울입니다. 수프나 샐러드 등을 넉넉하게 담기에 적합하며 지적인 우아함을 선사합니다.",
+  },
+  {
+    id: 16,
+    name: "셀룰리안 모먼트 블루 플로럴 테이블클로스",
+    price: "₩35,000",
+    image: "/images/collection/cellullianmoment/9.png",
+    categories: ["셀룰리안 모먼트 콜렉션", "소품"],
+    description: "푸른 꽃 패턴이 싱그러움을 더하는 패브릭 테이블클로스입니다. 야외 피크닉이나 테라스 식사 연출에 제격입니다.",
+  },
+  {
+    id: 17,
+    name: "에메랄드 포레스트 우드 핸들 커트러 세트",
+    price: "₩28,000",
+    image: "/images/collection/emeraldforest/10.png",
+    categories: ["에메랄드 포레스트 콜렉션", "커트러리"],
+    description: "따뜻한 우드 핸들이 매력적인 커트러리 세트입니다. 에메랄드 포레스트의 자연 친화적인 무드를 완성해줍니다.",
+  },
+  {
+    id: 18,
+    name: "에메랄드 포레스트 그린 웨이브 코스터",
+    price: "₩8,500",
+    image: "/images/collection/emeraldforest/11.png",
+    categories: ["에메랄드 포레스트 콜렉션", "소품"],
+    description: "그린 컬러의 웨이브 스티치가 포인트인 코스터입니다. 컵이나 작은 디저트 그릇 아래에 깔아 포인트를 주기 좋습니다.",
+  },
+  {
+    id: 19,
+    name: "에메랄드 포레스트 그린 라인 디너 플레이트",
+    price: "₩24,000",
+    image: "/images/collection/emeraldforest/12.png",
+    categories: ["에메랄드 포레스트 콜렉션", "플레이트"],
+    description: "테두리에 두 줄의 선명한 그린 라인이 들어간 깔끔한 화이트 디너 플레이트입니다.",
+  },
+  {
+    id: 20,
+    name: "에메랄드 포레스트 그린 라인 샐러드 플레이트",
+    price: "₩18,000",
+    image: "/images/collection/emeraldforest/13.png",
+    categories: ["에메랄드 포레스트 콜렉션", "플레이트"],
+    description: "디너 플레이트와 세트로 활용하기 좋은 사이즈의 그린 라인 샐러드 플레이트입니다.",
+  },
+  {
+    id: 21,
+    name: "에메랄드 포레스트 깅엄 체크 냅킨",
+    price: "₩12,000",
+    image: "/images/collection/emeraldforest/14.png",
+    categories: ["에메랄드 포레스트 콜렉션", "소품"],
+    description: "클래식한 그린 컬러의 깅엄 체크 패턴 냅킨으로 싱그러운 테이블 세팅을 연출할 수 있습니다.",
+  },
 ];
+export const collectionTexts: Record<string, { title: string; description: string }> = {
+  "default": {
+    title: "FINDCATEGORYⓇcollection : Golden Hour",
+    description: "골든아워 : 가장 아름답게 빛나는 순간을 담은 프리미엄 다이닝."
+  },
+  "골든아워 콜렉션": {
+    title: "FINDCATEGORYⓇcollection : Golden Hour",
+    description: "골든아워 : 가장 아름답게 빛나는 순간을 담은 프리미엄 다이닝."
+  },
+  "셀룰리안 모먼트 콜렉션": {
+    title: "FINDCATEGORYⓇcollection : Cellullian Moment",
+    description: "셀룰리안 모먼트 : 깊은 몰입과 지적인 우아함을 선사하는 야외 식사"
+  },
+  "에메랄드 포레스트 콜렉션": {
+    title: "FINDCATEGORYⓇcollection : Emerald Forest",
+    description: "에메랄드 포레스트 : 싱그러운 생명력과 정서적 안정을 전달하는 브런치"
+  }
+};
