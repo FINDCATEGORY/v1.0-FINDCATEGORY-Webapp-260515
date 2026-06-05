@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase"
 import bcrypt from "bcryptjs"
 
 export async function loginAction(formData: FormData) {
-  const username = formData.get("username") as string
+  const username = (formData.get("username") as string)?.trim()
   const password = formData.get("password") as string
 
   if (!username || !password) {
@@ -14,7 +14,13 @@ export async function loginAction(formData: FormData) {
 
   try {
     // 1. 아이디로 사용자 조회
-    const { data: user, error } = await supabase
+    const { createClient } = require('@supabase/supabase-js');
+    const localSupabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const { data: user, error } = await localSupabase
       .from("b2b_signups")
       .select("*")
       .eq("username", username)
@@ -57,7 +63,13 @@ export async function loginAction(formData: FormData) {
 // 생체 인증 모의(Mock) 로그인 액션 (비밀번호 없이 아이디만으로 강제 로그인 처리)
 export async function biometricLoginMockAction(username: string) {
   try {
-    const { data: user, error } = await supabase
+    const { createClient } = require('@supabase/supabase-js');
+    const localSupabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const { data: user, error } = await localSupabase
       .from("b2b_signups")
       .select("*")
       .eq("username", username)

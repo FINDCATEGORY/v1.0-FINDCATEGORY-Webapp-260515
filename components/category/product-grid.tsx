@@ -32,7 +32,10 @@ export function ProductGrid({ selectedCategory }: ProductGridProps) {
               <div className="relative aspect-square overflow-hidden rounded-lg bg-transparent mx-auto w-full">
                 <Image src={p.image} alt={p.name} fill className="object-cover" />
               </div>
-              <h3 className="text-[#4C050C] mt-3 text-lg font-medium flex-1">{p.name}</h3>
+              <div className="flex flex-col flex-1 mt-3">
+                <h3 className="text-[#4C050C] text-lg font-medium">{p.name}</h3>
+                <p className="text-[#4C050C] font-bold mt-1">{p.price}</p>
+              </div>
             </button>
             <Button
               onClick={() => addToCart(p)}

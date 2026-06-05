@@ -5,25 +5,37 @@ import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 
 export async function submitResetPassword(formData: FormData) {
-  const username = formData.get("username") as string;
-  const email = formData.get("email") as string;
+  const username = (formData.get("username") as string)?.trim();
+  const email = (formData.get("email") as string)?.trim();
 
   if (!username || !email) {
     return { error: "아이디와 이메일을 모두 입력해주세요." };
   }
+  
+  console.log("Reset Password Action triggered:", { username, email, supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL });
 
   try {
     // 1. Verify user exists and matches email
-    const { data: user, error: fetchError } = await supabase
+    const { createClient } = require('@supabase/supabase-js');
+    const localSupabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const { data: user, error: fetchError } = await localSupabase
       .from("b2b_signups")
       .select("id, name, email")
       .eq("username", username)
       .eq("email", email)
       .maybeSingle();
 
-    if (fetchError || !user) {
-      // For security, it's sometimes better to not reveal if user exists, but here we provide clear UX
-      return { error: "입력하신 정보와 일치하는 계정을 찾을 수 없습니다." };
+    if (fetchError) {
+      console.error("Fetch Error in reset-password:", fetchError);
+      return { error: "DB 에러: " + fetchError.message };
+    }
+    
+    if (!user) {
+      return { error: `계정 정보 불일치. (입력된 아이디: '${username}', 이메일: '${email}')` };
     }
 
     // 2. Generate a temporary password (e.g., 8 random alphanumeric characters)
@@ -31,7 +43,7 @@ export async function submitResetPassword(formData: FormData) {
     const hashedTempPassword = await bcrypt.hash(tempPassword, 10);
 
     // 3. Update the password in database
-    const { error: updateError } = await supabase
+    const { error: updateError } = await localSupabase
       .from("b2b_signups")
       .update({ password: hashedTempPassword })
       .eq("id", user.id);
