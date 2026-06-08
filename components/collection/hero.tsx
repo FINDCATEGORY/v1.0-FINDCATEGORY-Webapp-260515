@@ -11,7 +11,7 @@ export default function Hero() {
     const handleScroll = () => {
       const scrolled = window.scrollY
       // 스크롤 범위를 늘려 영상이 머무는 시간을 길게 조정
-      const maxScroll = 1200 
+      const maxScroll = 1200
       const progress = Math.min(scrolled / maxScroll, 1)
       setScrollProgress(progress)
     }
@@ -24,14 +24,14 @@ export default function Hero() {
   const borderRadius = scrollProgress * 24
 
   return (
-    <section id="home" className="pt-28 pb-16">
+    <section id="home" className="pt-50 pb-16">
       <div className="px-6 mx-auto max-w-7xl flex flex-col items-center text-center">
         <div className="max-w-3xl">
           <h1 className="leading-tight text-[#4C050C] font-semibold tracking-tight text-5xl">
             파인드카테고리Ⓡ 스타일링 제안
           </h1>
           <p className="mt-6 text-foreground/70">
-            Styling by OgongI
+            Styling by O0i
           </p>
           <Link
             href="#"
@@ -54,7 +54,7 @@ export default function Hero() {
             }}
           >
             <video
-              src="/images/project1.mp4"
+              src="/images/collection1.mp4"
               className="w-full h-auto object-cover"
               autoPlay
               loop
@@ -66,8 +66,8 @@ export default function Hero() {
       </div>
 
 
-  
-     
+
+
     </section>
   )
 }

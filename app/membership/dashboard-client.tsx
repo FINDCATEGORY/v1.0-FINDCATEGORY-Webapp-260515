@@ -11,13 +11,13 @@ import { withdrawAction } from "@/app/actions/withdraw";
 import { addPoints } from "@/app/actions/points";
 import { startRegistration } from "@simplewebauthn/browser";
 
-export default function MembershipPage({ 
-  username = "회원", 
+export default function MembershipPage({
+  username = "회원",
   email = "",
   grade = "SOCIAL",
   points = 4592
-}: { 
-  username?: string, 
+}: {
+  username?: string,
   email?: string,
   grade?: "SOCIAL" | "EDITION" | "PRESTIGE",
   points?: number
@@ -30,7 +30,7 @@ export default function MembershipPage({
   const [inquiries, setInquiries] = useState<{ id: string, text: string, date: string }[]>([]);
   const [isSending, setIsSending] = useState(false);
   const [currentPoints, setCurrentPoints] = useState(points);
-  
+
   // Modal states
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function MembershipPage({
       return;
     }
     setIsProcessingPayment(true);
-    
+
     try {
       const result = await addPoints(username, Number(chargeAmount));
       if (result.success && result.points !== undefined) {
@@ -116,11 +116,11 @@ export default function MembershipPage({
       alert("새로운 비밀번호를 입력해주세요.");
       return;
     }
-    
+
     setIsChangingPassword(true);
     const result = await changePasswordAction(username, newPassword);
     setIsChangingPassword(false);
-    
+
     if (result.success) {
       alert("비밀번호가 성공적으로 변경되었습니다.");
       setIsPasswordModalOpen(false);
@@ -134,7 +134,7 @@ export default function MembershipPage({
     setIsWithdrawing(true);
     const result = await withdrawAction(username);
     setIsWithdrawing(false);
-    
+
     if (result.success) {
       alert("회원탈퇴가 완료되었습니다. 이용해 주셔서 감사합니다.");
       router.refresh(); // This will redirect to login page because session is deleted
@@ -280,7 +280,7 @@ export default function MembershipPage({
     handleDownloadImage();
   };
 
-  const GRADE_INFO: Record<string, {title: string, description: string, bgColor: string, textColor: string, highlight: string}> = {
+  const GRADE_INFO: Record<string, { title: string, description: string, bgColor: string, textColor: string, highlight: string }> = {
     SOCIAL: {
       title: "SOCIAL",
       description: "파인드카테고리의 일반 멤버십입니다. 다양한 기본 혜택을 누려보세요.",
@@ -311,7 +311,7 @@ export default function MembershipPage({
       {/* Top Navbar */}
       <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 border-b border-[#4C050C]/10 bg-[#EBEBDF]/80 backdrop-blur-md">
         <Link href="/">
-          <span className="text-[#4C050C] font-bold tracking-tight text-xl font-sans">FINDCATEGORYⓇ</span>
+          <span className="text-[#4C050C] font-medium tracking-tight text-xl font-sans">FINDCATEGORYⓇ</span>
         </Link>
         <div className="flex items-center gap-4">
           <button onClick={handleLogout} className="text-sm font-medium text-[#4C050C]/60 hover:text-[#4C050C] transition-colors font-sans underline underline-offset-4">
@@ -340,7 +340,7 @@ export default function MembershipPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-4 sm:gap-6">
             {/* Hero Tile */}
-            <div 
+            <div
               onClick={() => setIsGradeModalOpen(true)}
               className={`md:col-span-2 lg:col-span-2 ${currentGrade.bgColor} ${currentGrade.textColor} rounded-[24px] p-8 relative overflow-hidden flex flex-col justify-end min-h-[380px] shadow-lg transition-transform hover:-translate-y-1 cursor-pointer group`}
             >
@@ -370,14 +370,14 @@ export default function MembershipPage({
               </div>
 
               <div className="space-y-3 mt-auto">
-                <button 
+                <button
                   onClick={() => setIsPasswordModalOpen(true)}
                   className="w-full text-left px-5 py-4 bg-[#4C050C]/5 hover:bg-[#4C050C]/10 text-[#4C050C] rounded-xl font-bold font-sans transition-colors flex items-center justify-between"
                 >
                   <span>비밀번호 변경</span>
                   <span className="text-[#4C050C]/40">→</span>
                 </button>
-                <button 
+                <button
                   onClick={handleRegisterPasskey}
                   disabled={isRegistering}
                   className="w-full text-left px-5 py-4 bg-[#4C050C]/5 hover:bg-[#4C050C]/10 text-[#4C050C] rounded-xl font-bold font-sans transition-colors flex items-center justify-between disabled:opacity-50"
@@ -385,7 +385,7 @@ export default function MembershipPage({
                   <span>{isRegistering ? "등록 중..." : "얼굴인식 / 패스키 등록"}</span>
                   <span className="text-[#4C050C]/40">→</span>
                 </button>
-                <button 
+                <button
                   onClick={() => setIsWithdrawModalOpen(true)}
                   className="w-full text-left px-5 py-4 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl font-bold font-sans transition-colors flex items-center justify-between mt-2"
                 >
@@ -408,7 +408,7 @@ export default function MembershipPage({
 
 
               <div className="mt-6 pt-6 border-t border-[#4C050C]/10">
-                <button 
+                <button
                   onClick={() => setIsChargeModalOpen(true)}
                   className="w-full py-3 bg-[#4C050C] hover:bg-[#4C050C]/90 text-white rounded-xl font-bold font-sans transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
@@ -567,7 +567,7 @@ export default function MembershipPage({
                 ✕
               </button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* SOCIAL */}
               <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col">
@@ -598,7 +598,7 @@ export default function MembershipPage({
                 <div className="text-amber-900 font-black text-3xl mb-4 font-sans tracking-tight">PRESTIGE</div>
                 <div className="text-sm text-gray-700 font-sans space-y-4 leading-relaxed flex-1">
                   <p className="font-medium text-amber-900">정기구독 신청 시 가입 가능한 최상위 멤버십입니다.</p>
-                  
+
                   <div className="bg-white p-5 rounded-xl border border-amber-200 shadow-sm">
                     <div className="font-black text-amber-900 mb-2 flex items-center gap-2">
                       특별 케어 서비스
@@ -606,7 +606,7 @@ export default function MembershipPage({
                     <p className="text-xs mb-4 text-gray-600">
                       일반 회원과 달리, '프레스티지 멤버십' 등급 회원에게는 B2B 구매대행의 리스크를 최소화할 수 있는 파인드카테고리만의 독점적인 서비스가 제공됩니다.
                     </p>
-                    
+
                     <div className="space-y-4">
                       <div className="bg-amber-50/50 p-3 rounded-lg">
                         <div className="font-bold text-sm text-amber-900 mb-1">① 핏인 (FIT-IN) 서비스</div>
@@ -616,7 +616,7 @@ export default function MembershipPage({
                           <li><span className="font-semibold text-gray-800">안내:</span> 기간 종료 후 구매 확정 또는 반납 선택 (반납 시 원형 유지 필수)</li>
                         </ul>
                       </div>
-                      
+
                       <div className="bg-amber-50/50 p-3 rounded-lg">
                         <div className="font-bold text-sm text-amber-900 mb-1">② 핏아웃 (FIT-OUT) 서비스</div>
                         <div className="text-xs font-medium text-amber-700 mb-2">유연한 교환 혜택</div>
@@ -640,7 +640,7 @@ export default function MembershipPage({
           <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl">
             <h3 className="text-2xl font-bold text-[#4C050C] mb-2 font-sans">포인트 충전</h3>
             <p className="text-[#4C050C]/70 mb-6 font-sans">충전하실 포인트 금액을 입력해주세요.</p>
-            
+
             <div className="mb-6">
               <div className="relative">
                 <input
@@ -654,7 +654,7 @@ export default function MembershipPage({
               </div>
               <div className="flex gap-2 mt-3">
                 {[10000, 50000, 100000].map(amount => (
-                  <button 
+                  <button
                     key={amount}
                     onClick={() => setChargeAmount(prev => (Number(prev) || 0) + amount)}
                     className="flex-1 py-2 bg-[#4C050C]/5 hover:bg-[#4C050C]/10 text-[#4C050C] rounded-lg text-sm font-bold font-sans transition-colors"

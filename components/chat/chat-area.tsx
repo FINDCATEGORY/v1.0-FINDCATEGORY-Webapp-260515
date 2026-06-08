@@ -116,11 +116,11 @@ export function ChatArea() {
                 {[
                   {
                     main: "회원가입",
-                    sub: ["아이디 찾기", "비밀번호 찾기"]
+                    sub: ["회원가입 접수신청", "회원탈퇴 신청", "비밀번호 찾기"]
                   },
                   {
                     main: "멤버십",
-                    sub: ["멤버십 변경", "멤버십 안내"]
+                    sub: ["멤버십 가입 및 변경", "멤버십 안내"]
                   },
                   {
                     main: "비즈니스",
@@ -128,16 +128,16 @@ export function ChatArea() {
                   }
                 ].map((menu, idx) => (
                   <div key={idx} className="flex flex-col items-center gap-3">
-                    <Button 
-                      onClick={() => executeSend(menu.main)} 
+                    <Button
+                      onClick={() => executeSend(menu.main)}
                       className="w-full h-auto py-4 px-5 rounded-md bg-[#4C050C]/5 border border-[#4C050C]/20 hover:bg-[#4C050C]/10 text-[#4C050C] text-base font-medium"
                     >
                       {menu.main}
                     </Button>
                     <div className="flex flex-col items-center gap-2 mt-1">
                       {menu.sub.map((subText, subIdx) => (
-                        <button 
-                          key={subIdx} 
+                        <button
+                          key={subIdx}
                           onClick={() => executeSend(subText)}
                           className="text-sm text-[#4C050C]/70 hover:text-[#4C050C] transition-colors"
                         >

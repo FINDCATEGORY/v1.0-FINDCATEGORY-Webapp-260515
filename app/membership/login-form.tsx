@@ -34,7 +34,7 @@ export default function LoginForm() {
 
       const resp = await fetch("/api/webauthn/authenticate");
       if (!resp.ok) throw new Error("Failed to get authentication options");
-      
+
       const options = await resp.json();
 
       let asseResp;
@@ -57,7 +57,7 @@ export default function LoginForm() {
       });
 
       const verificationResult = await verificationResp.json();
-      
+
       if (verificationResult && verificationResult.verified) {
         router.refresh();
       } else {
@@ -77,7 +77,7 @@ export default function LoginForm() {
 
         <div className="flex flex-col items-center text-center mb-8">
           <h1 className="text-2xl font-bold text-[#4C050C] tracking-tight">멤버십 라운지</h1>
-          <p className="text-sm text-[#4C050C]/60 mt-2">고객님만을 위한 특별한 리포트를 확인하세요.</p>
+          <p className="text-sm text-[#4C050C]/60 mt-2">라운지에 입장하시려면 Talk to AI 를 통해 접수해주세요.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

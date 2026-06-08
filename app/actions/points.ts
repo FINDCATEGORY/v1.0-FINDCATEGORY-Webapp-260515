@@ -113,3 +113,22 @@ export async function deductPoints(username: string, amount: number) {
     return { error: "서버 오류가 발생했습니다." };
   }
 }
+
+export async function getTotalPointsAllUsers() {
+  try {
+    const { data, error } = await supabase
+      .from("b2b_signups")
+      .select("points");
+
+    if (error) {
+      console.error("Error fetching total points:", error);
+      return { totalPoints: 0 };
+    }
+
+    const totalPoints = data.reduce((sum, user) => sum + (user.points || 0), 0);
+    return { totalPoints };
+  } catch (error) {
+    console.error("getTotalPointsAllUsers error:", error);
+    return { totalPoints: 0 };
+  }
+}

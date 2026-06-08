@@ -72,16 +72,16 @@ export function EditorialSection() {
             WebkitBackfaceVisibility: 'hidden',
             willChange: 'transform',
           }}
-          src="/images/project2.mp4"
+          src="/images/collection2.mp4"
         />
       </div>
 
       {/* Specs Grid */}
-      <div className="grid grid-cols-2 border-t border-border md:grid-cols-4">
+      <div className="grid grid-cols-2 border-t border-[#4C050C] md:grid-cols-4">
         {specs.map((spec) => (
           <div
             key={spec.label}
-            className="border-b border-r border-border p-8 text-center last:border-r-0 md:border-b-0"
+            className="border-b border-r border-[#4C050C] p-8 text-center last:border-r-0 md:border-b-0"
           >
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#4C050C]">
               {spec.label}

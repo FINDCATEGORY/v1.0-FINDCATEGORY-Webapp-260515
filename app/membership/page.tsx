@@ -3,6 +3,8 @@ import LoginForm from "./login-form"
 import MembershipDashboard from "./dashboard-client"
 import { supabase } from "@/lib/supabase"
 
+import { redirect } from "next/navigation"
+
 export default async function MembershipPage() {
   const cookieStore = await cookies()
   const sessionCookie = cookieStore.get("membership_session")
@@ -20,7 +22,7 @@ export default async function MembershipPage() {
     const session = JSON.parse(Buffer.from(sessionCookie.value, 'base64').toString());
     username = session.username || "회원";
     
-    if (username !== "회원") {
+    if (username !== "회원" && username !== "findcategoryadmin") {
       const { data } = await supabase.from("b2b_signups").select("email, points").eq("username", username).single();
       if (data) {
         if (data.email) email = data.email;
@@ -31,5 +33,9 @@ export default async function MembershipPage() {
     username = "회원";
   }
 
+  // 특정 관리자 아이디 로그인 시 관리자 페이지로 리다이렉트
+  if (username === "findcategoryadmin") {
+    redirect("/membership/admin");
+  }
   return <MembershipDashboard username={username} email={email} points={points} />
 }

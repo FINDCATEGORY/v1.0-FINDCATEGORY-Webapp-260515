@@ -1,12 +1,12 @@
 import { Header } from "@/components/header";
-import Hero from "@/components/project/hero"
-import About from "@/components/project/About"
+import Hero from "@/components/collection/hero"
+import About from "@/components/collection/About"
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import LatestArticles from "@/components/project/latest-articles"
+import LatestArticles from "@/components/collection/latest-articles"
 import { FooterSection } from "@/components/sections/footer-section";
 
-export default function ProjectPage() {
+export default function CollectionPage() {
   return (
     <main className="min-h-screen bg-background">
       <Header />

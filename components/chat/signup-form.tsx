@@ -1,19 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, CheckCircle2, Eye, EyeOff } from "lucide-react";
-import { submitSignup } from "@/app/actions/signup";
+import { submitSignup, checkUsername } from "@/app/actions/signup";
 
 export function SignupForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [username, setUsername] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState<"idle" | "checking" | "available" | "duplicate" | "error">("idle");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  useEffect(() => {
+    if (!username.trim()) {
+      setUsernameStatus("idle");
+      return;
+    }
+
+    setUsernameStatus("checking");
+    const handler = setTimeout(async () => {
+      const res = await checkUsername(username.trim());
+      if (res.error) {
+        setUsernameStatus("error");
+      } else if (res.isDuplicate) {
+        setUsernameStatus("duplicate");
+      } else {
+        setUsernameStatus("available");
+      }
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(handler);
+  }, [username]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +50,12 @@ export function SignupForm() {
 
     if (password !== confirmPassword) {
       setErrorMsg("비밀번호가 일치하지 않습니다.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (usernameStatus === "duplicate") {
+      setErrorMsg("이미 사용 중인 아이디입니다. 다른 아이디를 입력해주세요.");
       setIsSubmitting(false);
       return;
     }
@@ -73,7 +103,19 @@ export function SignupForm() {
           
           <div className="space-y-2">
             <Label htmlFor="username" className="text-[#4C050C]">아이디 <span className="text-red-500">*</span></Label>
-            <Input id="username" name="username" required placeholder="아이디" className="border-[#4C050C]/20 focus-visible:ring-[#4C050C]/30 text-[#4C050C]" />
+            <Input 
+              id="username" 
+              name="username" 
+              required 
+              placeholder="아이디" 
+              className={`border-[#4C050C]/20 focus-visible:ring-[#4C050C]/30 text-[#4C050C] ${usernameStatus === 'duplicate' ? 'border-red-500 focus-visible:ring-red-500/30' : ''}`}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            {usernameStatus === "checking" && <p className="text-xs text-[#4C050C]/60">중복 확인 중...</p>}
+            {usernameStatus === "available" && <p className="text-xs text-green-600">사용 가능한 아이디입니다.</p>}
+            {usernameStatus === "duplicate" && <p className="text-xs text-red-500">이미 사용 중인 아이디입니다.</p>}
+            {usernameStatus === "error" && <p className="text-xs text-red-500">중복 확인 중 오류가 발생했습니다.</p>}
           </div>
 
           <div className="space-y-2">

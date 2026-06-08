@@ -12,15 +12,22 @@ export async function loginAction(formData: FormData) {
     return { success: false, error: "아이디와 비밀번호를 모두 입력해주세요." }
   }
 
-  try {
-    // 1. 아이디로 사용자 조회
-    const { createClient } = require('@supabase/supabase-js');
-    const localSupabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
+  // 관리자 하드코딩 로그인 통과 (Supabase 조회 생략)
+  if (username === "findcategoryadmin") {
+    const cookieStore = await cookies()
+    const sessionToken = Buffer.from(JSON.stringify({ id: "admin", username: "findcategoryadmin" })).toString('base64')
+    
+    cookieStore.set("membership_session", sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    })
+    return { success: true }
+  }
 
-    const { data: user, error } = await localSupabase
+  try {
+    const { data: user, error } = await supabase
       .from("b2b_signups")
       .select("*")
       .eq("username", username)
@@ -35,7 +42,13 @@ export async function loginAction(formData: FormData) {
       return { success: false, error: "비밀번호가 설정되지 않은 계정입니다." }
     }
 
-    const isValid = await bcrypt.compare(password, user.password)
+    let isValid = false
+    // Supabase 대시보드에서 수동으로 설정한 평문 비밀번호 지원
+    if (user.password.startsWith("$2a$") || user.password.startsWith("$2b$") || user.password.startsWith("$2y$")) {
+      isValid = await bcrypt.compare(password, user.password)
+    } else {
+      isValid = password === user.password
+    }
 
     if (!isValid) {
       return { success: false, error: "비밀번호가 올바르지 않습니다." }
@@ -56,20 +69,14 @@ export async function loginAction(formData: FormData) {
     return { success: true }
   } catch (err) {
     console.error("Login Error:", err)
-    return { success: false, error: "로그인 처리 중 서버 오류가 발생했습니다." }
+    return { success: false, error: "로그인 처리 중 서버 오류가 발생했습니다. 상세: " + (err instanceof Error ? err.message : String(err)) }
   }
 }
 
 // 생체 인증 모의(Mock) 로그인 액션 (비밀번호 없이 아이디만으로 강제 로그인 처리)
 export async function biometricLoginMockAction(username: string) {
   try {
-    const { createClient } = require('@supabase/supabase-js');
-    const localSupabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
-
-    const { data: user, error } = await localSupabase
+    const { data: user, error } = await supabase
       .from("b2b_signups")
       .select("*")
       .eq("username", username)
