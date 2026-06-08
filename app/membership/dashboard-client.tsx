@@ -35,7 +35,9 @@ export default function MembershipPage({
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
   const [isGradeModalOpen, setIsGradeModalOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
   const [isChargeModalOpen, setIsChargeModalOpen] = useState(false);
@@ -112,19 +114,25 @@ export default function MembershipPage({
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPassword.trim()) {
-      alert("새로운 비밀번호를 입력해주세요.");
+    if (!currentPassword.trim() || !newPassword.trim() || !confirmPassword.trim()) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      alert("새로운 비밀번호가 일치하지 않습니다.");
       return;
     }
 
     setIsChangingPassword(true);
-    const result = await changePasswordAction(username, newPassword);
+    const result = await changePasswordAction(username, currentPassword, newPassword);
     setIsChangingPassword(false);
 
     if (result.success) {
       alert("비밀번호가 성공적으로 변경되었습니다.");
       setIsPasswordModalOpen(false);
+      setCurrentPassword("");
       setNewPassword("");
+      setConfirmPassword("");
     } else {
       alert(result.error || "비밀번호 변경 중 오류가 발생했습니다.");
     }
@@ -504,15 +512,29 @@ export default function MembershipPage({
             <form onSubmit={handleChangePassword}>
               <input
                 type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="현재 비밀번호"
+                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-3 font-sans"
+              />
+              <input
+                type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="새 비밀번호 입력"
+                placeholder="새로운 비밀번호"
+                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-3 font-sans"
+              />
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="비밀번호 확인"
                 className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-6 font-sans"
               />
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => { setIsPasswordModalOpen(false); setNewPassword(""); }}
+                  onClick={() => { setIsPasswordModalOpen(false); setCurrentPassword(""); setNewPassword(""); setConfirmPassword(""); }}
                   className="flex-1 py-3 rounded-xl font-bold text-[#4C050C] bg-[#EBEBDF] hover:bg-[#EBEBDF]/80 transition-colors font-sans"
                 >
                   취소
