@@ -14,15 +14,16 @@ export default async function MembershipPage() {
     return <LoginForm />
   }
 
-  // 세션 쿠키가 있으면 (유효하다고 가정) 멤버십 대시보드 렌더링
   let username = "";
   let email = "";
   let points = 0;
+  let tier = "user";
   try {
     const session = JSON.parse(Buffer.from(sessionCookie.value, 'base64').toString());
     username = session.username || "회원";
+    tier = session.tier || "user";
     
-    if (username !== "회원" && username !== "findcategoryadmin") {
+    if (username !== "회원" && username !== "findcategoryadmin" && username !== "admin") {
       const { data } = await supabase.from("b2b_signups").select("email, points").eq("username", username).single();
       if (data) {
         if (data.email) email = data.email;
@@ -33,9 +34,9 @@ export default async function MembershipPage() {
     username = "회원";
   }
 
-  // 특정 관리자 아이디 로그인 시 관리자 페이지로 리다이렉트
-  if (username === "findcategoryadmin") {
+  // 관리자 등급 로그인 시 관리자 페이지로 리다이렉트
+  if (tier === "admin" || username === "findcategoryadmin" || username === "admin") {
     redirect("/membership/admin");
   }
-  return <MembershipDashboard username={username} email={email} points={points} />
+  return <MembershipDashboard username={username} email={email} points={points} grade={tier.toUpperCase() as any} />
 }

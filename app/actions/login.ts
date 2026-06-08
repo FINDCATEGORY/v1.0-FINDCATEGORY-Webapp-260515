@@ -12,10 +12,9 @@ export async function loginAction(formData: FormData) {
     return { success: false, error: "아이디와 비밀번호를 모두 입력해주세요." }
   }
 
-  // 관리자 하드코딩 로그인 통과 (Supabase 조회 생략)
   if (username === "findcategoryadmin" || username === "admin") {
     const cookieStore = await cookies()
-    const sessionToken = Buffer.from(JSON.stringify({ id: "admin", username: "admin" })).toString('base64')
+    const sessionToken = Buffer.from(JSON.stringify({ id: "admin", username: "admin", tier: "admin" })).toString('base64')
     
     cookieStore.set("membership_session", sessionToken, {
       httpOnly: true,
@@ -56,8 +55,8 @@ export async function loginAction(formData: FormData) {
 
     // 3. 쿠키에 세션 토큰 저장 (단순화된 방식: 실제 상용 환경에서는 JWT 권장)
     const cookieStore = await cookies()
-    // 임의의 세션 토큰 형태로 저장 (유저 아이디 포함)
-    const sessionToken = Buffer.from(JSON.stringify({ id: user.id, username: user.username })).toString('base64')
+    // 임의의 세션 토큰 형태로 저장 (유저 아이디와 등급 포함)
+    const sessionToken = Buffer.from(JSON.stringify({ id: user.id, username: user.username, tier: user.tier || 'user' })).toString('base64')
     
     cookieStore.set("membership_session", sessionToken, {
       httpOnly: true,
@@ -87,7 +86,7 @@ export async function biometricLoginMockAction(username: string) {
     }
 
     const cookieStore = await cookies()
-    const sessionToken = Buffer.from(JSON.stringify({ id: user.id, username: user.username })).toString('base64')
+    const sessionToken = Buffer.from(JSON.stringify({ id: user.id, username: user.username, tier: user.tier || 'user' })).toString('base64')
     
     cookieStore.set("membership_session", sessionToken, {
       httpOnly: true,
