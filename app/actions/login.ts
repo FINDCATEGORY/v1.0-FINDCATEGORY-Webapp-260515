@@ -13,9 +13,9 @@ export async function loginAction(formData: FormData) {
   }
 
   // 관리자 하드코딩 로그인 통과 (Supabase 조회 생략)
-  if (username === "findcategoryadmin") {
+  if (username === "findcategoryadmin" || username === "admin") {
     const cookieStore = await cookies()
-    const sessionToken = Buffer.from(JSON.stringify({ id: "admin", username: "findcategoryadmin" })).toString('base64')
+    const sessionToken = Buffer.from(JSON.stringify({ id: "admin", username: "admin" })).toString('base64')
     
     cookieStore.set("membership_session", sessionToken, {
       httpOnly: true,
