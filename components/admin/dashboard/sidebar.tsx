@@ -17,10 +17,7 @@ import {
   Building2,
   TrendingUp,
   Settings,
-  LogOut,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { logoutAction } from "@/app/actions/login";
 
 interface SidebarProps {
   activeSection: Section;
@@ -46,13 +43,6 @@ export function Sidebar({
   collapsed,
   onCollapsedChange,
 }: SidebarProps) {
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await logoutAction();
-    router.refresh();
-  };
-
   return (
     <aside
       className={cn(
@@ -60,21 +50,21 @@ export function Sidebar({
         collapsed ? "w-[72px]" : "w-[260px]"
       )}
     >
-      {/* Logout Button */}
+      {/* Logo */}
       <div className="h-16 flex items-center px-4 border-b border-sidebar-border">
-        <button onClick={handleLogout} className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity">
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-[#4C050C]">
-            <LogOut className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-primary">
+            <CircleDollarSign className="w-5 h-5 text-primary-foreground" />
           </div>
           <span
             className={cn(
-              "font-semibold text-lg text-sidebar-foreground whitespace-nowrap transition-all duration-300 text-left",
+              "font-semibold text-lg text-sidebar-foreground whitespace-nowrap transition-all duration-300",
               collapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
             )}
           >
-            로그아웃
+            관리자 시스템
           </span>
-        </button>
+        </div>
       </div>
 
       {/* Navigation */}

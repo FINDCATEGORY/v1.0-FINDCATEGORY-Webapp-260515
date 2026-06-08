@@ -2,8 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import type { Section } from "@/app/membership/admin/page";
-import { Bell, Search, Calendar } from "lucide-react";
+import { Bell, Search, Calendar, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { logoutAction } from "@/app/actions/login";
 
 interface HeaderProps {
   activeSection: Section;
@@ -22,6 +24,12 @@ const sectionTitles: Record<Section, string> = {
 
 export function Header({ activeSection }: HeaderProps) {
   const [searchFocused, setSearchFocused] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logoutAction();
+    router.push("/membership");
+  };
 
   return (
     <header className="h-16 border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-30 flex items-center justify-between px-6">
@@ -59,11 +67,13 @@ export function Header({ activeSection }: HeaderProps) {
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full animate-pulse" />
         </button>
 
-        {/* User avatar */}
-        <button className="w-9 h-9 rounded-lg overflow-hidden bg-secondary ring-2 ring-transparent hover:ring-accent/50 transition-all duration-200">
-          <div className="w-full h-full bg-gradient-to-br from-accent/80 to-chart-1 flex items-center justify-center text-xs font-semibold text-accent-foreground">
-            JD
-          </div>
+        {/* Logout button */}
+        <button 
+          onClick={handleLogout}
+          title="로그아웃"
+          className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+        >
+          <LogOut className="w-5 h-5" />
         </button>
       </div>
     </header>
