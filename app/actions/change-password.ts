@@ -43,3 +43,21 @@ export async function changePasswordAction(username: string, currentPassword: st
     return { success: false, error: "서버 오류가 발생했습니다." };
   }
 }
+
+export async function checkCurrentPasswordAction(username: string, currentPassword: string) {
+  if (!username || !currentPassword) return { isMatch: false };
+  try {
+    const { data: user, error: fetchError } = await supabase
+      .from("b2b_signups")
+      .select("password")
+      .eq("username", username)
+      .single();
+
+    if (fetchError || !user) return { isMatch: false };
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    return { isMatch };
+  } catch (err) {
+    return { isMatch: false };
+  }
+}

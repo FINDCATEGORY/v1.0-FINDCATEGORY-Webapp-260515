@@ -6,7 +6,7 @@ import { ArrowUpToLine, Share2, ShoppingBag, Clock, KeyRound, Mail } from "lucid
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logoutAction } from "@/app/actions/login";
-import { changePasswordAction } from "@/app/actions/change-password";
+import { changePasswordAction, checkCurrentPasswordAction } from "@/app/actions/change-password";
 import { withdrawAction } from "@/app/actions/withdraw";
 import { addPoints } from "@/app/actions/points";
 import { startRegistration } from "@simplewebauthn/browser";
@@ -36,6 +36,7 @@ export default function MembershipPage({
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
   const [isGradeModalOpen, setIsGradeModalOpen] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
+  const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState<boolean | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -191,6 +192,18 @@ export default function MembershipPage({
       setIsRegistering(false);
     }
   };
+
+  useEffect(() => {
+    if (!currentPassword) {
+      setIsCurrentPasswordValid(null);
+      return;
+    }
+    const timeoutId = setTimeout(async () => {
+      const result = await checkCurrentPasswordAction(username, currentPassword);
+      setIsCurrentPasswordValid(result.isMatch);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [currentPassword, username]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -515,8 +528,15 @@ export default function MembershipPage({
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="현재 비밀번호"
-                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-3 font-sans"
+                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-2 font-sans"
               />
+              {currentPassword.length > 0 && isCurrentPasswordValid === false && (
+                <p className="text-sm text-red-500 font-medium mb-4 ml-1 font-sans">현재 비밀번호가 일치하지 않습니다.</p>
+              )}
+              {currentPassword.length > 0 && isCurrentPasswordValid === true && (
+                <p className="text-sm text-green-600 font-medium mb-4 ml-1 font-sans">현재 비밀번호가 일치합니다.</p>
+              )}
+              {!currentPassword && <div className="mb-6"></div>}
               <input
                 type="password"
                 value={newPassword}
