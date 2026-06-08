@@ -291,7 +291,7 @@ export default function MembershipPage({
   const GRADE_INFO: Record<string, { title: string, description: string, bgColor: string, textColor: string, highlight: string }> = {
     SOCIAL: {
       title: "SOCIAL",
-      description: "파인드카테고리의 일반 멤버십입니다. 다양한 기본 혜택을 누려보세요.",
+      description: "파인드카테고리의 멤버십 안내",
       bgColor: "bg-[#4C050C]",
       textColor: "text-white",
       highlight: "text-white/80"
@@ -529,8 +529,15 @@ export default function MembershipPage({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="비밀번호 확인"
-                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-6 font-sans"
+                className="w-full px-4 py-3 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/50 focus:outline-none focus:ring-2 focus:ring-[#4C050C] mb-2 font-sans"
               />
+              {confirmPassword.length > 0 && newPassword !== confirmPassword && (
+                <p className="text-sm text-red-500 font-medium mb-4 ml-1 font-sans">새로운 비밀번호가 일치하지 않습니다.</p>
+              )}
+              {confirmPassword.length > 0 && newPassword === confirmPassword && (
+                <p className="text-sm text-green-600 font-medium mb-4 ml-1 font-sans">새로운 비밀번호가 일치합니다.</p>
+              )}
+              {!confirmPassword && <div className="mb-6"></div>}
               <div className="flex gap-3">
                 <button
                   type="button"
