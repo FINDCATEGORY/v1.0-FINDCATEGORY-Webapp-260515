@@ -14,7 +14,7 @@ import {
 const footerLinks = {
   explore: [
     { label: "제품과소식", href: "#category" },
-    { label: "콜렉션", href: "/collection" },
+    { label: "협업", href: "/collection" },
   ],
   about: [
     { label: "", href: "#" },
