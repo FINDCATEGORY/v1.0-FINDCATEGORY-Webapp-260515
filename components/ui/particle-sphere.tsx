@@ -35,8 +35,6 @@ export function ParticleSphere() {
         "/images/collection/goldenhour/goldenhour4.jpg",
         "/images/collection/goldenhour/goldenhour4.jpg",
         "/images/collection/goldenhour/goldenhour4.jpg",
-
-
     ])
 
     useMemo(() => {

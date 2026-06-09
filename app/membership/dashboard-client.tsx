@@ -2,7 +2,7 @@
 
 import html2canvas from "html2canvas";
 import { useRef, useState, useEffect } from "react";
-import { ArrowUpToLine, Share2, ShoppingBag, Clock, KeyRound, Mail } from "lucide-react";
+import { ArrowUpToLine, Share2, ShoppingBag, Clock, KeyRound, Mail, Bot } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logoutAction } from "@/app/actions/login";
@@ -439,7 +439,7 @@ export default function MembershipPage({
             </div>
 
             {/* 1:1 Inquiry Tile */}
-            <div className="md:col-span-2 lg:col-span-2 bg-white rounded-[24px] p-8 border border-[#4C050C]/10 shadow-sm transition-transform hover:-translate-y-1 flex flex-col justify-between">
+            <div className="md:col-span-1 lg:col-span-1 bg-white rounded-[24px] p-8 border border-[#4C050C]/10 shadow-sm transition-transform hover:-translate-y-1 flex flex-col justify-between">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-[#4C050C]/5 rounded-full flex items-center justify-center">
@@ -470,6 +470,38 @@ export default function MembershipPage({
                   className="bg-[#4C050C] text-white px-6 py-4 rounded-xl font-bold w-full hover:bg-[#4C050C]/90 transition-colors shadow-md text-lg disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSending ? "전송 중..." : "문의 등록하기"}
+                </button>
+              </div>
+            </div>
+
+            {/* Talk to AI Tile */}
+            <div className="md:col-span-2 lg:col-span-1 bg-[#4C050C] rounded-[24px] p-8 border border-[#4C050C]/10 shadow-sm transition-transform hover:-translate-y-1 flex flex-col justify-between">
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                    <Bot className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white font-sans">
+                      Talk to AI
+                    </h3>
+                    <span className="text-sm text-white/60 font-medium font-sans">AI 어시스턴트</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex-1 flex flex-col justify-center">
+                <p className="text-white/80 font-medium font-sans text-sm sm:text-base">
+                  AI 어시스턴트가 실시간으로 답변해 드립니다.
+                </p>
+              </div>
+
+              <div className="mt-4">
+                <button
+                  onClick={() => router.push('/chat')}
+                  className="bg-white text-[#4C050C] px-6 py-4 rounded-xl font-bold w-full hover:bg-white/90 transition-colors shadow-md text-lg"
+                >
+                  AI 상담 시작하기
                 </button>
               </div>
             </div>
