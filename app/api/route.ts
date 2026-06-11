@@ -11,9 +11,9 @@ const executeSend = async (textToSend: string) => {
     let fullText = "파인드카테고리 서비스에 문의해 주셔서 감사합니다. 현재 서비스 준비 중입니다.";
 
     if (textToSend === "회원가입 절차") {
-      fullText = "파인드카테고리는 B2B 스토어 입니다.\n회원 가입을 위해 다음 내용을 입력해 주세요.\n[SHOW_SIGNUP_FORM]";
+      fullText = "파인드카테고리는 라이프스타일 큐레이션 스토어 입니다.\n회원 가입을 위해 다음 내용을 입력해 주세요.\n[SHOW_SIGNUP_FORM]";
     } else if (textToSend === "파인드카테고리 소개") {
-      fullText = "파인드카테고리는 최적의 비즈니스 자재 공급을 지향하는 B2B 플랫폼입니다.";
+      fullText = "파인드카테고리는 라이프스타일 큐레이션 스토어입니다.";
     }
 
     setMessages((prev) => [...prev, { role: 'ai', content: '' }])

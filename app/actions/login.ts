@@ -33,7 +33,8 @@ export async function loginAction(formData: FormData) {
       .single()
 
     if (error || !user) {
-      return { success: false, error: "일치하는 회원 정보가 없습니다." }
+      console.log("Supabase error:", error);
+      return { success: false, error: `일치하는 회원 정보가 없습니다. (디버그: ${error?.message || '유저 없음'})` }
     }
 
     // 2. 비밀번호 검증

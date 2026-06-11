@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import type * as THREE from "three"
 
-function DottedSphere({ radius = 1.2, dotCount = 800, dotSize = 0.035 }) {
+function DottedSphere({ radius = 1.2, dotCount = 50, dotSize = 0.025 }) {
   const groupRef = useRef<THREE.Group>(null)
 
   const dots = useMemo(() => {
@@ -36,11 +36,13 @@ function DottedSphere({ radius = 1.2, dotCount = 800, dotSize = 0.035 }) {
         <mesh key={i} position={pos}>
           <sphereGeometry args={[dotSize, 8, 8]} />
           <meshStandardMaterial
-            color="#ffffff"
-            emissive="#ffffff"
-            emissiveIntensity={0.8}
-            metalness={0.9}
-            roughness={0.1}
+            color="#4C050C"
+            emissive="#4C050C"
+            emissiveIntensity={1.2}
+            metalness={0.7}
+            roughness={0.2}
+            transparent={false}
+            opacity={1}
           />
         </mesh>
       ))}
@@ -48,23 +50,7 @@ function DottedSphere({ radius = 1.2, dotCount = 800, dotSize = 0.035 }) {
   )
 }
 
-function GlowingCore() {
-  const meshRef = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 1.5) * 0.02
-      meshRef.current.scale.set(scale, scale, scale)
-    }
-  })
-
-  return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[0.15, 32, 32]} />
-      <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={2} metalness={0.5} roughness={0.1} />
-    </mesh>
-  )
-}
+// Core removed
 
 function Scene() {
   return (
@@ -74,20 +60,25 @@ function Scene() {
       <pointLight position={[-5, -5, -5]} intensity={1} color="#cccccc" />
       <pointLight position={[0, 0, 5]} intensity={1.5} color="#ffffff" />
 
-      <GlowingCore />
-      <DottedSphere radius={1.2} dotCount={800} dotSize={0.035} />
+      <DottedSphere radius={1.2} dotCount={200} dotSize={0.025} />
     </>
   )
 }
 
 export function ParticleOrb() {
   return (
-    <div className="w-48 h-48 relative">
+    <div className="w-48 h-48 relative flex items-center justify-center">
       {/* Outer glow effect */}
-      <div className="absolute inset-[-30%] bg-gradient-radial from-white/20 via-white/5 to-transparent rounded-full blur-3xl" />
+      <div className="absolute inset-[-30%] bg-gradient-radial from-[#4C050C]/20 via-[#4C050C]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      
+      {/* Center Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+        <span className="text-[#4C050C] font-bold text-xl font-sans tracking-wide">Talk to AI</span>
+      </div>
+
       <Canvas
         camera={{ position: [0, 0, 4], fov: 45 }}
-        style={{ background: "transparent" }}
+        style={{ background: "transparent", position: "absolute", inset: 0 }}
         gl={{ alpha: true, antialias: true }}
       >
         <Scene />

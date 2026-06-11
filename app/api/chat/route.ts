@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { SYSTEM_PROMPT, getContents } from "@/lib/prompt";
 
 export async function POST(req: Request) {
@@ -10,18 +10,18 @@ export async function POST(req: Request) {
     }
 
     const { message } = await req.json();
-    const ai = new GoogleGenAI({ apiKey });
-
-    await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-      },
-      contents: getContents(message),
+    const genAI = new GoogleGenerativeAI(apiKey);
+    
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction: SYSTEM_PROMPT,
     });
 
-    // ⭐️ 앞글자가 잘리지 않도록 "현재"를 정확히 입력하고 reply 키로 반환합니다.
-    return Response.json({ reply: "현재 고객님께 응대하기 위해 파인드카테고리의 정보를 학습하고 있어요." });
+    const result = await model.generateContent(getContents(message));
+    const response = await result.response;
+    const text = response.text();
+
+    return Response.json({ reply: text });
     
   } catch (error: any) {
     console.error("서버 에러 상세:", error);

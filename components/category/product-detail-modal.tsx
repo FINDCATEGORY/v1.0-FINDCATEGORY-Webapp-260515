@@ -89,6 +89,7 @@ export function ProductDetailModal({ product }: ProductDetailModalProps) {
         <div className="space-y-6">
           <div>
             <h2 className="text-3xl font-bold text-[#4C050C] mb-2">{product.name}</h2>
+            <p className="text-2xl font-bold text-[#4C050C] mt-2">{product.price}</p>
           </div>
 
           <p className="text-[#4C050C]/80 leading-relaxed">{product.description}</p>

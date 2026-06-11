@@ -6,7 +6,7 @@ import { CartSidebar } from "@/components/detail/ui/cart-sidebar" // 추가
 
 export const metadata: Metadata = {
   title: "FINDCATEGORY",
-  description: "FINDCATEGORY - 시나리오 라이프스타일 스토어",
+  description: "FINDCATEGORY - 라이프스타일 큐레이션 스토어",
 }
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {

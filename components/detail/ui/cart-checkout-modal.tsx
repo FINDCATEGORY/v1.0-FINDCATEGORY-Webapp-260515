@@ -12,19 +12,25 @@ import { useCart } from "@/components/detail/ui/cart-context"
 import Image from "next/image"
 import { getUserPointsAndName, deductPoints } from "@/app/actions/points"
 import { useEffect } from "react"
+import * as PortOne from "@portone/browser-sdk/v2"
+import DaumPostcode from "react-daum-postcode"
 
 interface FormData {
   fullName: string
   email: string
   phone: string
+  zipcode: string
   address: string
+  detailAddress: string
 }
 
 interface FormErrors {
   fullName?: string
   email?: string
   phone?: string
+  zipcode?: string
   address?: string
+  detailAddress?: string
 }
 
 export function CartCheckoutModal() {
@@ -33,12 +39,34 @@ export function CartCheckoutModal() {
     fullName: "",
     email: "",
     phone: "",
+    zipcode: "",
     address: "",
+    detailAddress: "",
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
+  const [payMethod, setPayMethod] = useState<"CARD" | "TRANSFER">("CARD")
+  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false)
+
+  const handleCompletePostcode = (data: any) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') extraAddress += data.bname;
+      if (data.buildingName !== '') extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      zipcode: data.zonecode,
+      address: fullAddress,
+    }));
+    setIsPostcodeOpen(false);
+  }
 
   useEffect(() => {
     if (isCheckoutOpen) {
@@ -51,6 +79,12 @@ export function CartCheckoutModal() {
   }, [isCheckoutOpen]);
 
   const totalQuantity = items.reduce((sum, item) => sum + (item.quantity || 1), 0)
+  const totalPrice = items.reduce((sum, item) => {
+    const priceNum = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+    return sum + (priceNum * (item.quantity || 1));
+  }, 0)
+  const vat = Math.floor(totalPrice * 0.1);
+  const totalAmountWithVat = totalPrice + vat;
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
@@ -71,12 +105,12 @@ export function CartCheckoutModal() {
       newErrors.phone = "유효한 전화번호를 입력해주세요"
     }
 
-    if (!formData.address.trim()) {
-      newErrors.address = "배송 주소를 입력해주세요"
+    if (!formData.zipcode.trim() || !formData.address.trim()) {
+      newErrors.address = "배송 주소를 검색해주세요"
     }
 
-    if (!formData.address.trim()) {
-      newErrors.address = "배송 주소를 입력해주세요"
+    if (!formData.detailAddress.trim()) {
+      newErrors.detailAddress = "상세 주소를 입력해주세요"
     }
 
     setErrors(newErrors)
@@ -93,6 +127,34 @@ export function CartCheckoutModal() {
     setIsSubmitting(true)
 
     try {
+      const paymentId = `order${Date.now()}${Math.floor(Math.random() * 10000)}`;
+      
+      const response = await PortOne.requestPayment({
+        storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID || "store-e5c27730-d4e6-4cc6-9456-32a3e917e3ba",
+        channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY || "channel-key-f623f5e6-30e7-4aaf-bc40-47101737e951",
+        paymentId: paymentId,
+        orderName: `파인드카테고리 상품 ${totalQuantity}개 주문`,
+        totalAmount: totalAmountWithVat,
+        currency: "CURRENCY_KRW",
+        payMethod: payMethod,
+        customer: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phoneNumber: formData.phone.replace(/[^0-9]/g, ''),
+          address: {
+            addressLine1: formData.address,
+            addressLine2: formData.detailAddress,
+            zipcode: formData.zipcode
+          }
+        }
+      });
+
+      if (response && response.code != null) {
+        alert(`결제 실패/취소: ${response.message}`);
+        setIsSubmitting(false);
+        return;
+      }
+
       const res = await fetch("/api/order", {
         method: "POST",
         headers: {
@@ -211,7 +273,7 @@ export function CartCheckoutModal() {
           <div className="p-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Order Form */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 lg:order-2">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Full Name */}
                   <div>
@@ -256,19 +318,69 @@ export function CartCheckoutModal() {
                   </div>
 
                   {/* Delivery Address */}
-                  <div>
-                    <Label htmlFor="address" className="text-[#4C050C]">배송 주소 *</Label>
-                    <Textarea
-                      id="address"
+                  <div className="space-y-3">
+                    <Label className="text-[#4C050C]">배송 주소 *</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        value={formData.zipcode}
+                        readOnly
+                        placeholder="우편번호"
+                        className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 w-32 ${errors.address ? "border-red-500" : ""}`}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsPostcodeOpen(true)}
+                        className="border-[#4C050C]/20 text-[#4C050C] hover:bg-[#4C050C]/5"
+                      >
+                        주소 찾기
+                      </Button>
+                    </div>
+                    <Input
                       value={formData.address}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, address: e.target.value }))}
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C] ${errors.address ? "border-red-500" : ""}`}
-                      placeholder="배송 주소"
-                      rows={3}
+                      readOnly
+                      placeholder="기본 주소"
+                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 ${errors.address ? "border-red-500" : ""}`}
                     />
-                    {errors.address && <p className="text-sm text-red-500 mt-1">{errors.address}</p>}
+                    <Input
+                      value={formData.detailAddress}
+                      onChange={(e) => setFormData(prev => ({ ...prev, detailAddress: e.target.value }))}
+                      placeholder="상세 주소를 입력해주세요"
+                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 ${errors.detailAddress ? "border-red-500" : ""}`}
+                    />
+                    {(errors.address || errors.detailAddress) && (
+                      <p className="text-sm text-red-500 mt-1">{errors.address || errors.detailAddress}</p>
+                    )}
                   </div>
 
+                  {/* Payment Method */}
+                  <div className="pt-2">
+                    <Label className="text-[#4C050C] mb-3 block">결제 수단 *</Label>
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="payMethod"
+                          value="CARD"
+                          checked={payMethod === "CARD"}
+                          onChange={() => setPayMethod("CARD")}
+                          className="w-4 h-4 accent-[#4C050C]"
+                        />
+                        <span className="text-sm text-[#4C050C] font-medium">신용카드</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="payMethod"
+                          value="TRANSFER"
+                          checked={payMethod === "TRANSFER"}
+                          onChange={() => setPayMethod("TRANSFER")}
+                          className="w-4 h-4 accent-[#4C050C]"
+                        />
+                        <span className="text-sm text-[#4C050C] font-medium">계좌이체</span>
+                      </label>
+                    </div>
+                  </div>
 
                   <Button
                     type="submit"
@@ -281,23 +393,26 @@ export function CartCheckoutModal() {
               </div>
 
               {/* Order Summary */}
-              <div className="lg:col-span-1">
+              <div className="lg:col-span-1 lg:order-1">
                 <div className="bg-white/50 border border-[#4C050C]/20 rounded-lg p-4 sticky top-20">
                   <h3 className="font-bold text-[#4C050C] mb-4">주문 요약</h3>
 
-                  <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
+                  <div className="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2">
                     {items.map((item, i) => (
                       <div key={i} className="flex gap-3 border-b border-[#4C050C]/20 pb-3">
                         <div className="relative w-12 h-12 rounded overflow-hidden flex-shrink-0">
                           <Image src={item.image} alt={item.name} fill className="object-cover" />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 flex flex-col justify-center">
                           <p className="text-xs text-[#4C050C] font-medium line-clamp-2">{item.name}</p>
-                          <p className="text-xs text-[#4C050C]/70">x {item.quantity || 1}</p>
+                          <div className="flex justify-between items-center mt-1">
+                            <p className="text-xs text-[#4C050C]/70">x {item.quantity || 1}</p>
+                            <p className="text-xs text-[#4C050C] font-bold">{item.price}</p>
+                          </div>
                         </div>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className="text-[#4C050C]/50 hover:text-[#4C050C] transition-colors p-1"
+                          className="text-[#4C050C]/50 hover:text-[#4C050C] transition-colors p-1 flex-shrink-0 self-start"
                         >
                           <X size={14} />
                         </button>
@@ -305,14 +420,22 @@ export function CartCheckoutModal() {
                     ))}
                   </div>
 
-                  <div className="border-t border-[#4C050C]/20 pt-4 space-y-2">
-                    <div className="flex justify-between font-bold text-[#4C050C] text-sm mb-2">
-                      <span>멤버십 등급:</span>
-                      <span>{username ? "B2B 프레스티지" : "일반"}</span>
-                    </div>
-                    <div className="flex justify-between font-bold text-[#4C050C] text-lg">
+                  <div className="pt-2 space-y-3">
+                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
                       <span>총 상품 개수:</span>
                       <span>{totalQuantity}개</span>
+                    </div>
+                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
+                      <span>상품 총액:</span>
+                      <span>{totalPrice.toLocaleString()}원</span>
+                    </div>
+                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
+                      <span>부가세 (10%):</span>
+                      <span>{vat.toLocaleString()}원</span>
+                    </div>
+                    <div className="flex justify-between font-bold text-[#4C050C] text-lg border-t border-[#4C050C]/10 pt-3">
+                      <span>총 결제 금액:</span>
+                      <span>{totalAmountWithVat.toLocaleString()}원</span>
                     </div>
                   </div>
                 </div>
@@ -321,6 +444,20 @@ export function CartCheckoutModal() {
           </div>
         </div>
       </div>
+      {isPostcodeOpen && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50" onClick={() => setIsPostcodeOpen(false)} />
+          <div className="relative bg-white w-full max-w-md rounded-lg overflow-hidden flex flex-col shadow-2xl">
+            <div className="flex justify-between items-center p-4 border-b">
+              <h3 className="font-bold text-lg">주소 찾기</h3>
+              <button onClick={() => setIsPostcodeOpen(false)}><X size={20} /></button>
+            </div>
+            <div className="p-0 h-[400px]">
+              <DaumPostcode onComplete={handleCompletePostcode} style={{ width: '100%', height: '100%' }} />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

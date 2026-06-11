@@ -2,7 +2,7 @@
 
 import html2canvas from "html2canvas";
 import { useRef, useState, useEffect } from "react";
-import { ArrowUpToLine, Share2, ShoppingBag, Clock, KeyRound, Mail, Bot } from "lucide-react";
+import { ArrowUpToLine, Share2, ShoppingBag, Clock, KeyRound, Mail, Bot, Truck, Package } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logoutAction } from "@/app/actions/login";
@@ -10,6 +10,7 @@ import { changePasswordAction, checkCurrentPasswordAction } from "@/app/actions/
 import { withdrawAction } from "@/app/actions/withdraw";
 import { addPoints } from "@/app/actions/points";
 import { startRegistration } from "@simplewebauthn/browser";
+import * as PortOne from "@portone/browser-sdk/v2";
 
 export default function MembershipPage({
   username = "회원",
@@ -55,19 +56,43 @@ export default function MembershipPage({
     setIsProcessingPayment(true);
 
     try {
+      const paymentId = `payment${Date.now()}${Math.floor(Math.random() * 10000)}`;
+
+      const response = await PortOne.requestPayment({
+        // 고객사의 Store ID와 Channel Key로 변경해야 합니다.
+        storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID || "store-e5c27730-d4e6-4cc6-9456-32a3e917e3ba",
+        channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY || "channel-key-f623f5e6-30e7-4aaf-bc40-47101737e951",
+        paymentId: paymentId,
+        orderName: `파인드카테고리 포인트 ${chargeAmount}P 충전`,
+        totalAmount: Number(chargeAmount),
+        currency: "CURRENCY_KRW",
+        payMethod: "CARD", // KPN 기본 결제창(카드) 띄우기
+        customer: {
+          fullName: username,
+          email: email || undefined,
+        }
+      });
+
+      if (response && response.code != null) {
+        // 결제 실패 또는 사용자가 결제창을 닫은 경우
+        alert(`결제 실패/취소: ${response.message}`);
+        return;
+      }
+
+      // 결제 성공 시에만 포인트 추가 (상용 서비스에서는 반드시 백엔드 웹훅(Webhook) 검증을 거쳐야 안전합니다)
       const result = await addPoints(username, Number(chargeAmount));
       if (result.success && result.points !== undefined) {
         setIsChargeModalOpen(false);
         setCurrentPoints(result.points);
         const chargedAmount = chargeAmount;
         setChargeAmount("");
-        alert(`${chargedAmount.toLocaleString()} P가 성공적으로 결제되었습니다.`);
+        alert(`${chargedAmount.toLocaleString()} 포인트가 성공적으로 충전되었습니다.`);
       } else {
-        alert(result.error || "포인트 충전 중 오류가 발생했습니다.");
+        alert(result.error || "결제는 완료되었으나 포인트 충전 중 오류가 발생했습니다.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("포인트 충전 중 서버 오류가 발생했습니다.");
+      alert(`포인트 결제 창을 띄우는 중 서버 오류가 발생했습니다: ${err?.message || String(err)}`);
     } finally {
       setIsProcessingPayment(false);
     }
@@ -503,6 +528,24 @@ export default function MembershipPage({
                 >
                   AI 상담 시작하기
                 </button>
+              </div>
+            </div>
+
+            {/* Order History Tile */}
+            <div className="md:col-span-2 lg:col-span-3 bg-white rounded-[24px] p-8 border border-[#4C050C]/10 shadow-sm transition-transform hover:-translate-y-1 flex flex-col justify-between min-h-[280px]">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#4C050C] font-sans">
+                  최근 주문 내역
+                </h3>
+                <button className="text-sm text-[#4C050C]/60 hover:text-[#4C050C] font-medium underline underline-offset-4 font-sans transition-colors">
+                  전체보기
+                </button>
+              </div>
+
+              <div className="flex-1 flex flex-col justify-center">
+                <div className="text-center py-10 text-[#4C050C]/50 font-medium bg-[#4C050C]/5 rounded-xl font-sans">
+                  최근 주문 내역이 없습니다.
+                </div>
               </div>
             </div>
 
