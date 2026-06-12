@@ -193,10 +193,10 @@ export const products: Product[] = [
   {
     id: 999,
     name: "[PG심사용] 테스트 결제 상품",
-    price: "₩1",
+    price: "₩100",
     image: "/images/collection/goldenhour/1.png",
     categories: ["골든아워 콜렉션", "소품"],
-    description: "결제 시스템(PG) 연동 및 심사를 위한 1원 테스트 결제 전용 상품입니다.",
+    description: "결제 시스템(PG) 연동 및 심사를 위한 100원 테스트 결제 전용 상품입니다.",
   },
 ];
 export const collectionTexts: Record<string, { title: string; description: string }> = {
