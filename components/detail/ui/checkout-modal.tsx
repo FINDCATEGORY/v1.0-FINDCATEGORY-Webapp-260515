@@ -1,7 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { getUserProfile } from "@/app/actions/user"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -50,6 +51,19 @@ export function CheckoutModal({ product }: { product: Product }) {
   const [orderComplete, setOrderComplete] = useState(false)
 
   const price = parseInt(product.price.replace(/[^0-9]/g, ""))
+  
+  useEffect(() => {
+    getUserProfile().then(res => {
+      if (res.user) {
+        setFormData(prev => ({
+          ...prev,
+          fullName: prev.fullName || res.user.name || "",
+          email: prev.email || res.user.email || "",
+          phone: prev.phone || res.user.phone || "",
+        }));
+      }
+    });
+  }, []);
   const subtotal = price * formData.quantity
   const totalPrice = subtotal
 

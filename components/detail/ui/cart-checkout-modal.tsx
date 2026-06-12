@@ -11,6 +11,7 @@ import { X, Minus, Plus, CheckCircle } from "lucide-react"
 import { useCart } from "@/components/detail/ui/cart-context"
 import Image from "next/image"
 import { getUserPointsAndName, deductPoints } from "@/app/actions/points"
+import { getUserProfile } from "@/app/actions/user"
 import { useEffect } from "react"
 import * as PortOne from "@portone/browser-sdk/v2"
 import DaumPostcode from "react-daum-postcode"
@@ -73,6 +74,16 @@ export function CartCheckoutModal() {
       getUserPointsAndName().then(res => {
         if (res.username) {
           setUsername(res.username);
+        }
+      });
+      getUserProfile().then(res => {
+        if (res.user) {
+          setFormData(prev => ({
+            ...prev,
+            fullName: prev.fullName || res.user.name || "",
+            email: prev.email || res.user.email || "",
+            phone: prev.phone || res.user.phone || "",
+          }));
         }
       });
     }

@@ -17,6 +17,9 @@ export async function POST(req: Request) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000,
     });
 
     const itemsText = items.map((item: any) => `- ${item.name} x ${item.quantity || 1}개`).join('\n');
@@ -50,8 +53,13 @@ ${itemsText}
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Order email send error:', error);
-    return NextResponse.json({ error: 'Failed to send order email' }, { status: 500 });
+    // 이메일 전송에 실패하더라도 결제는 이미 성공했으므로 주문 완료 처리를 위해 200을 반환합니다.
+    return NextResponse.json({ 
+      success: true, 
+      warning: 'Failed to send order email, but order was processed.',
+      errorDetail: error.message || String(error)
+    }, { status: 200 });
   }
 }
