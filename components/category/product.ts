@@ -190,6 +190,14 @@ export const products: Product[] = [
     categories: ["에메랄드 포레스트 콜렉션", "소품"],
     description: "클래식한 그린 컬러의 깅엄 체크 패턴 냅킨으로 싱그러운 테이블 세팅을 연출할 수 있습니다.",
   },
+  {
+    id: 999,
+    name: "[PG심사용] 테스트 결제 상품",
+    price: "₩1",
+    image: "/images/collection/goldenhour/1.png",
+    categories: ["골든아워 콜렉션", "소품"],
+    description: "결제 시스템(PG) 연동 및 심사를 위한 1원 테스트 결제 전용 상품입니다.",
+  },
 ];
 export const collectionTexts: Record<string, { title: string; description: string }> = {
   "default": {
