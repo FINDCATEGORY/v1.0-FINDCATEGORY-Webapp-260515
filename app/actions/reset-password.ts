@@ -16,13 +16,7 @@ export async function submitResetPassword(formData: FormData) {
 
   try {
     // 1. Verify user exists and matches email
-    const { createClient } = require('@supabase/supabase-js');
-    const localSupabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
-
-    const { data: user, error: fetchError } = await localSupabase
+    const { data: user, error: fetchError } = await supabase
       .from("b2b_signups")
       .select("id, name, email")
       .eq("username", username)
@@ -43,7 +37,7 @@ export async function submitResetPassword(formData: FormData) {
     const hashedTempPassword = await bcrypt.hash(tempPassword, 10);
 
     // 3. Update the password in database
-    const { error: updateError } = await localSupabase
+    const { error: updateError } = await supabase
       .from("b2b_signups")
       .update({ password: hashedTempPassword })
       .eq("id", user.id);
