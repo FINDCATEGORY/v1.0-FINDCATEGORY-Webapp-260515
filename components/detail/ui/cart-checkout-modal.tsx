@@ -218,8 +218,8 @@ export function CartCheckoutModal() {
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
               <div>
                 <h1 className="text-3xl font-bold text-[#4C050C] mb-4">주문이 완료되었습니다!</h1>
-                <p className="text-[#4C050C]/80">
-                  주문해주셔서 감사합니다! 총 {totalQuantity}개 상품이 2-3 업무일 내에 배송됩니다.
+                <p className="text-lg text-gray-700 mb-6">
+                  주문해주셔서 감사합니다!
                 </p>
               </div>
 
@@ -241,7 +241,7 @@ export function CartCheckoutModal() {
 
               <div className="bg-green-100 border border-green-300 p-4 rounded-lg">
                 <p className="text-sm text-green-800 font-medium">
-                  🎉 확인된 구매자가 되셨습니다! 다른 고객들을 위해 리뷰를 남겨주세요.
+                  담당자 확인 후, 연락드리겠습니다.
                 </p>
               </div>
 
