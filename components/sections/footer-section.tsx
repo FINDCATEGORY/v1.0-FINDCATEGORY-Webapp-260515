@@ -250,7 +250,7 @@ export function FooterSection() {
               href="#"
               className="text-xs transition-colors hover:text-[#4C050C]"
             >
-              YouTube
+
             </Link>
           </div>
         </div>
