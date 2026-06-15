@@ -50,6 +50,7 @@ export function FooterSection() {
               사업자번호 : 540 18 01327 <br></br>대표 : 조현우<br></br>
               이메일 : cho@findcategory.co.kr<br></br>
               전화번호 : 01075763031
+              주소 : 서울시 용산구 한남동 767-14 302호
 
 
             </p>
