@@ -7,17 +7,27 @@ import { RecentDeals } from "@/components/admin/dashboard/recent-deals";
 import { TopPerformers } from "@/components/admin/dashboard/top-performers";
 import { DollarSign, TrendingUp, Users, Target } from "lucide-react";
 import { useState, useEffect } from "react";
-import { getTotalPointsAllUsers } from "@/app/actions/points";
+import { getDashboardMetrics } from "@/app/actions/dashboard";
 
 export function OverviewSection() {
-  const [totalRevenue, setTotalRevenue] = useState<number | null>(null);
+  const [metrics, setMetrics] = useState<{
+    totalRevenue: number | null;
+    membershipCount: number | null;
+    orderCount: number | null;
+    inquiryCount: number | null;
+  }>({
+    totalRevenue: null,
+    membershipCount: null,
+    orderCount: null,
+    inquiryCount: null,
+  });
 
   useEffect(() => {
-    async function fetchTotal() {
-      const { totalPoints } = await getTotalPointsAllUsers();
-      setTotalRevenue(totalPoints);
+    async function fetchMetrics() {
+      const data = await getDashboardMetrics();
+      setMetrics(data);
     }
-    fetchTotal();
+    fetchMetrics();
   }, []);
 
   return (
@@ -25,35 +35,35 @@ export function OverviewSection() {
       {/* Metric cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
-          title="총 매출"
-          value={totalRevenue === null ? "..." : `${totalRevenue.toLocaleString()} P`}
-          change="+12.5%"
-          changeType="positive"
+          title="누적 계약 금액"
+          value={metrics.totalRevenue === null ? "..." : `₩ ${metrics.totalRevenue.toLocaleString()}`}
+          change="DB 연동 대기중"
+          changeType="neutral"
           icon={DollarSign}
           delay={0}
         />
         <MetricCard
-          title="전환율"
-          value="24.8%"
-          change="+3.2%"
-          changeType="positive"
+          title="이번 주 주문 건수"
+          value={metrics.orderCount === null ? "..." : `${metrics.orderCount}`}
+          change="DB 연동 대기중"
+          changeType="neutral"
           icon={TrendingUp}
           delay={1}
         />
         <MetricCard
-          title="진행 중인 거래"
-          value="147"
-          change="-5"
-          changeType="negative"
-          icon={Target}
+          title="신규 가입 파트너"
+          value={metrics.membershipCount === null ? "..." : `${metrics.membershipCount}`}
+          change="연동됨"
+          changeType="positive"
+          icon={Users}
           delay={2}
         />
         <MetricCard
-          title="신규 리드"
-          value="892"
-          change="+18.3%"
-          changeType="positive"
-          icon={Users}
+          title="접수된 1:1 문의"
+          value={metrics.inquiryCount === null ? "..." : `${metrics.inquiryCount}`}
+          change="DB 연동 대기중"
+          changeType="neutral"
+          icon={Target}
           delay={3}
         />
       </div>

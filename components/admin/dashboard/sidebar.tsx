@@ -1,22 +1,17 @@
 "use client";
 
-import React from "react";
-import LucideCircleDollarSignIcon from "lucide-react"; // Import the missing icon component
-
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import type { Section } from "@/app/membership/admin/page";
 import {
-  LayoutDashboard,
-  GitBranch,
-  Handshake,
+  Home,
   Users,
-  BarChart3,
+  Package,
+  ShoppingBag,
+  Settings,
   ChevronLeft,
   ChevronRight,
-  CircleDollarSign,
-  Building2,
-  TrendingUp,
-  Settings,
+  CircleDollarSign
 } from "lucide-react";
 
 interface SidebarProps {
@@ -26,15 +21,50 @@ interface SidebarProps {
   onCollapsedChange: (collapsed: boolean) => void;
 }
 
-const navItems: { id: Section; label: string; icon: React.ElementType }[] = [
-  { id: "overview", label: "대시보드 요약", icon: LayoutDashboard },
-  { id: "pipeline", label: "파이프라인", icon: GitBranch },
-  { id: "deals", label: "거래 관리", icon: Handshake },
-  { id: "customers", label: "고객 관리", icon: Building2 },
-  { id: "team", label: "팀 성과 관리", icon: Users },
-  { id: "forecasting", label: "매출 예측", icon: TrendingUp },
-  { id: "reports", label: "보고서", icon: BarChart3 },
-  { id: "settings", label: "설정", icon: Settings },
+const navGroups = [
+  {
+    groupId: "overview",
+    groupLabel: "운영 홈",
+    icon: Home,
+    isDirectLink: true,
+    sectionId: "overview" as Section,
+    items: []
+  },
+  {
+    groupId: "crm",
+    groupLabel: "고객 관리 (CRM)",
+    icon: Users,
+    items: [
+      { id: "customers" as Section, label: "파트너사 명부" },
+      { id: "reports" as Section, label: "스타일링 제안 & 문의" },
+    ]
+  },
+  {
+    groupId: "curation",
+    groupLabel: "상품 관리",
+    icon: Package,
+    items: [
+      { id: "inventory" as Section, label: "상품 관리" },
+    ]
+  },
+  {
+    groupId: "deals",
+    groupLabel: "주문 & 계약",
+    icon: ShoppingBag,
+    items: [
+      { id: "deals" as Section, label: "주문" },
+      { id: "pipeline" as Section, label: "계약관리" },
+    ]
+  },
+  {
+    groupId: "system",
+    groupLabel: "시스템 관리",
+    icon: Settings,
+    items: [
+      { id: "analytics" as Section, label: "매출/성과 분석" },
+      { id: "settings" as Section, label: "시스템 설정" },
+    ]
+  }
 ];
 
 export function Sidebar({
@@ -51,7 +81,7 @@ export function Sidebar({
       )}
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-4 border-b border-sidebar-border">
+      <div className="h-16 flex items-center px-4 border-b border-sidebar-border overflow-hidden shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-primary">
             <CircleDollarSign className="w-5 h-5 text-primary-foreground" />
@@ -68,50 +98,124 @@ export function Sidebar({
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-hidden">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeSection === item.id;
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-2 no-scrollbar">
+        {navGroups.map((group) => {
+          const GroupIcon = group.icon;
+          const isDirect = group.isDirectLink;
+          const hasActiveItem = isDirect ? activeSection === group.sectionId : group.items.some(item => item.id === activeSection);
+
+          if (isDirect) {
+            return (
+              <div key={group.groupId} className="flex flex-col mb-1">
+                <button
+                  onClick={() => onSectionChange(group.sectionId!)}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 group relative",
+                    hasActiveItem
+                      ? "bg-[#4C050C]/5 text-[#4C050C]"
+                      : "text-muted-foreground hover:text-[#4C050C] hover:bg-sidebar-accent/50"
+                  )}
+                  title={collapsed ? group.groupLabel : undefined}
+                >
+                  {hasActiveItem && (
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-r-full bg-[#4C050C] transition-all" />
+                  )}
+                  <GroupIcon
+                    className={cn(
+                      "w-5 h-5 shrink-0 transition-transform duration-200",
+                      hasActiveItem ? "text-[#4C050C]" : "group-hover:scale-110"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "flex-1 text-left whitespace-nowrap transition-all duration-300 font-sans tracking-tight",
+                      collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+                    )}
+                  >
+                    {group.groupLabel}
+                  </span>
+                </button>
+              </div>
+            );
+          }
 
           return (
-            <button
-              key={item.id}
-              onClick={() => onSectionChange(item.id)}
-              className={cn(
-                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group relative",
-                isActive
-                  ? "bg-sidebar-accent text-sidebar-foreground"
-                  : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
-              )}
-            >
-              {/* Active indicator */}
-              <span
+            <div key={group.groupId} className="flex flex-col mb-1">
+              {/* Group Header */}
+              <div
+                onClick={() => {
+                  if (collapsed) onCollapsedChange(false);
+                }}
                 className={cn(
-                  "absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-accent transition-all duration-300",
-                  isActive ? "opacity-100" : "opacity-0"
+                  "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 group relative",
+                  collapsed ? "cursor-pointer text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/50" : "text-sidebar-foreground"
                 )}
-              />
-              <Icon
+                title={collapsed ? group.groupLabel : undefined}
+              >
+                {/* Active indicator when collapsed */}
+                <span
+                  className={cn(
+                    "absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-accent transition-all duration-300",
+                    hasActiveItem && collapsed ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                
+                <GroupIcon
+                  className={cn(
+                    "w-5 h-5 shrink-0 transition-transform duration-200",
+                    hasActiveItem && collapsed ? "text-accent" : "group-hover:scale-110"
+                  )}
+                />
+                
+                <span
+                  className={cn(
+                    "flex-1 text-left whitespace-nowrap transition-all duration-300 font-sans tracking-tight",
+                    collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+                  )}
+                >
+                  {group.groupLabel}
+                </span>
+              </div>
+
+              {/* Items */}
+              <div
                 className={cn(
-                  "w-5 h-5 shrink-0 transition-transform duration-200",
-                  isActive ? "text-accent" : "group-hover:scale-110"
-                )}
-              />
-              <span
-                className={cn(
-                  "whitespace-nowrap transition-all duration-300",
-                  collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+                  "overflow-hidden transition-all duration-300 ease-in-out",
+                  !collapsed ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
                 )}
               >
-                {item.label}
-              </span>
-            </button>
+                <div className="flex flex-col space-y-1 pl-9 pr-2 py-1">
+                  {group.items.map((item) => {
+                    const isActive = activeSection === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => onSectionChange(item.id)}
+                        className={cn(
+                          "w-full text-left px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 relative font-sans",
+                          isActive
+                            ? "bg-[#4C050C]/5 text-[#4C050C] font-bold"
+                            : "text-muted-foreground hover:text-[#4C050C] hover:bg-sidebar-accent/50"
+                        )}
+                      >
+                        {isActive && (
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4C050C] transition-all" />
+                        )}
+                        <span className={cn("transition-transform duration-200 block", isActive ? "translate-x-1" : "")}>
+                          {item.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           );
         })}
-      </nav>
+      </div>
 
       {/* Collapse button */}
-      <div className="p-3 border-t border-sidebar-border">
+      <div className="p-3 border-t border-sidebar-border shrink-0">
         <button
           onClick={() => onCollapsedChange(!collapsed)}
           className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-all duration-200"

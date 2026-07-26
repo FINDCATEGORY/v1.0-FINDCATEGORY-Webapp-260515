@@ -8,49 +8,40 @@ import {
   ArrowUpDown,
   CheckCircle2,
   Clock,
-  XCircle,
   MoreHorizontal,
   ChevronDown,
+  Package,
 } from "lucide-react";
 
-interface Deal {
+interface Order {
   id: string;
-  company: string;
-  contact: string;
-  email: string;
-  value: number;
-  stage: string;
-  status: "won" | "pending" | "lost";
-  closeDate: string;
-  rep: string;
+  orderNumber: string;
+  member: string;
+  tier: string;
+  items: string;
+  amount: number;
+  status: "completed" | "processing" | "shipping";
+  orderDate: string;
 }
 
-const deals: Deal[] = [
-  { id: "1", company: "Acme Corporation", contact: "John Smith", email: "john@acme.com", value: 125000, stage: "Negotiation", status: "won", closeDate: "2024-01-15", rep: "Sarah Chen" },
-  { id: "2", company: "TechStart Inc", contact: "Lisa Wong", email: "lisa@techstart.io", value: 89500, stage: "Proposal", status: "pending", closeDate: "2024-01-22", rep: "Mike Johnson" },
-  { id: "3", company: "GlobalFin Partners", contact: "Robert Davis", email: "rdavis@globalfin.com", value: 245000, stage: "Qualified", status: "pending", closeDate: "2024-02-01", rep: "Emily Davis" },
-  { id: "4", company: "DataSync Solutions", contact: "Emma Wilson", email: "emma@datasync.net", value: 67800, stage: "Lead", status: "lost", closeDate: "2024-01-10", rep: "James Wilson" },
-  { id: "5", company: "CloudBase Ltd", contact: "Michael Chen", email: "m.chen@cloudbase.io", value: 178000, stage: "Negotiation", status: "won", closeDate: "2024-01-18", rep: "Sarah Chen" },
-  { id: "6", company: "Innovate Labs", contact: "Jennifer Park", email: "jpark@innovate.co", value: 156000, stage: "Proposal", status: "pending", closeDate: "2024-01-28", rep: "Lisa Park" },
-  { id: "7", company: "NextGen Systems", contact: "David Lee", email: "david@nextgen.tech", value: 203000, stage: "Qualified", status: "pending", closeDate: "2024-02-05", rep: "Mike Johnson" },
-  { id: "8", company: "Prime Analytics", contact: "Sarah Johnson", email: "sj@primeanalytics.com", value: 94500, stage: "Lead", status: "pending", closeDate: "2024-02-10", rep: "Emily Davis" },
-];
+const orders: Order[] = [];
 
 const statusConfig = {
-  won: { icon: CheckCircle2, color: "text-success", bg: "bg-success/10", label: "성공" },
-  pending: { icon: Clock, color: "text-warning", bg: "bg-warning/10", label: "대기 중" },
-  lost: { icon: XCircle, color: "text-destructive", bg: "bg-destructive/10", label: "실패" },
+  completed: { icon: CheckCircle2, color: "text-emerald-600", bg: "bg-emerald-50", label: "결제/배송완료" },
+  processing: { icon: Clock, color: "text-amber-600", bg: "bg-amber-50", label: "상품준비중" },
+  shipping: { icon: Package, color: "text-blue-600", bg: "bg-blue-50", label: "배송중" },
 };
 
 export function DealsSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
 
-  const filteredDeals = deals.filter((deal) => {
+  const filteredOrders = orders.filter((order) => {
     const matchesSearch =
-      deal.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      deal.contact.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = selectedFilter === "all" || deal.status === selectedFilter;
+      order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.member.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.items.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = selectedFilter === "all" || order.status === selectedFilter;
     return matchesSearch && matchesFilter;
   });
 
@@ -58,121 +49,117 @@ export function DealsSection() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <p className="text-sm text-muted-foreground">모든 거래를 한 곳에서 확인하고 관리하세요</p>
+        <h2 className="text-2xl font-black text-[#4C050C] font-sans">주문</h2>
+        <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">회원들의 상품 주문 내역을 통합 관리합니다.</p>
       </div>
 
       {/* Filters and search */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-4">
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4C050C]/60" />
             <input
               type="text"
-              placeholder="거래 검색..."
+              placeholder="주문번호, 회원명, 상품명 검색..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-64 h-9 pl-9 pr-4 rounded-lg bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/20 focus:border-accent transition-all duration-200"
+              className="w-72 h-10 pl-10 pr-4 rounded-full bg-[#EBEBDF]/50 border-transparent text-sm font-bold font-sans text-[#4C050C] placeholder:text-[#4C050C]/40 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/20 transition-all duration-200"
             />
           </div>
-          <div className="flex items-center gap-2">
-            {["all", "won", "pending", "lost"].map((filter) => (
+          <div className="flex items-center gap-2 ml-2">
+            {["all", "completed", "processing", "shipping"].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
                 className={cn(
-                  "px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200",
+                  "px-4 py-2 rounded-full text-xs font-bold font-sans transition-all duration-200 border",
                   selectedFilter === filter
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-secondary text-muted-foreground hover:text-foreground"
+                    ? "bg-[#4C050C] text-white border-[#4C050C]"
+                    : "bg-transparent text-[#4C050C] border-[#4C050C]/20 hover:bg-[#EBEBDF]"
                 )}
               >
-                {filter === "all" ? "전체" : statusConfig[filter as keyof typeof statusConfig].label}
+                {filter === "all" ? "전체 상태" : statusConfig[filter as keyof typeof statusConfig].label}
               </button>
             ))}
           </div>
         </div>
-        <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary text-sm text-muted-foreground hover:text-foreground transition-colors duration-200">
+        <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#EBEBDF]/50 text-sm font-bold text-[#4C050C] hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
           <Filter className="w-4 h-4" />
-          필터 추가
+          상세 필터
           <ChevronDown className="w-3 h-3" />
         </button>
       </div>
 
       {/* Table */}
-      <div className="bg-card border border-border rounded-xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border bg-secondary/50">
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <button className="flex items-center gap-1 hover:text-foreground transition-colors">
-                    회사
+              <tr className="border-b border-[#4C050C]/10 bg-[#EBEBDF]/30">
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">
+                  주문번호
+                </th>
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">
+                  회원 정보
+                </th>
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">
+                  <button className="flex items-center gap-1 hover:text-[#4C050C] transition-colors">
+                    주문 금액
                     <ArrowUpDown className="w-3 h-3" />
                   </button>
                 </th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">담당자</th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <button className="flex items-center gap-1 hover:text-foreground transition-colors">
-                    금액
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">주문 상품</th>
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">상태</th>
+                <th className="text-left py-4 px-6 text-xs font-bold text-[#4C050C]/60 uppercase tracking-wider font-sans">
+                  <button className="flex items-center gap-1 hover:text-[#4C050C] transition-colors">
+                    주문 일시
                     <ArrowUpDown className="w-3 h-3" />
                   </button>
                 </th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">단계</th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">상태</th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">영업 담당자</th>
-                <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">마감일</th>
-                <th className="w-12"></th>
+                <th className="w-16"></th>
               </tr>
             </thead>
             <tbody>
-              {filteredDeals.map((deal, index) => {
-                const status = statusConfig[deal.status];
+              {filteredOrders.map((order, index) => {
+                const status = statusConfig[order.status];
                 const StatusIcon = status.icon;
 
                 return (
                   <tr
-                    key={deal.id}
-                    className="border-b border-border last:border-0 hover:bg-secondary/30 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
+                    key={order.id}
+                    className="border-b border-[#4C050C]/5 last:border-0 hover:bg-[#EBEBDF]/20 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
                     style={{ animationDelay: `${index * 50}ms`, animationFillMode: "both" }}
                   >
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-md bg-secondary flex items-center justify-center text-xs font-semibold text-muted-foreground">
-                          {deal.company.charAt(0)}
-                        </div>
-                        <span className="text-sm font-medium text-foreground">{deal.company}</span>
+                    <td className="py-5 px-6">
+                      <span className="text-sm font-bold text-[#4C050C] font-sans">{order.orderNumber}</span>
+                    </td>
+                    <td className="py-5 px-6">
+                      <div className="flex flex-col">
+                        <span className="text-sm font-bold text-[#4C050C] font-sans">{order.member}</span>
+                        <span className="text-xs font-bold text-[#4C050C]/60 font-sans mt-0.5">{order.tier}</span>
                       </div>
                     </td>
-                    <td className="py-4 px-4">
-                      <div>
-                        <p className="text-sm text-foreground">{deal.contact}</p>
-                        <p className="text-xs text-muted-foreground">{deal.email}</p>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="text-sm font-semibold text-foreground">
-                        ${deal.value.toLocaleString()}
+                    <td className="py-5 px-6">
+                      <span className="text-sm font-black text-[#4C050C] font-sans">
+                        ₩ {order.amount.toLocaleString()}
                       </span>
                     </td>
-                    <td className="py-4 px-4">
-                      <span className="px-2 py-1 rounded-md bg-secondary text-xs font-medium text-foreground">
-                        {deal.stage}
+                    <td className="py-5 px-6">
+                      <span className="text-sm font-bold text-[#4C050C]/80 font-sans truncate max-w-[200px] block">
+                        {order.items}
                       </span>
                     </td>
-                    <td className="py-4 px-4">
-                      <div className={cn("inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium", status.bg, status.color)}>
-                        <StatusIcon className="w-3 h-3" />
+                    <td className="py-5 px-6">
+                      <div className={cn("inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold font-sans", status.bg, status.color)}>
+                        <StatusIcon className="w-3.5 h-3.5" />
                         {status.label}
                       </div>
                     </td>
-                    <td className="py-4 px-4">
-                      <span className="text-sm text-muted-foreground">{deal.rep}</span>
+                    <td className="py-5 px-6">
+                      <span className="text-sm font-bold text-[#4C050C]/60 font-sans">{order.orderDate}</span>
                     </td>
-                    <td className="py-4 px-4">
-                      <span className="text-sm text-muted-foreground">{deal.closeDate}</span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <button className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200">
+                    <td className="py-5 px-6 text-center">
+                      <button className="w-8 h-8 inline-flex items-center justify-center rounded-lg text-[#4C050C]/40 hover:text-[#4C050C] hover:bg-[#EBEBDF] transition-all duration-200">
                         <MoreHorizontal className="w-4 h-4" />
                       </button>
                     </td>
@@ -184,21 +171,21 @@ export function DealsSection() {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-secondary/30">
-          <span className="text-sm text-muted-foreground">
-            총 {deals.length}개 거래 중 {filteredDeals.length}개 표시
+        <div className="flex items-center justify-between px-6 py-4 border-t border-[#4C050C]/10 bg-[#EBEBDF]/10">
+          <span className="text-sm font-bold text-[#4C050C]/60 font-sans">
+            총 {orders.length}개 주문 중 {filteredOrders.length}개 표시
           </span>
           <div className="flex items-center gap-2">
-            <button className="px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-200">
+            <button className="px-4 py-2 rounded-xl text-sm font-bold text-[#4C050C]/60 hover:text-[#4C050C] hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
               이전
             </button>
-            <button className="px-3 py-1.5 rounded-lg text-sm bg-accent text-accent-foreground font-medium">
+            <button className="px-4 py-2 rounded-xl text-sm font-black bg-[#4C050C] text-white font-sans shadow-sm">
               1
             </button>
-            <button className="px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-200">
+            <button className="px-4 py-2 rounded-xl text-sm font-bold text-[#4C050C]/60 hover:text-[#4C050C] hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
               2
             </button>
-            <button className="px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-200">
+            <button className="px-4 py-2 rounded-xl text-sm font-bold text-[#4C050C]/60 hover:text-[#4C050C] hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
               다음
             </button>
           </div>

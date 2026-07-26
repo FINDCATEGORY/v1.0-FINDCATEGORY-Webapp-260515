@@ -35,67 +35,71 @@ export function RevenueChart() {
   }, []);
 
   return (
-    <div className="bg-card border border-border rounded-xl p-5 h-[380px] animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-6 sm:p-8 h-[380px] animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-base font-semibold text-foreground">매출 추이</h3>
-          <p className="text-sm text-muted-foreground mt-0.5">월별 실적 및 목표</p>
+          <h3 className="text-xl font-bold text-[#4C050C] font-sans">누적 계약 및 매출 추이</h3>
+          <p className="text-sm text-[#4C050C]/60 mt-1 font-sans font-medium">월별 계약 목표 및 실제 매출</p>
         </div>
-        <div className="flex items-center gap-4 text-xs">
+        <div className="flex items-center gap-4 text-xs font-sans font-bold">
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-chart-1" />
-            <span className="text-muted-foreground">매출</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-[#4C050C]" />
+            <span className="text-[#4C050C]/80">실제 매출</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-chart-2" />
-            <span className="text-muted-foreground">목표</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-[#4C050C]/40" />
+            <span className="text-[#4C050C]/80">목표 매출</span>
           </div>
         </div>
       </div>
 
-      <div className={`h-[280px] transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`h-[250px] transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="oklch(0.7 0.18 220)" stopOpacity={0.4} />
-                <stop offset="100%" stopColor="oklch(0.7 0.18 220)" stopOpacity={0} />
+                <stop offset="0%" stopColor="#4C050C" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#4C050C" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="targetGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="oklch(0.7 0.18 145)" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="oklch(0.7 0.18 145)" stopOpacity={0} />
+                <stop offset="0%" stopColor="#4C050C" stopOpacity={0.1} />
+                <stop offset="100%" stopColor="#4C050C" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.22 0.005 260)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#4C050C" strokeOpacity={0.1} vertical={false} />
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "oklch(0.65 0 0)", fontSize: 12 }}
+              tick={{ fill: "#4C050C", fontSize: 12, fontWeight: 600, fontFamily: "sans-serif" }}
               dy={10}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "oklch(0.65 0 0)", fontSize: 12 }}
-              tickFormatter={(value) => `$${value / 1000}k`}
+              tick={{ fill: "#4C050C", fontSize: 12, fontWeight: 600, fontFamily: "sans-serif" }}
+              tickFormatter={(value) => `${value / 1000}k`}
               dx={-10}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "oklch(0.12 0.005 260)",
-                border: "1px solid oklch(0.22 0.005 260)",
-                borderRadius: "8px",
+                backgroundColor: "#EBEBDF",
+                border: "1px solid rgba(76, 5, 12, 0.2)",
+                borderRadius: "12px",
                 fontSize: "12px",
+                fontFamily: "sans-serif",
+                fontWeight: 600,
+                color: "#4C050C"
               }}
-              labelStyle={{ color: "oklch(0.95 0 0)", fontWeight: 600 }}
-              itemStyle={{ color: "oklch(0.65 0 0)" }}
-              formatter={(value: number) => [`$${(value / 1000).toFixed(0)}k`, ""]}
+              labelStyle={{ color: "#4C050C", fontWeight: 700 }}
+              itemStyle={{ color: "#4C050C" }}
+              formatter={(value: number) => [`₩ ${(value).toLocaleString()}`, ""]}
             />
             <Area
               type="monotone"
               dataKey="target"
-              stroke="oklch(0.7 0.18 145)"
+              stroke="#4C050C"
+              strokeOpacity={0.3}
               strokeWidth={2}
               fill="url(#targetGradient)"
               dot={false}
@@ -103,8 +107,8 @@ export function RevenueChart() {
             <Area
               type="monotone"
               dataKey="revenue"
-              stroke="oklch(0.7 0.18 220)"
-              strokeWidth={2}
+              stroke="#4C050C"
+              strokeWidth={3}
               fill="url(#revenueGradient)"
               dot={false}
             />

@@ -1,58 +1,56 @@
 "use client";
 
-import { Trophy, TrendingUp } from "lucide-react";
+import { MessageSquare, ArrowUpRight } from "lucide-react";
 
-const performers = [
-  { name: "Sarah Chen", deals: 24, revenue: "$487,500", change: "+15%", rank: 1 },
-  { name: "Mike Johnson", deals: 19, revenue: "$356,200", change: "+8%", rank: 2 },
-  { name: "Emily Davis", deals: 17, revenue: "$312,800", change: "+12%", rank: 3 },
-  { name: "James Wilson", deals: 15, revenue: "$289,400", change: "+5%", rank: 4 },
-  { name: "Lisa Park", deals: 14, revenue: "$267,100", change: "+9%", rank: 5 },
+const inquiries = [
+  { name: "김민석", subject: "골든아워 보울 재입고 문의", status: "pending", date: "10분 전" },
+  { name: "이현주", subject: "B2B 핏인 서비스 신청 건", status: "answered", date: "1시간 전" },
+  { name: "박지수", subject: "멤버십 등급 상향 기준이 궁금합니다.", status: "pending", date: "2시간 전" },
+  { name: "최은영", subject: "프레스티지 혜택 관련 문의", status: "answered", date: "어제" },
+  { name: "정태현", subject: "오브제 사이즈 문의드립니다.", status: "answered", date: "어제" },
 ];
 
 export function TopPerformers() {
   return (
-    <div className="bg-card border border-border rounded-xl p-5 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
-      <div className="flex items-center justify-between mb-5">
+    <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-base font-semibold text-foreground">우수 성과자</h3>
-          <p className="text-sm text-muted-foreground mt-0.5">이달의 우수 팀원</p>
+          <h3 className="text-xl font-bold text-[#4C050C] font-sans">최근 접수된 1:1 문의</h3>
+          <p className="text-sm text-[#4C050C]/60 mt-1 font-sans font-medium">답변이 필요한 문의 내역</p>
         </div>
-        <div className="flex items-center gap-1 text-warning">
-          <Trophy className="w-5 h-5" />
-        </div>
+        <button className="flex items-center gap-1 text-sm text-[#4C050C] hover:text-[#4C050C]/80 font-bold transition-colors group font-sans">
+          전체 보기
+          <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </button>
       </div>
 
-      <div className="space-y-3">
-        {performers.map((person, index) => (
+      <div className="space-y-4">
+        {inquiries.map((inquiry, index) => (
           <div
-            key={person.name}
-            className="group flex items-center justify-between p-3 rounded-lg hover:bg-secondary/50 transition-all duration-200 cursor-pointer animate-in fade-in slide-in-from-right-2"
+            key={inquiry.name + index}
+            className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-[#EBEBDF]/50 transition-all duration-200 cursor-pointer animate-in fade-in slide-in-from-right-2 gap-3 sm:gap-0"
             style={{ animationDelay: `${(index + 4) * 100}ms`, animationFillMode: "both" }}
           >
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent/80 to-chart-1 flex items-center justify-center text-sm font-semibold text-accent-foreground">
-                  {person.name.split(" ").map((n) => n[0]).join("")}
-                </div>
-                {person.rank <= 3 && (
-                  <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-warning text-[10px] font-bold flex items-center justify-center text-background">
-                    {person.rank}
-                  </div>
-                )}
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#4C050C] flex items-center justify-center text-white">
+                <MessageSquare className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">{person.name}</p>
-                <p className="text-xs text-muted-foreground">{person.deals}건 거래 성사</p>
+                <p className="text-base font-bold text-[#4C050C] font-sans truncate max-w-[220px]">{inquiry.subject}</p>
+                <p className="text-sm text-[#4C050C]/60 font-medium font-sans mt-0.5">{inquiry.name} • {inquiry.date}</p>
               </div>
             </div>
 
-            <div className="text-right">
-              <p className="text-sm font-semibold text-foreground">{person.revenue}</p>
-              <div className="flex items-center justify-end gap-1 text-xs text-success">
-                <TrendingUp className="w-3 h-3" />
-                {person.change}
-              </div>
+            <div className="flex justify-end w-full sm:w-auto">
+              {inquiry.status === "pending" ? (
+                <span className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-bold font-sans">
+                  답변 대기
+                </span>
+              ) : (
+                <span className="px-3 py-1.5 rounded-lg bg-[#EBEBDF] text-[#4C050C]/60 text-xs font-bold font-sans">
+                  답변 완료
+                </span>
+              )}
             </div>
           </div>
         ))}

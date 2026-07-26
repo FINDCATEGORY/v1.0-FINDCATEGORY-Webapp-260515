@@ -23,37 +23,34 @@ export function MetricCard({
 }: MetricCardProps) {
   return (
     <div
-      className="group relative bg-card border border-border rounded-xl p-5 hover:border-accent/50 transition-all duration-300 overflow-hidden animate-in fade-in slide-in-from-bottom-4"
+      className="group relative bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300 overflow-hidden animate-in fade-in slide-in-from-bottom-4 flex flex-col justify-between"
       style={{ animationDelay: `${delay * 100}ms`, animationFillMode: "both" }}
     >
-      {/* Subtle gradient on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
       <div className="relative">
-        <div className="flex items-start justify-between mb-3">
-          <span className="text-sm text-muted-foreground font-medium">
+        <div className="flex items-start justify-between mb-4">
+          <span className="text-xs sm:text-sm text-[#4C050C]/60 uppercase tracking-wider font-bold font-sans">
             {title}
           </span>
-          <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-accent/10 transition-colors duration-300">
-            <Icon className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors duration-300" />
+          <div className="w-10 h-10 rounded-full bg-[#4C050C]/5 flex items-center justify-center group-hover:bg-[#4C050C]/10 transition-colors duration-300">
+            <Icon className="w-5 h-5 text-[#4C050C] transition-colors duration-300" />
           </div>
         </div>
 
-        <div className="flex items-end gap-3">
-          <span className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
+        <div className="flex items-end gap-3 mt-4">
+          <span className="text-3xl lg:text-4xl font-black text-[#4C050C] tracking-tight font-sans">
             {value}
           </span>
           <div
             className={cn(
-              "flex items-center gap-1 text-sm font-medium mb-1",
-              changeType === "positive" && "text-success",
-              changeType === "negative" && "text-destructive",
-              changeType === "neutral" && "text-muted-foreground"
+              "flex items-center gap-1 text-sm font-bold mb-1 font-sans",
+              changeType === "positive" && "text-emerald-600",
+              changeType === "negative" && "text-red-600",
+              changeType === "neutral" && "text-[#4C050C]/60"
             )}
           >
-            {changeType === "positive" && <TrendingUp className="w-3.5 h-3.5" />}
+            {changeType === "positive" && <TrendingUp className="w-4 h-4" />}
             {changeType === "negative" && (
-              <TrendingDown className="w-3.5 h-3.5" />
+              <TrendingDown className="w-4 h-4" />
             )}
             <span>{change}</span>
           </div>

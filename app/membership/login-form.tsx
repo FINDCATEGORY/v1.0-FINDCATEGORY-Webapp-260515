@@ -76,8 +76,8 @@ export default function LoginForm() {
       <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-sm border border-[#4C050C]/10">
 
         <div className="flex flex-col items-center text-center mb-8">
-          <h1 className="text-2xl font-bold text-[#4C050C] tracking-tight">멤버십 라운지</h1>
-          <p className="text-sm text-[#4C050C]/60 mt-2">라운지에 입장하시려면 Talk to AI 를 통해 접수해주세요.</p>
+          <h1 className="text-2xl font-bold text-[#4C050C] tracking-tight">FINDCATEGORY 파트너 로그인</h1>
+          <p className="text-sm text-[#4C050C]/60 mt-2">이용하시려면 Talk to AI 를 통해 가입 문의를 접수해주세요.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

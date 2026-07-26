@@ -25,11 +25,11 @@ export function ChatArea() {
   const menuData = [
     {
       main: "회원정보",
-      sub: ["아이디 찾기", "비밀번호 찾기", "회원탈퇴 신청"]
+      sub: ["회원 신청", "아이디 찾기", "비밀번호 찾기", "회원탈퇴 신청"]
     },
     {
-      main: "멤버십",
-      sub: ["멤버십 안내", "포인트 충전", "얼굴인식/패스키 등록", "1:1 문의", "최근 주문 내역"]
+      main: "마이페이지",
+      sub: ["얼굴인식/패스키 등록", "1:1 문의", "최근 주문 내역"]
     },
     {
       main: "비즈니스",
@@ -73,10 +73,10 @@ export function ChatArea() {
     let fullText = "";
     if (trimmedText === "대량구매" || trimmedText === "공간 스타일링 신청") {
       fullText = `비즈니스 '${trimmedText}' 문의 양식입니다. 아래 항목을 작성하여 접수해 주시면 담당자가 확인 후 빠르게 회신드리겠습니다.\n[SHOW_NATIVE_BUSINESS_FORM:${trimmedText}]`;
-    } else if (trimmedText === "회원가입") {
+    } else if (trimmedText === "회원가입" || trimmedText === "회원 신청") {
       fullText = " 라이프스타일 큐레이션 스토어, 파인드카테고리의 회원이 되기위한\n회원 가입을 안내해드릴게요!\n[SHOW_SIGNUP_FORM]";
-    } else if (trimmedText === "멤버십") {
-      fullText = "멤버십 가입을 위한 결제를 진행해 주세요.\n[SHOW_CART_SUMMARY]";
+    } else if (trimmedText === "마이페이지") {
+      fullText = "마이페이지(파트너 라운지) 로그인을 위해 진행해 주세요.\n[SHOW_SIGNUP_FORM]";
     } else if (trimmedText === "비즈니스") {
       fullText = "비즈니스 문의를 원하시면 상단 메뉴에서 '대량구매' 혹은 '공간 스타일링 신청' 버튼을 클릭해 주세요.";
     } else if (trimmedText === "비밀번호 찾기" || trimmedText.includes("비밀번호")) {

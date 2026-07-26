@@ -36,82 +36,61 @@ import {
 const integrations = [
   {
     id: "salesforce",
-    name: "Salesforce",
-    description: "Sync contacts and opportunities",
+    name: "Salesforce CRM",
+    description: "고객 및 거래 데이터 동기화",
     connected: true,
-    lastSync: "2 hours ago",
+    lastSync: "2시간 전",
   },
   {
-    id: "hubspot",
-    name: "HubSpot",
-    description: "Marketing automation and CRM",
+    id: "kakao",
+    name: "카카오 알림톡",
+    description: "주문 및 배송 알림 발송",
     connected: true,
-    lastSync: "5 mins ago",
+    lastSync: "실시간",
   },
   {
     id: "slack",
     name: "Slack",
-    description: "Team notifications and alerts",
+    description: "팀 알림 및 시스템 경고",
     connected: true,
-    lastSync: "Real-time",
+    lastSync: "실시간",
   },
   {
-    id: "gmail",
-    name: "Gmail",
-    description: "Email tracking and sync",
+    id: "google_analytics",
+    name: "Google Analytics 4",
+    description: "웹사이트 트래픽 및 이벤트 추적",
     connected: false,
     lastSync: null,
-  },
-  {
-    id: "calendar",
-    name: "Google Calendar",
-    description: "Meeting scheduling",
-    connected: false,
-    lastSync: null,
-  },
-  {
-    id: "zoom",
-    name: "Zoom",
-    description: "Video conferencing integration",
-    connected: true,
-    lastSync: "1 hour ago",
   },
 ];
 
 const notificationSettings = [
   {
-    id: "deal_updates",
-    label: "Deal Updates",
-    description: "Get notified when deals change status",
+    id: "order_updates",
+    label: "신규 주문 알림",
+    description: "새로운 주문이 접수될 때 알림",
     email: true,
     push: true,
   },
   {
-    id: "team_activity",
-    label: "Team Activity",
-    description: "Updates on team performance and milestones",
+    id: "membership_changes",
+    label: "멤버십 승급 알림",
+    description: "고객의 멤버십 등급이 변경될 때 알림",
     email: true,
     push: false,
   },
   {
-    id: "pipeline_alerts",
-    label: "Pipeline Alerts",
-    description: "Alerts for pipeline changes and risks",
+    id: "inquiry_alerts",
+    label: "1:1 문의 접수",
+    description: "새로운 고객 문의가 등록될 때 알림",
     email: true,
     push: true,
   },
   {
-    id: "forecast_updates",
-    label: "Forecast Updates",
-    description: "Weekly forecast summary reports",
+    id: "system_warnings",
+    label: "시스템 경고",
+    description: "결제 실패, 재고 부족 등 시스템 경고 알림",
     email: true,
-    push: false,
-  },
-  {
-    id: "customer_health",
-    label: "Customer Health",
-    description: "Alerts when customer health scores drop",
-    email: false,
     push: true,
   },
 ];
@@ -135,38 +114,38 @@ export function SettingsSection() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-foreground">설정</h2>
-        <p className="text-sm text-muted-foreground mt-1">
-          계정 환경 설정 및 연동 관리
+        <h2 className="text-2xl font-black text-[#4C050C] font-sans">시스템 설정</h2>
+        <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">
+          관리자 계정 환경 설정 및 외부 서비스 연동 관리
         </p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="bg-secondary border border-border p-1">
+        <TabsList className="bg-[#EBEBDF]/50 border border-[#4C050C]/10 p-1 rounded-full w-full justify-start overflow-x-auto">
           <TabsTrigger
             value="profile"
-            className="data-[state=active]:bg-card data-[state=active]:text-foreground"
+            className="rounded-full px-6 data-[state=active]:bg-[#4C050C] data-[state=active]:text-white data-[state=active]:shadow-md font-bold font-sans text-[#4C050C]/60"
           >
             <User className="w-4 h-4 mr-2" />
             프로필
           </TabsTrigger>
           <TabsTrigger
             value="notifications"
-            className="data-[state=active]:bg-card data-[state=active]:text-foreground"
+            className="rounded-full px-6 data-[state=active]:bg-[#4C050C] data-[state=active]:text-white data-[state=active]:shadow-md font-bold font-sans text-[#4C050C]/60"
           >
             <Bell className="w-4 h-4 mr-2" />
             알림
           </TabsTrigger>
           <TabsTrigger
             value="integrations"
-            className="data-[state=active]:bg-card data-[state=active]:text-foreground"
+            className="rounded-full px-6 data-[state=active]:bg-[#4C050C] data-[state=active]:text-white data-[state=active]:shadow-md font-bold font-sans text-[#4C050C]/60"
           >
             <Link2 className="w-4 h-4 mr-2" />
             연동
           </TabsTrigger>
           <TabsTrigger
             value="security"
-            className="data-[state=active]:bg-card data-[state=active]:text-foreground"
+            className="rounded-full px-6 data-[state=active]:bg-[#4C050C] data-[state=active]:text-white data-[state=active]:shadow-md font-bold font-sans text-[#4C050C]/60"
           >
             <Shield className="w-4 h-4 mr-2" />
             보안
@@ -175,79 +154,77 @@ export function SettingsSection() {
 
         {/* Profile Tab */}
         <TabsContent value="profile" className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">개인 정보</CardTitle>
-              <CardDescription>개인 정보 및 환경 설정 업데이트</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">개인 정보</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">관리자 프로필 및 기본 환경 설정 업데이트</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex items-center gap-6">
-                <Avatar className="w-20 h-20 bg-secondary">
-                  <AvatarFallback className="bg-accent text-accent-foreground text-2xl font-semibold">
+                <Avatar className="w-20 h-20 bg-[#EBEBDF]">
+                  <AvatarFallback className="bg-[#4C050C] text-white text-2xl font-black font-sans">
                     JD
                   </AvatarFallback>
                 </Avatar>
                 <div className="space-y-2">
-                  <Button variant="outline" size="sm">
-                    아바타 변경
+                  <Button variant="outline" size="sm" className="bg-white border-[#4C050C]/20 text-[#4C050C] hover:bg-[#EBEBDF] rounded-full font-bold font-sans">
+                    프로필 사진 변경
                   </Button>
-                  <p className="text-xs text-muted-foreground">JPG, PNG or GIF. Max 2MB.</p>
+                  <p className="text-xs font-bold text-[#4C050C]/50 font-sans">JPG, PNG or GIF. 최대 2MB.</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">이름</Label>
-                  <Input
-                    id="firstName"
-                    defaultValue="John"
-                    className="bg-secondary border-border focus:border-accent"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">성</Label>
+                  <Label htmlFor="lastName" className="font-bold text-[#4C050C] font-sans">성</Label>
                   <Input
                     id="lastName"
-                    defaultValue="Doe"
-                    className="bg-secondary border-border focus:border-accent"
+                    defaultValue="김"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl font-bold text-[#4C050C] font-sans"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">이메일</Label>
+                  <Label htmlFor="firstName" className="font-bold text-[#4C050C] font-sans">이름</Label>
+                  <Input
+                    id="firstName"
+                    defaultValue="도윤"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl font-bold text-[#4C050C] font-sans"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="font-bold text-[#4C050C] font-sans">이메일</Label>
                   <Input
                     id="email"
                     type="email"
-                    defaultValue="john.doe@company.com"
-                    className="bg-secondary border-border focus:border-accent"
+                    defaultValue="doyun.kim@findcategory.com"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl font-bold text-[#4C050C] font-sans"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="role">역할</Label>
-                  <Select defaultValue="manager">
-                    <SelectTrigger className="bg-secondary border-border">
+                  <Label htmlFor="role" className="font-bold text-[#4C050C] font-sans">역할</Label>
+                  <Select defaultValue="admin">
+                    <SelectTrigger className="bg-[#EBEBDF]/30 border-[#4C050C]/20 rounded-xl font-bold text-[#4C050C] font-sans">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="admin">Administrator</SelectItem>
-                      <SelectItem value="manager">Sales Manager</SelectItem>
-                      <SelectItem value="rep">Sales Representative</SelectItem>
-                      <SelectItem value="viewer">Viewer</SelectItem>
+                      <SelectItem value="admin">최고 관리자 (Admin)</SelectItem>
+                      <SelectItem value="manager">운영 매니저 (Manager)</SelectItem>
+                      <SelectItem value="cs">CS 매니저 (CS)</SelectItem>
+                      <SelectItem value="viewer">조회 전용 (Viewer)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="timezone">표준 시간대</Label>
-                <Select defaultValue="pst">
-                  <SelectTrigger className="bg-secondary border-border w-full md:w-[300px]">
+              <div className="space-y-2 border-t border-[#4C050C]/10 pt-6">
+                <Label htmlFor="timezone" className="font-bold text-[#4C050C] font-sans">표준 시간대</Label>
+                <Select defaultValue="kst">
+                  <SelectTrigger className="bg-[#EBEBDF]/30 border-[#4C050C]/20 w-full md:w-[300px] rounded-xl font-bold text-[#4C050C] font-sans">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="kst">Asia/Seoul (KST)</SelectItem>
                     <SelectItem value="pst">Pacific Time (PT)</SelectItem>
-                    <SelectItem value="mst">Mountain Time (MT)</SelectItem>
-                    <SelectItem value="cst">Central Time (CT)</SelectItem>
-                    <SelectItem value="est">Eastern Time (ET)</SelectItem>
                     <SelectItem value="utc">UTC</SelectItem>
                   </SelectContent>
                 </Select>
@@ -255,68 +232,61 @@ export function SettingsSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">표시 설정</CardTitle>
-              <CardDescription>데이터 표시 방식 사용자 지정</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">디스플레이 설정</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">대시보드 화면 표시 방식 설정</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Palette className="w-5 h-5 text-muted-foreground" />
-                  <div>
-                    <p className="font-medium text-foreground">다크 모드</p>
-                    <p className="text-sm text-muted-foreground">인터페이스에 다크 테마 사용</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#EBEBDF] flex items-center justify-center">
+                    <Palette className="w-5 h-5 text-[#4C050C]" />
                   </div>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-muted-foreground" />
                   <div>
-                    <p className="font-medium text-foreground">통화 형식</p>
-                    <p className="text-sm text-muted-foreground">지역 통화 표시</p>
-                  </div>
-                </div>
-                <Select defaultValue="usd">
-                  <SelectTrigger className="w-[120px] bg-secondary border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="usd">USD ($)</SelectItem>
-                    <SelectItem value="eur">EUR (€)</SelectItem>
-                    <SelectItem value="gbp">GBP (£)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Database className="w-5 h-5 text-muted-foreground" />
-                  <div>
-                    <p className="font-medium text-foreground">작은 화면 뷰</p>
-                    <p className="text-sm text-muted-foreground">적은 공간에 더 많은 데이터 표시</p>
+                    <p className="font-black text-[#4C050C] font-sans">다크 모드</p>
+                    <p className="text-sm font-bold text-[#4C050C]/60 font-sans mt-0.5">인터페이스 어두운 테마 사용</p>
                   </div>
                 </div>
                 <Switch />
               </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#EBEBDF] flex items-center justify-center">
+                    <Globe className="w-5 h-5 text-[#4C050C]" />
+                  </div>
+                  <div>
+                    <p className="font-black text-[#4C050C] font-sans">기준 통화</p>
+                    <p className="text-sm font-bold text-[#4C050C]/60 font-sans mt-0.5">매출 및 예산 기본 표시 통화</p>
+                  </div>
+                </div>
+                <Select defaultValue="krw">
+                  <SelectTrigger className="w-[120px] bg-[#EBEBDF]/30 border-[#4C050C]/20 rounded-xl font-bold text-[#4C050C] font-sans">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="krw">KRW (₩)</SelectItem>
+                    <SelectItem value="usd">USD ($)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </CardContent>
           </Card>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-2">
             <Button
               onClick={handleSave}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              className="bg-[#4C050C] hover:bg-[#4C050C]/90 text-white rounded-full px-8 py-6 font-black font-sans shadow-md"
               disabled={isSaving}
             >
               {isSaving ? (
                 <>
-                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
                   저장 중...
                 </>
               ) : (
                 <>
-                  <Check className="w-4 h-4 mr-2" />
+                  <Check className="w-5 h-5 mr-2" />
                   변경 사항 저장
                 </>
               )}
@@ -326,33 +296,33 @@ export function SettingsSection() {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications" className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">알림 설정</CardTitle>
-              <CardDescription>알림 수신 방법 및 시기 선택</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">알림 수신 설정</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">중요 이벤트별 알림 수신 여부 관리</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-1">
-                <div className="grid grid-cols-[1fr,80px,80px] gap-4 pb-3 border-b border-border text-sm text-muted-foreground">
-                  <span>Notification Type</span>
+              <div className="space-y-2">
+                <div className="grid grid-cols-[1fr,80px,80px] gap-4 pb-4 border-b border-[#4C050C]/10 text-sm font-black text-[#4C050C]/50 font-sans">
+                  <span>알림 유형</span>
                   <span className="text-center flex items-center justify-center gap-1.5">
                     <Mail className="w-4 h-4" />
-                    Email
+                    이메일
                   </span>
                   <span className="text-center flex items-center justify-center gap-1.5">
                     <Smartphone className="w-4 h-4" />
-                    Push
+                    푸시
                   </span>
                 </div>
                 {notifications.map((notification, index) => (
                   <div
                     key={notification.id}
-                    className="grid grid-cols-[1fr,80px,80px] gap-4 py-4 border-b border-border last:border-0 animate-in fade-in slide-in-from-left-2"
+                    className="grid grid-cols-[1fr,80px,80px] gap-4 py-5 border-b border-[#4C050C]/5 last:border-0 animate-in fade-in slide-in-from-left-2"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div>
-                      <p className="font-medium text-foreground">{notification.label}</p>
-                      <p className="text-sm text-muted-foreground">{notification.description}</p>
+                      <p className="font-black text-[#4C050C] font-sans text-base">{notification.label}</p>
+                      <p className="text-sm font-bold text-[#4C050C]/60 font-sans mt-1">{notification.description}</p>
                     </div>
                     <div className="flex items-center justify-center">
                       <Switch
@@ -375,76 +345,76 @@ export function SettingsSection() {
 
         {/* Integrations Tab */}
         <TabsContent value="integrations" className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">연결된 서비스</CardTitle>
-              <CardDescription>타사 연동 관리</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">외부 서비스 연동</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">CRM, 메신저 등 서드파티 앱 연결 관리</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {integrations.map((integration, index) => (
                   <div
                     key={integration.id}
-                    className={`p-4 rounded-lg border transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 ${
+                    className={`p-6 rounded-[20px] border-2 transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 ${
                       integration.connected
-                        ? "bg-secondary/50 border-border hover:border-accent/50"
-                        : "bg-secondary/20 border-border hover:border-muted-foreground/30"
+                        ? "bg-[#EBEBDF]/10 border-[#4C050C]/20 hover:border-[#4C050C]/40"
+                        : "bg-gray-50 border-gray-100 hover:border-gray-200"
                     }`}
                     style={{ animationDelay: `${index * 75}ms` }}
                   >
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4">
                         <div
-                          className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                            integration.connected ? "bg-accent/20" : "bg-muted"
+                          className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+                            integration.connected ? "bg-[#4C050C] shadow-lg shadow-[#4C050C]/20" : "bg-gray-200"
                           }`}
                         >
                           <Zap
-                            className={`w-5 h-5 ${
-                              integration.connected ? "text-accent" : "text-muted-foreground"
+                            className={`w-6 h-6 ${
+                              integration.connected ? "text-white" : "text-gray-400"
                             }`}
                           />
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">{integration.name}</p>
-                          <p className="text-sm text-muted-foreground">{integration.description}</p>
+                          <p className={`font-black font-sans text-lg ${integration.connected ? "text-[#4C050C]" : "text-gray-600"}`}>{integration.name}</p>
+                          <p className="text-sm font-bold text-gray-500 font-sans mt-0.5">{integration.description}</p>
                         </div>
                       </div>
                       <Badge
-                        className={
+                        className={`font-bold font-sans px-3 py-1 rounded-full ${
                           integration.connected
-                            ? "bg-accent/20 text-accent border-accent/30"
-                            : "bg-muted text-muted-foreground border-border"
-                        }
+                            ? "bg-emerald-100 text-emerald-700 border-emerald-200"
+                            : "bg-gray-200 text-gray-500 border-gray-300"
+                        }`}
                       >
-                        {integration.connected ? "Connected" : "Not connected"}
+                        {integration.connected ? "연결됨" : "미연결"}
                       </Badge>
                     </div>
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4">
                       {integration.connected ? (
                         <>
-                          <span className="text-xs text-muted-foreground">
-                            Last sync: {integration.lastSync}
+                          <span className="text-xs font-bold text-emerald-700 font-sans">
+                            최근 동기화: {integration.lastSync}
                           </span>
                           <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="sm" className="h-8">
-                              <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-                              Sync
+                            <Button variant="ghost" size="sm" className="h-9 px-4 rounded-xl font-bold text-[#4C050C] hover:bg-[#EBEBDF] font-sans">
+                              <RefreshCw className="w-4 h-4 mr-2" />
+                              동기화
                             </Button>
-                            <Button variant="ghost" size="sm" className="h-8 text-destructive hover:text-destructive">
-                              Disconnect
+                            <Button variant="ghost" size="sm" className="h-9 px-4 rounded-xl font-bold text-red-600 hover:bg-red-50 hover:text-red-700 font-sans">
+                              연결 해제
                             </Button>
                           </div>
                         </>
                       ) : (
                         <>
-                          <span className="text-xs text-muted-foreground">Not configured</span>
+                          <span className="text-xs font-bold text-gray-400 font-sans">설정되지 않음</span>
                           <Button
                             size="sm"
-                            className="h-8 bg-accent hover:bg-accent/90 text-accent-foreground"
+                            className="h-9 px-5 bg-[#4C050C] hover:bg-[#4C050C]/90 text-white rounded-xl font-bold font-sans shadow-sm"
                           >
-                            Connect
-                            <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                            연결하기
+                            <ExternalLink className="w-4 h-4 ml-2" />
                           </Button>
                         </>
                       )}
@@ -458,109 +428,117 @@ export function SettingsSection() {
 
         {/* Security Tab */}
         <TabsContent value="security" className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">비밀번호 및 인증</CardTitle>
-              <CardDescription>계정 보안 설정 관리</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">비밀번호 변경</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">주기적인 비밀번호 변경으로 계정을 안전하게 보호하세요</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-4">
+              <div className="space-y-4 max-w-md">
                 <div className="space-y-2">
-                  <Label htmlFor="currentPassword">현재 비밀번호</Label>
+                  <Label htmlFor="currentPassword" className="font-bold text-[#4C050C] font-sans">현재 비밀번호</Label>
                   <Input
                     id="currentPassword"
                     type="password"
-                    className="bg-secondary border-border focus:border-accent max-w-md"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="newPassword">새 비밀번호</Label>
+                  <Label htmlFor="newPassword" className="font-bold text-[#4C050C] font-sans">새 비밀번호</Label>
                   <Input
                     id="newPassword"
                     type="password"
-                    className="bg-secondary border-border focus:border-accent max-w-md"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">새 비밀번호 확인</Label>
+                  <Label htmlFor="confirmPassword" className="font-bold text-[#4C050C] font-sans">새 비밀번호 확인</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
-                    className="bg-secondary border-border focus:border-accent max-w-md"
+                    className="bg-[#EBEBDF]/30 border-[#4C050C]/20 focus-visible:ring-[#4C050C]/50 rounded-xl"
                   />
                 </div>
-                <Button variant="outline">비밀번호 업데이트</Button>
+                <Button className="w-full mt-2 bg-[#4C050C] text-white hover:bg-[#4C050C]/90 rounded-xl font-bold font-sans">
+                  비밀번호 업데이트
+                </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">2단계 인증</CardTitle>
-              <CardDescription>계정에 추가 보안 계층 적용</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">2단계 인증 (2FA)</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">계정에 추가 보안 계층 적용</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between p-4 rounded-lg bg-secondary/50 border border-border">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
-                    <Key className="w-5 h-5 text-accent" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 rounded-[20px] bg-[#EBEBDF]/20 border border-[#4C050C]/10 gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-[#4C050C]/10 flex items-center justify-center shadow-sm">
+                    <Key className="w-6 h-6 text-[#4C050C]" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Authenticator App</p>
-                    <p className="text-sm text-muted-foreground">
-                      Use an authenticator app for 2FA codes
+                    <p className="font-black text-[#4C050C] font-sans text-lg">Google Authenticator</p>
+                    <p className="text-sm font-bold text-[#4C050C]/60 font-sans mt-0.5">
+                      OTP 앱을 이용한 2단계 인증
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Badge className="bg-accent/20 text-accent border-accent/30">Enabled</Badge>
-                  <Button variant="outline" size="sm">
-                    Manage
+                <div className="flex items-center gap-3 justify-end">
+                  <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 font-bold px-3 py-1 font-sans rounded-full">사용 중</Badge>
+                  <Button variant="outline" className="bg-white border-[#4C050C]/20 text-[#4C050C] hover:bg-[#EBEBDF] rounded-xl font-bold font-sans px-6">
+                    관리
                   </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-base font-medium">활성 세션</CardTitle>
-              <CardDescription>로그인된 기기 관리</CardDescription>
+          <Card className="border-[#4C050C]/10 bg-white rounded-[24px] shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-black text-[#4C050C] font-sans">활성 세션</CardTitle>
+              <CardDescription className="font-bold text-[#4C050C]/60 font-sans">현재 로그인된 기기 및 브라우저 관리</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {[
-                  { device: "MacBook Pro", location: "San Francisco, CA", current: true, time: "Now" },
-                  { device: "iPhone 15", location: "San Francisco, CA", current: false, time: "2 hours ago" },
-                  { device: "Chrome on Windows", location: "New York, NY", current: false, time: "1 day ago" },
+                  { device: "MacBook Pro M2", location: "Seoul, KR", current: true, time: "현재 접속 중" },
+                  { device: "iPhone 15 Pro", location: "Seoul, KR", current: false, time: "2시간 전" },
+                  { device: "Chrome (Windows)", location: "Busan, KR", current: false, time: "1일 전" },
                 ].map((session, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-3 rounded-lg bg-secondary/30 border border-border animate-in fade-in slide-in-from-left-2"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-5 rounded-2xl bg-white border border-[#4C050C]/5 shadow-sm hover:border-[#4C050C]/20 transition-all animate-in fade-in slide-in-from-left-2 gap-4"
                     style={{ animationDelay: `${index * 75}ms` }}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                        <Globe className="w-4 h-4 text-muted-foreground" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-[#EBEBDF] flex items-center justify-center">
+                        {session.device.includes("iPhone") ? (
+                          <Smartphone className="w-5 h-5 text-[#4C050C]" />
+                        ) : (
+                          <Globe className="w-5 h-5 text-[#4C050C]" />
+                        )}
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">
+                        <p className="text-base font-black text-[#4C050C] font-sans flex items-center gap-2">
                           {session.device}
                           {session.current && (
-                            <Badge className="ml-2 bg-accent/20 text-accent border-accent/30 text-xs">
-                              Current
+                            <Badge className="bg-[#4C050C] text-white border-transparent text-xs px-2 py-0.5 rounded-full font-bold">
+                              현재
                             </Badge>
                           )}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-sm font-bold text-[#4C050C]/50 font-sans mt-0.5">
                           {session.location} • {session.time}
                         </p>
                       </div>
                     </div>
                     {!session.current && (
-                      <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                        Revoke
-                      </Button>
+                      <div className="flex justify-end">
+                        <Button variant="ghost" className="text-red-600 hover:text-red-700 hover:bg-red-50 font-bold font-sans rounded-xl px-5">
+                          연결 끊기
+                        </Button>
+                      </div>
                     )}
                   </div>
                 ))}

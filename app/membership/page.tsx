@@ -16,21 +16,21 @@ export default async function MembershipPage() {
 
   let username = "";
   let email = "";
-  let points = 0;
   let tier = "user";
   try {
     const session = JSON.parse(Buffer.from(sessionCookie.value, 'base64').toString());
     username = session.username || "회원";
     tier = session.tier || "user";
-    
+
     if (username !== "회원" && username !== "findcategoryadmin" && username !== "admin") {
-      const { data } = await supabase.from("b2b_signups").select("email, points").eq("username", username).single();
+      const { data, error } = await supabase.from("b2b_signups").select("email, tier").eq("username", username).single();
       if (data) {
         if (data.email) email = data.email;
-        if (data.points !== undefined) points = data.points;
+        if (data.tier) tier = data.tier;
       }
     }
   } catch (e) {
+    console.error("Failed to parse session or fetch supabase data:", e);
     username = "회원";
   }
 
@@ -38,5 +38,6 @@ export default async function MembershipPage() {
   if (tier === "admin" || username === "findcategoryadmin" || username === "admin") {
     redirect("/membership/admin");
   }
-  return <MembershipDashboard username={username} email={email} points={points} grade={tier.toUpperCase() as any} />
+  
+  return <MembershipDashboard username={username} email={email} grade={tier.toUpperCase() as any} />
 }

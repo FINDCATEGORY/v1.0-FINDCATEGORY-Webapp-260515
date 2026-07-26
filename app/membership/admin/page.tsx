@@ -7,12 +7,12 @@ import { OverviewSection } from "@/components/admin/dashboard/sections/overview"
 import { PipelineSection } from "@/components/admin/dashboard/sections/pipeline";
 import { DealsSection } from "@/components/admin/dashboard/sections/deals";
 import { CustomersSection } from "@/components/admin/dashboard/sections/customers";
-import { TeamSection } from "@/components/admin/dashboard/sections/team";
-import { ForecastingSection } from "@/components/admin/dashboard/sections/forecasting";
 import { ReportsSection } from "@/components/admin/dashboard/sections/reports";
 import { SettingsSection } from "@/components/admin/dashboard/sections/settings";
+import { InventorySection } from "@/components/admin/dashboard/sections/inventory";
+import { AnalyticsSection } from "@/components/admin/dashboard/sections/analytics";
 
-export type Section = "overview" | "pipeline" | "deals" | "customers" | "team" | "forecasting" | "reports" | "settings";
+export type Section = "overview" | "pipeline" | "deals" | "customers" | "reports" | "settings" | "inventory" | "analytics";
 
 export default function Dashboard() {
     const [activeSection, setActiveSection] = useState<Section>("overview");
@@ -28,14 +28,14 @@ export default function Dashboard() {
                 return <DealsSection />;
             case "customers":
                 return <CustomersSection />;
-            case "team":
-                return <TeamSection />;
-            case "forecasting":
-                return <ForecastingSection />;
             case "reports":
                 return <ReportsSection />;
             case "settings":
                 return <SettingsSection />;
+            case "inventory":
+                return <InventorySection />;
+            case "analytics":
+                return <AnalyticsSection />;
             default:
                 return <OverviewSection />;
         }

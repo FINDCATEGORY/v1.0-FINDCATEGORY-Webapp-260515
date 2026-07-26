@@ -17,31 +17,4 @@ export function ProductModal() {
       </div>
     </div>
   );
-}## Error Type
-Build Error
-
-## Error Message
-Module not found: Can't resolve './cart-context'
-
-## Build Output
-./app/layout.tsx:2:1
-Module not found: Can't resolve './cart-context'
-  1 | "use client";
-> 2 | import { useCart } from "./cart-context";
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import Image from "next/image";
-  4 |
-  5 | export function ProductModal() {
-
-Import traces:
-  Client Component Browser:
-    ./app/layout.tsx [Client Component Browser]
-    ./app/layout.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/layout.tsx [Client Component SSR]
-    ./app/layout.tsx [Server Component]
-
-https://nextjs.org/docs/messages/module-not-found
-
-Next.js version: 16.2.6 (Turbopack)
+}

@@ -5,14 +5,13 @@ import React from "react"
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
-  FileText,
-  Download,
-  Calendar,
-  TrendingUp,
-  PieChart as PieChartIcon,
-  BarChart3,
+  MessageSquare,
   Clock,
+  CheckCircle2,
+  AlertCircle,
   ChevronRight,
+  Search,
+  Filter
 } from "lucide-react";
 import {
   PieChart,
@@ -27,45 +26,41 @@ import {
   Tooltip,
 } from "recharts";
 
-const conversionData = [
-  { month: "Jan", rate: 18 },
-  { month: "Feb", rate: 22 },
-  { month: "Mar", rate: 19 },
-  { month: "Apr", rate: 25 },
-  { month: "May", rate: 23 },
-  { month: "Jun", rate: 28 },
-  { month: "Jul", rate: 26 },
-  { month: "Aug", rate: 31 },
-  { month: "Sep", rate: 29 },
-  { month: "Oct", rate: 32 },
-  { month: "Nov", rate: 35 },
-  { month: "Dec", rate: 38 },
+const responseTimeData = [
+  { day: "Mon", time: 45 },
+  { day: "Tue", time: 52 },
+  { day: "Wed", time: 38 },
+  { day: "Thu", time: 65 },
+  { day: "Fri", time: 48 },
+  { day: "Sat", time: 120 },
+  { day: "Sun", time: 95 },
 ];
 
-const sourceData = [
-  { name: "Direct", value: 35, color: "oklch(0.7 0.18 220)" },
-  { name: "Referral", value: 25, color: "oklch(0.7 0.18 145)" },
-  { name: "Organic", value: 20, color: "oklch(0.75 0.18 55)" },
-  { name: "Paid Ads", value: 15, color: "oklch(0.65 0.2 25)" },
-  { name: "Social", value: 5, color: "oklch(0.7 0.15 300)" },
+const categoryData = [
+  { name: "상품 문의", value: 45, color: "#4C050C" },
+  { name: "배송/교환", value: 30, color: "rgba(76, 5, 12, 0.7)" },
+  { name: "결제/환불", value: 15, color: "rgba(76, 5, 12, 0.4)" },
+  { name: "기타", value: 10, color: "#EBEBDF" },
 ];
 
-const reports = [
-  { id: "1", name: "Monthly Sales Summary", type: "Sales", date: "Jan 20, 2024", status: "ready" },
-  { id: "2", name: "Q4 Performance Analysis", type: "Performance", date: "Jan 18, 2024", status: "ready" },
-  { id: "3", name: "Pipeline Forecast", type: "Forecast", date: "Jan 15, 2024", status: "ready" },
-  { id: "4", name: "Team Productivity Report", type: "Team", date: "Jan 12, 2024", status: "generating" },
-  { id: "5", name: "Lead Source Analysis", type: "Marketing", date: "Jan 10, 2024", status: "ready" },
+const inquiries = [
+  { id: "1", title: "골든아워 컬렉션 재입고 문의", customer: "김민준 (PRESTIGE)", category: "상품 문의", date: "10분 전", status: "pending" },
+  { id: "2", title: "파손 상품 교환 요청", customer: "이서연 (EDITION)", category: "배송/교환", date: "1시간 전", status: "in-progress" },
+  { id: "3", title: "결제 카드 변경", customer: "박지훈 (SOCIAL)", category: "결제/환불", date: "3시간 전", status: "resolved" },
+  { id: "4", title: "멤버십 승급 기준 문의", customer: "최유진 (EDITION)", category: "기타", date: "1일 전", status: "resolved" },
+  { id: "5", title: "선물 포장 옵션 추가", customer: "정태영 (PRESTIGE)", category: "상품 문의", date: "1일 전", status: "resolved" },
 ];
 
-function ReportCard({
+function StatCard({
   title,
+  value,
   description,
   icon: Icon,
   color,
   index,
 }: {
   title: string;
+  value: string | number;
   description: string;
   icon: React.ElementType<any>;
   color: string;
@@ -73,18 +68,15 @@ function ReportCard({
 }) {
   return (
     <div
-      className="group bg-card border border-border rounded-xl p-5 hover:border-accent/50 cursor-pointer transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+      className="group bg-white border border-[#4C050C]/10 rounded-[24px] p-6 hover:-translate-y-1 hover:shadow-md transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
       style={{ animationDelay: `${index * 100}ms`, animationFillMode: "both" }}
     >
-      <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center mb-4", color)}>
-        <Icon className="w-5 h-5" />
+      <div className={cn("w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-[#EBEBDF]")}>
+        <Icon className={cn("w-6 h-6 text-[#4C050C]", color)} />
       </div>
-      <h3 className="text-sm font-semibold text-foreground mb-1">{title}</h3>
-      <p className="text-xs text-muted-foreground mb-4">{description}</p>
-      <button className="flex items-center gap-1 text-xs text-accent font-medium group-hover:gap-2 transition-all duration-200">
-        보고서 보기
-        <ChevronRight className="w-3 h-3" />
-      </button>
+      <h3 className="text-sm font-bold text-[#4C050C]/60 font-sans mb-1">{title}</h3>
+      <div className="text-3xl font-black text-[#4C050C] font-sans mb-2">{value}</div>
+      <p className="text-xs font-bold text-[#4C050C]/50 font-sans">{description}</p>
     </div>
   );
 }
@@ -99,131 +91,154 @@ export function ReportsSection() {
 
   return (
     <div className="space-y-6">
-      {/* Quick report cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <ReportCard
-          title="매출 요약"
-          description="월별 매출 및 거래 지표"
-          icon={BarChart3}
-          color="bg-chart-1/10 text-chart-1"
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-black text-[#4C050C] font-sans">1:1 문의 관리</h2>
+          <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">
+            고객 문의 사항을 신속하게 처리하고 서비스 품질을 관리합니다.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-[#4C050C]/20 text-[#4C050C] rounded-full text-sm font-bold hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
+            <Filter className="w-4 h-4" />
+            필터
+          </button>
+        </div>
+      </div>
+
+      {/* Quick stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatCard
+          title="미답변 문의"
+          value="12"
+          description="현재 대기 중인 문의건"
+          icon={AlertCircle}
+          color="text-red-600"
           index={0}
         />
-        <ReportCard
-          title="전환율"
-          description="퍼널 성과 분석"
-          icon={TrendingUp}
-          color="bg-accent/10 text-accent"
+        <StatCard
+          title="평균 응답 시간"
+          value="45분"
+          description="최근 7일 평균"
+          icon={Clock}
+          color="text-[#4C050C]"
           index={1}
         />
-        <ReportCard
-          title="리드 출처"
-          description="채널 기여도 분석"
-          icon={PieChartIcon}
-          color="bg-chart-3/10 text-chart-3"
+        <StatCard
+          title="당월 처리 완료"
+          value="342"
+          description="이번 달 해결된 문의"
+          icon={CheckCircle2}
+          color="text-emerald-600"
           index={2}
         />
-        <ReportCard
-          title="예측"
-          description="매출 예측 및 목표"
-          icon={Calendar}
-          color="bg-chart-5/10 text-chart-5"
+        <StatCard
+          title="고객 만족도"
+          value="4.8"
+          description="5점 만점 기준"
+          icon={MessageSquare}
+          color="text-amber-500"
           index={3}
         />
       </div>
 
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Conversion rate trend */}
-        <div className="bg-card border border-border rounded-xl p-5 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
+        {/* Response time trend */}
+        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-base font-semibold text-foreground">전환율 추이</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">월별 리드 대 거래 전환</p>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-success font-medium">
-              <TrendingUp className="w-4 h-4" />
-              +111% YoY
+              <h3 className="text-xl font-black text-[#4C050C] font-sans">주간 응답 시간 추이</h3>
+              <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">요일별 평균 답변 소요 시간 (분)</p>
             </div>
           </div>
-          <div className={`h-[250px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`h-[280px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={conversionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.22 0.005 260)" vertical={false} />
+              <LineChart data={responseTimeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#4C050C" strokeOpacity={0.1} vertical={false} />
                 <XAxis
-                  dataKey="month"
+                  dataKey="day"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "oklch(0.65 0 0)", fontSize: 12 }}
+                  tick={{ fill: "#4C050C", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
                   dy={10}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "oklch(0.65 0 0)", fontSize: 12 }}
-                  tickFormatter={(value) => `${value}%`}
-                  dx={-10}
+                  tick={{ fill: "#4C050C", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
+                  tickFormatter={(value) => `${value}m`}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "oklch(0.12 0.005 260)",
-                    border: "1px solid oklch(0.22 0.005 260)",
-                    borderRadius: "8px",
+                    backgroundColor: "#EBEBDF",
+                    border: "1px solid rgba(76, 5, 12, 0.1)",
+                    borderRadius: "12px",
                     fontSize: "12px",
+                    fontWeight: 800,
+                    color: "#4C050C",
+                    fontFamily: "sans-serif"
                   }}
-                  labelStyle={{ color: "oklch(0.95 0 0)", fontWeight: 600 }}
-                  formatter={(value: number) => [`${value}%`, "Conversion Rate"]}
+                  itemStyle={{ color: "#4C050C" }}
+                  formatter={(value: number) => [`${value}분`, "응답 시간"]}
                 />
                 <Line
                   type="monotone"
-                  dataKey="rate"
-                  stroke="oklch(0.7 0.18 145)"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{ r: 4, strokeWidth: 2 }}
+                  dataKey="time"
+                  stroke="#4C050C"
+                  strokeWidth={3}
+                  dot={{ r: 4, fill: "#EBEBDF", stroke: "#4C050C", strokeWidth: 2 }}
+                  activeDot={{ r: 6, fill: "#4C050C", stroke: "#EBEBDF", strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Lead sources pie chart */}
-        <div className="bg-card border border-border rounded-xl p-5 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+        {/* Inquiry Categories pie chart */}
+        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
           <div className="mb-6">
-            <h3 className="text-base font-semibold text-foreground">리드 출처</h3>
-            <p className="text-sm text-muted-foreground mt-0.5">리드 유입 경로</p>
+            <h3 className="text-xl font-black text-[#4C050C] font-sans">문의 유형 분류</h3>
+            <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">전체 문의 유형 비율</p>
           </div>
-          <div className="flex items-center gap-8">
-            <div className={`w-[180px] h-[180px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex items-center gap-8 h-[250px]">
+            <div className={`w-[200px] h-[200px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={sourceData}
+                    data={categoryData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={2}
+                    innerRadius={60}
+                    outerRadius={90}
+                    paddingAngle={3}
                     dataKey="value"
+                    stroke="none"
                   >
-                    {sourceData.map((entry, index) => (
+                    {categoryData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
+                  <Tooltip 
+                    contentStyle={{ borderRadius: "12px", fontWeight: "bold", border: "none", backgroundColor: "#EBEBDF", color: "#4C050C" }}
+                    itemStyle={{ color: "#4C050C" }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex-1 space-y-3">
-              {sourceData.map((source, index) => (
+            <div className="flex-1 space-y-4">
+              {categoryData.map((category, index) => (
                 <div
-                  key={source.name}
+                  key={category.name}
                   className="flex items-center justify-between animate-in fade-in slide-in-from-right-2"
                   style={{ animationDelay: `${(index + 5) * 100}ms`, animationFillMode: "both" }}
                 >
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: source.color }} />
-                    <span className="text-sm text-foreground">{source.name}</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: category.color }} />
+                    <span className="text-sm font-bold text-[#4C050C] font-sans">{category.name}</span>
                   </div>
-                  <span className="text-sm font-semibold text-foreground">{source.value}%</span>
+                  <span className="text-sm font-black text-[#4C050C] font-sans">{category.value}%</span>
                 </div>
               ))}
             </div>
@@ -231,50 +246,59 @@ export function ReportsSection() {
         </div>
       </div>
 
-      {/* Recent reports table */}
-      <div className="bg-card border border-border rounded-xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
-        <div className="flex items-center justify-between p-5 border-b border-border">
+      {/* Inquiry List */}
+      <div className="bg-white border border-[#4C050C]/10 rounded-[24px] overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
+        <div className="flex items-center justify-between p-6 border-b border-[#4C050C]/10">
           <div>
-            <h3 className="text-base font-semibold text-foreground">최근 보고서</h3>
-            <p className="text-sm text-muted-foreground mt-0.5">생성된 보고서</p>
+            <h3 className="text-xl font-black text-[#4C050C] font-sans">최근 접수 문의</h3>
+            <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">실시간 접수 현황</p>
           </div>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary text-sm text-muted-foreground hover:text-foreground transition-colors duration-200">
-            <FileText className="w-4 h-4" />
-            새로 생성
-          </button>
+          <div className="relative">
+            <Search className="w-4 h-4 text-[#4C050C]/40 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input 
+              type="text" 
+              placeholder="문의 검색..." 
+              className="pl-9 pr-4 py-2 bg-[#EBEBDF]/30 border border-[#4C050C]/10 rounded-full text-sm font-bold text-[#4C050C] placeholder:text-[#4C050C]/40 focus:outline-none focus:border-[#4C050C]/30 focus:ring-1 focus:ring-[#4C050C]/30 w-[200px]"
+            />
+          </div>
         </div>
-        <div className="divide-y divide-border">
-          {reports.map((report, index) => (
+        <div className="divide-y divide-[#4C050C]/5">
+          {inquiries.map((inquiry, index) => (
             <div
-              key={report.id}
-              className="flex items-center justify-between px-5 py-4 hover:bg-secondary/30 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
+              key={inquiry.id}
+              className="flex flex-col sm:flex-row sm:items-center justify-between p-6 hover:bg-[#EBEBDF]/20 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
               style={{ animationDelay: `${(index + 6) * 50}ms`, animationFillMode: "both" }}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-muted-foreground" />
+              <div className="flex items-start gap-4 mb-4 sm:mb-0">
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                  inquiry.status === "pending" ? "bg-red-100 text-red-600" :
+                  inquiry.status === "in-progress" ? "bg-amber-100 text-amber-600" :
+                  "bg-emerald-100 text-emerald-600"
+                )}>
+                  <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-foreground">{report.name}</p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="px-1.5 py-0.5 rounded bg-secondary">{report.type}</span>
-                    <span>•</span>
-                    <span>{report.date}</span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-base font-black text-[#4C050C] font-sans">{inquiry.title}</p>
+                    {inquiry.status === "pending" && (
+                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                    )}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-[#4C050C]/60 font-sans">
+                    <span>{inquiry.customer}</span>
+                    <span className="w-1 h-1 rounded-full bg-[#4C050C]/20" />
+                    <span>{inquiry.category}</span>
+                    <span className="w-1 h-1 rounded-full bg-[#4C050C]/20" />
+                    <span>{inquiry.date}</span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                {report.status === "generating" ? (
-                  <div className="flex items-center gap-2 text-xs text-warning">
-                    <Clock className="w-4 h-4 animate-pulse" />
-                    생성 중...
-                  </div>
-                ) : (
-                  <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200">
-                    <Download className="w-4 h-4" />
-                    다운로드
-                  </button>
-                )}
+              <div className="flex items-center justify-end sm:justify-start w-full sm:w-auto">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-[#4C050C] hover:bg-[#EBEBDF] transition-all duration-200 font-sans w-full justify-center sm:w-auto">
+                  {inquiry.status === "resolved" ? "답변 보기" : "답변 하기"}
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           ))}

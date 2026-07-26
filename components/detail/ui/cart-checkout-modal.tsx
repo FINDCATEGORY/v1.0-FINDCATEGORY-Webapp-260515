@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { X, Minus, Plus, CheckCircle } from "lucide-react"
 import { useCart } from "@/components/detail/ui/cart-context"
 import Image from "next/image"
-import { getUserPointsAndName, deductPoints } from "@/app/actions/points"
 import { getUserProfile } from "@/app/actions/user"
 import { useEffect } from "react"
 import * as PortOne from "@portone/browser-sdk/v2"
@@ -71,13 +70,9 @@ export function CartCheckoutModal() {
 
   useEffect(() => {
     if (isCheckoutOpen) {
-      getUserPointsAndName().then(res => {
-        if (res.username) {
-          setUsername(res.username);
-        }
-      });
       getUserProfile().then(res => {
         if (res.user) {
+          setUsername(res.user.id || res.user.name || null);
           setFormData(prev => ({
             ...prev,
             fullName: prev.fullName || res.user.name || "",
