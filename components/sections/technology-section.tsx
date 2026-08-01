@@ -308,7 +308,7 @@ export function TechnologySection() {
       </div>
 
       {/* Scroll space to enable animation */}
-      <div className="h-[50vh]" />
+      <div className="h-[100vh]" />
 
 
     </section>

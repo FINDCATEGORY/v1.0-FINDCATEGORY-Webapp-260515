@@ -28,7 +28,7 @@ export function PhilosophySection() {
   }, [updateScroll]);
 
   return (
-    <section ref={sectionRef} style={{ height: "300vh" }}>
+    <section ref={sectionRef} style={{ height: "200vh" }}>
       <div 
         className="sticky top-0" 
         style={{ 
