@@ -12,13 +12,13 @@ const inquiries = [
 
 export function TopPerformers() {
   return (
-    <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+    <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] shadow-sm p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-[#4C050C] font-sans">최근 접수된 1:1 문의</h3>
-          <p className="text-sm text-[#4C050C]/60 mt-1 font-sans font-medium">답변이 필요한 문의 내역</p>
+          <h3 className="text-xl font-bold text-[#1A1A1A] font-sans">최근 접수된 1:1 문의</h3>
+          <p className="text-sm text-[#1A1A1A]/60 mt-1 font-sans font-medium">답변이 필요한 문의 내역</p>
         </div>
-        <button className="flex items-center gap-1 text-sm text-[#4C050C] hover:text-[#4C050C]/80 font-bold transition-colors group font-sans">
+        <button className="flex items-center gap-1 text-sm text-[#1A1A1A] hover:text-[#1A1A1A]/80 font-bold transition-colors group font-sans">
           전체 보기
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
@@ -28,16 +28,16 @@ export function TopPerformers() {
         {inquiries.map((inquiry, index) => (
           <div
             key={inquiry.name + index}
-            className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-[#EBEBDF]/50 transition-all duration-200 cursor-pointer animate-in fade-in slide-in-from-right-2 gap-3 sm:gap-0"
+            className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-white/50 transition-all duration-200 cursor-pointer animate-in fade-in slide-in-from-right-2 gap-3 sm:gap-0"
             style={{ animationDelay: `${(index + 4) * 100}ms`, animationFillMode: "both" }}
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#4C050C] flex items-center justify-center text-white">
+              <div className="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white">
                 <MessageSquare className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-base font-bold text-[#4C050C] font-sans truncate max-w-[220px]">{inquiry.subject}</p>
-                <p className="text-sm text-[#4C050C]/60 font-medium font-sans mt-0.5">{inquiry.name} • {inquiry.date}</p>
+                <p className="text-base font-bold text-[#1A1A1A] font-sans truncate max-w-[220px]">{inquiry.subject}</p>
+                <p className="text-sm text-[#1A1A1A]/60 font-medium font-sans mt-0.5">{inquiry.name} • {inquiry.date}</p>
               </div>
             </div>
 
@@ -47,7 +47,7 @@ export function TopPerformers() {
                   답변 대기
                 </span>
               ) : (
-                <span className="px-3 py-1.5 rounded-lg bg-[#EBEBDF] text-[#4C050C]/60 text-xs font-bold font-sans">
+                <span className="px-3 py-1.5 rounded-lg bg-white text-[#1A1A1A]/60 text-xs font-bold font-sans">
                   답변 완료
                 </span>
               )}

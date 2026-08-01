@@ -77,16 +77,16 @@ export function EditorialSection() {
       </div>
 
       {/* Specs Grid */}
-      <div className="grid grid-cols-2 border-t border-[#4C050C] md:grid-cols-4">
+      <div className="grid grid-cols-2 border-t border-[#1A1A1A] md:grid-cols-4">
         {specs.map((spec) => (
           <div
             key={spec.label}
-            className="border-b border-r border-[#4C050C] p-8 text-center last:border-r-0 md:border-b-0"
+            className="border-b border-r border-[#1A1A1A] p-8 text-center last:border-r-0 md:border-b-0"
           >
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#4C050C]">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#1A1A1A]">
               {spec.label}
             </p>
-            <p className="text-3xl md:text-4xl text-[#4C050C]">
+            <p className="text-3xl md:text-4xl text-[#1A1A1A]">
               {spec.value}
             </p>
           </div>

@@ -69,53 +69,53 @@ function CollectionCard({ collection, index }: { collection: Collection; index: 
               {collection.name.charAt(0)}
             </div>
             {collection.rank === 1 && (
-              <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[#4C050C] flex items-center justify-center border-2 border-white">
-                <Sparkles className="w-3.5 h-3.5 text-[#EBEBDF]" />
+              <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[#1A1A1A] flex items-center justify-center border-2 border-white">
+                <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
             )}
           </div>
           <div>
-            <h4 className="text-lg font-black text-[#4C050C] font-sans">{collection.name}</h4>
-            <p className="text-sm font-bold text-[#4C050C]/60 font-sans mt-0.5">{collection.theme}</p>
+            <h4 className="text-lg font-black text-[#1A1A1A] font-sans">{collection.name}</h4>
+            <p className="text-sm font-bold text-[#1A1A1A]/60 font-sans mt-0.5">{collection.theme}</p>
           </div>
         </div>
-        <button className="w-8 h-8 flex items-center justify-center rounded-lg text-[#4C050C]/40 hover:text-[#4C050C] hover:bg-[#EBEBDF] transition-all duration-200">
+        <button className="w-8 h-8 flex items-center justify-center rounded-lg text-[#1A1A1A]/40 hover:text-[#1A1A1A] hover:bg-white transition-all duration-200">
           <MoreHorizontal className="w-5 h-5" />
         </button>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-4 mb-6 bg-[#EBEBDF]/30 p-4 rounded-2xl">
+      <div className="grid grid-cols-2 gap-4 mb-6 bg-white/30 p-4 rounded-2xl">
         <div>
-          <p className="text-sm font-bold text-[#4C050C]/60 mb-1 font-sans">누적 판매 (만P)</p>
-          <p className="text-xl font-black text-[#4C050C] font-sans">{collection.totalSales}</p>
+          <p className="text-sm font-bold text-[#1A1A1A]/60 mb-1 font-sans">누적 판매 (만P)</p>
+          <p className="text-xl font-black text-[#1A1A1A] font-sans">{collection.totalSales}</p>
         </div>
         <div>
-          <p className="text-sm font-bold text-[#4C050C]/60 mb-1 font-sans">등록 제품 수</p>
-          <p className="text-xl font-black text-[#4C050C] font-sans">{collection.productCount}개</p>
+          <p className="text-sm font-bold text-[#1A1A1A]/60 mb-1 font-sans">등록 제품 수</p>
+          <p className="text-xl font-black text-[#1A1A1A] font-sans">{collection.productCount}개</p>
         </div>
       </div>
 
       {/* Quota progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-sm mb-2">
-          <span className="font-bold text-[#4C050C]/60 font-sans">판매 목표 달성률</span>
-          <span className={cn("font-black font-sans", isAboveQuota ? "text-[#4C050C]" : "text-[#4C050C]/60")}>
+          <span className="font-bold text-[#1A1A1A]/60 font-sans">판매 목표 달성률</span>
+          <span className={cn("font-black font-sans", isAboveQuota ? "text-[#1A1A1A]" : "text-[#1A1A1A]/60")}>
             {quotaPercentage.toFixed(0)}%
           </span>
         </div>
-        <div className="h-2.5 bg-[#EBEBDF] rounded-full overflow-hidden">
+        <div className="h-2.5 bg-white rounded-full overflow-hidden">
           <div
-            className={cn("h-full rounded-full transition-all duration-700", isAboveQuota ? "bg-[#4C050C]" : "bg-[#4C050C]/40")}
+            className={cn("h-full rounded-full transition-all duration-700", isAboveQuota ? "bg-[#1A1A1A]" : "bg-[#1A1A1A]/40")}
             style={{ width: `${Math.min(quotaPercentage, 100)}%` }}
           />
         </div>
       </div>
 
       {/* Change indicator */}
-      <div className="flex items-center justify-between pt-4 border-t border-[#4C050C]/10">
+      <div className="flex items-center justify-between pt-4 border-t border-[#1A1A1A]/10">
         <div className="flex items-center gap-2">
-          <button className="flex items-center justify-center px-4 py-2 rounded-xl bg-[#EBEBDF]/50 text-[#4C050C] font-bold text-sm hover:bg-[#EBEBDF] transition-colors font-sans">
+          <button className="flex items-center justify-center px-4 py-2 rounded-xl bg-white/50 text-[#1A1A1A] font-bold text-sm hover:bg-white transition-colors font-sans">
             <Edit className="w-4 h-4 mr-2" />
             컬렉션 관리
           </button>
@@ -206,56 +206,56 @@ export function TeamSection() {
   return (
     <div className="space-y-6">
       {/* Performance chart */}
-      <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
+      <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] shadow-sm p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h3 className="text-xl font-bold text-[#4C050C] font-sans">컬렉션별 판매 성과</h3>
-            <p className="text-sm text-[#4C050C]/60 mt-1 font-sans font-bold">목표 대비 달성 현황</p>
+            <h3 className="text-xl font-bold text-[#1A1A1A] font-sans">컬렉션별 판매 성과</h3>
+            <p className="text-sm text-[#1A1A1A]/60 mt-1 font-sans font-bold">목표 대비 달성 현황</p>
           </div>
           <div className="flex items-center gap-4 text-xs font-bold font-sans">
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#4C050C]" />
-              <span className="text-[#4C050C]/80">판매 (만P)</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#1A1A1A]" />
+              <span className="text-[#1A1A1A]/80">판매 (만P)</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#EBEBDF]" />
-              <span className="text-[#4C050C]/80">목표 (만P)</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-white" />
+              <span className="text-[#1A1A1A]/80">목표 (만P)</span>
             </div>
           </div>
         </div>
         <div className={`h-[280px] transition-opacity duration-700 ${chartLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={performanceData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#4C050C" strokeOpacity={0.1} vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1A1A1A" strokeOpacity={0.1} vertical={false} />
               <XAxis
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "#4C050C", fontSize: 12, fontWeight: 700, fontFamily: "sans-serif" }}
+                tick={{ fill: "#1A1A1A", fontSize: 12, fontWeight: 700, fontFamily: "sans-serif" }}
                 dy={10}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "#4C050C", fontSize: 12, fontWeight: 700, fontFamily: "sans-serif" }}
+                tick={{ fill: "#1A1A1A", fontSize: 12, fontWeight: 700, fontFamily: "sans-serif" }}
                 dx={-10}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#EBEBDF",
+                  backgroundColor: "#FFFFFF",
                   border: "1px solid rgba(76, 5, 12, 0.2)",
                   borderRadius: "12px",
                   fontSize: "12px",
                   fontWeight: 700,
                   fontFamily: "sans-serif",
-                  color: "#4C050C"
+                  color: "#1A1A1A"
                 }}
-                labelStyle={{ color: "#4C050C", fontWeight: 800 }}
-                itemStyle={{ color: "#4C050C" }}
+                labelStyle={{ color: "#1A1A1A", fontWeight: 800 }}
+                itemStyle={{ color: "#1A1A1A" }}
                 cursor={{ fill: "rgba(76, 5, 12, 0.05)" }}
               />
-              <Bar dataKey="target" fill="#EBEBDF" radius={[6, 6, 0, 0]} barSize={40} />
-              <Bar dataKey="sales" fill="#4C050C" radius={[6, 6, 0, 0]} barSize={40} />
+              <Bar dataKey="target" fill="#FFFFFF" radius={[6, 6, 0, 0]} barSize={40} />
+              <Bar dataKey="sales" fill="#1A1A1A" radius={[6, 6, 0, 0]} barSize={40} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -264,7 +264,7 @@ export function TeamSection() {
       {/* Team members grid -> Collections grid */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-[#4C050C] font-sans">운영 중인 컬렉션</h3>
+          <h3 className="text-xl font-bold text-[#1A1A1A] font-sans">운영 중인 컬렉션</h3>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {collections.map((collection, index) => (

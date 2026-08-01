@@ -202,33 +202,33 @@ export function CartCheckoutModal() {
       <>
         {isCheckoutOpen && (
           <div
-            className="fixed inset-0 bg-[#EBEBDF]/50 backdrop-blur-sm z-[55]"
+            className="fixed inset-0 bg-white/50 backdrop-blur-sm z-[55]"
             onClick={handleClose}
           />
         )}
 
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          <div className="bg-[#EBEBDF]/95 border border-[#4C050C]/20 rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white/95 border border-[#1A1A1A]/20 rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="text-center space-y-6">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
               <div>
-                <h1 className="text-3xl font-bold text-[#4C050C] mb-4">주문이 완료되었습니다!</h1>
+                <h1 className="text-3xl font-bold text-[#1A1A1A] mb-4">주문이 완료되었습니다!</h1>
                 <p className="text-lg text-gray-700 mb-6">
                   주문해주셔서 감사합니다!
                 </p>
               </div>
 
-              <div className="bg-white/50 p-6 rounded-lg border border-[#4C050C]/20">
-                <h3 className="font-semibold text-[#4C050C] mb-4">주문 상세정보</h3>
+              <div className="bg-white/50 p-6 rounded-lg border border-[#1A1A1A]/20">
+                <h3 className="font-semibold text-[#1A1A1A] mb-4">주문 상세정보</h3>
                 <div className="space-y-2 mb-4">
                   {items.map((item, i) => (
-                    <div key={i} className="flex justify-between text-sm text-[#4C050C]/80">
+                    <div key={i} className="flex justify-between text-sm text-[#1A1A1A]/80">
                       <span>{item.name}</span>
                       <span>{item.quantity || 1}개</span>
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-[#4C050C]/20 pt-4 flex justify-between font-bold text-[#4C050C]">
+                <div className="border-t border-[#1A1A1A]/20 pt-4 flex justify-between font-bold text-[#1A1A1A]">
                   <span>총 수량:</span>
                   <span>{totalQuantity}개</span>
                 </div>
@@ -242,7 +242,7 @@ export function CartCheckoutModal() {
 
               <button
                 onClick={handleClose}
-                className="w-full py-3 bg-[#4C050C] text-white font-bold rounded-lg hover:opacity-80 transition-opacity"
+                className="w-full py-3 bg-[#1A1A1A] text-white font-bold rounded-lg hover:opacity-80 transition-opacity"
               >
                 계속 쇼핑하기
               </button>
@@ -257,19 +257,19 @@ export function CartCheckoutModal() {
     <>
       {isCheckoutOpen && (
         <div
-          className="fixed inset-0 bg-[#EBEBDF]/50 backdrop-blur-sm z-[55]"
+          className="fixed inset-0 bg-white/50 backdrop-blur-sm z-[55]"
           onClick={handleClose}
         />
       )}
 
       <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-        <div className="bg-[#EBEBDF]/95 border border-[#4C050C]/20 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="bg-white/95 border border-[#1A1A1A]/20 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="flex justify-between items-center p-6 border-b border-[#4C050C]/20 sticky top-0 bg-[#EBEBDF]/95">
-            <h2 className="text-[#4C050C] font-bold text-lg">주문하기</h2>
+          <div className="flex justify-between items-center p-6 border-b border-[#1A1A1A]/20 sticky top-0 bg-white/95">
+            <h2 className="text-[#1A1A1A] font-bold text-lg">주문하기</h2>
             <button
               onClick={handleClose}
-              className="text-[#4C050C] hover:text-[#4C050C]/70 transition-colors"
+              className="text-[#1A1A1A] hover:text-[#1A1A1A]/70 transition-colors"
             >
               <X size={24} />
             </button>
@@ -283,13 +283,13 @@ export function CartCheckoutModal() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Full Name */}
                   <div>
-                    <Label htmlFor="fullName" className="text-[#4C050C]">이름 *</Label>
+                    <Label htmlFor="fullName" className="text-[#1A1A1A]">이름 *</Label>
                     <Input
                       id="fullName"
                       type="text"
                       value={formData.fullName}
                       onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C] ${errors.fullName ? "border-red-500" : ""}`}
+                      className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A] ${errors.fullName ? "border-red-500" : ""}`}
                       placeholder="이름"
                     />
                     {errors.fullName && <p className="text-sm text-red-500 mt-1">{errors.fullName}</p>}
@@ -297,13 +297,13 @@ export function CartCheckoutModal() {
 
                   {/* Email */}
                   <div>
-                    <Label htmlFor="email" className="text-[#4C050C]">이메일 *</Label>
+                    <Label htmlFor="email" className="text-[#1A1A1A]">이메일 *</Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C] ${errors.email ? "border-red-500" : ""}`}
+                      className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A] ${errors.email ? "border-red-500" : ""}`}
                       placeholder="이메일"
                     />
                     {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email}</p>}
@@ -311,13 +311,13 @@ export function CartCheckoutModal() {
 
                   {/* Phone Number */}
                   <div>
-                    <Label htmlFor="phone" className="text-[#4C050C]">전화번호 *</Label>
+                    <Label htmlFor="phone" className="text-[#1A1A1A]">전화번호 *</Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C] ${errors.phone ? "border-red-500" : ""}`}
+                      className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A] ${errors.phone ? "border-red-500" : ""}`}
                       placeholder="전화번호"
                     />
                     {errors.phone && <p className="text-sm text-red-500 mt-1">{errors.phone}</p>}
@@ -325,19 +325,19 @@ export function CartCheckoutModal() {
 
                   {/* Delivery Address */}
                   <div className="space-y-3">
-                    <Label className="text-[#4C050C]">배송 주소 *</Label>
+                    <Label className="text-[#1A1A1A]">배송 주소 *</Label>
                     <div className="flex gap-2">
                       <Input
                         value={formData.zipcode}
                         readOnly
                         placeholder="우편번호"
-                        className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 w-32 ${errors.address ? "border-red-500" : ""}`}
+                        className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A]/50 w-32 ${errors.address ? "border-red-500" : ""}`}
                       />
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setIsPostcodeOpen(true)}
-                        className="border-[#4C050C]/20 text-[#4C050C] hover:bg-[#4C050C]/5"
+                        className="border-[#1A1A1A]/20 text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
                       >
                         주소 찾기
                       </Button>
@@ -346,13 +346,13 @@ export function CartCheckoutModal() {
                       value={formData.address}
                       readOnly
                       placeholder="기본 주소"
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 ${errors.address ? "border-red-500" : ""}`}
+                      className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A]/50 ${errors.address ? "border-red-500" : ""}`}
                     />
                     <Input
                       value={formData.detailAddress}
                       onChange={(e) => setFormData(prev => ({ ...prev, detailAddress: e.target.value }))}
                       placeholder="상세 주소를 입력해주세요"
-                      className={`bg-white/50 text-[#4C050C] border-[#4C050C]/20 placeholder:!text-[#4C050C]/50 ${errors.detailAddress ? "border-red-500" : ""}`}
+                      className={`bg-white/50 text-[#1A1A1A] border-[#1A1A1A]/20 placeholder:!text-[#1A1A1A]/50 ${errors.detailAddress ? "border-red-500" : ""}`}
                     />
                     {(errors.address || errors.detailAddress) && (
                       <p className="text-sm text-red-500 mt-1">{errors.address || errors.detailAddress}</p>
@@ -361,7 +361,7 @@ export function CartCheckoutModal() {
 
                   {/* Payment Method */}
                   <div className="pt-2">
-                    <Label className="text-[#4C050C] mb-3 block">결제 수단 *</Label>
+                    <Label className="text-[#1A1A1A] mb-3 block">결제 수단 *</Label>
                     <div className="flex gap-6">
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -370,9 +370,9 @@ export function CartCheckoutModal() {
                           value="CARD"
                           checked={payMethod === "CARD"}
                           onChange={() => setPayMethod("CARD")}
-                          className="w-4 h-4 accent-[#4C050C]"
+                          className="w-4 h-4 accent-[#1A1A1A]"
                         />
-                        <span className="text-sm text-[#4C050C] font-medium">신용카드</span>
+                        <span className="text-sm text-[#1A1A1A] font-medium">신용카드</span>
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -381,16 +381,16 @@ export function CartCheckoutModal() {
                           value="TRANSFER"
                           checked={payMethod === "TRANSFER"}
                           onChange={() => setPayMethod("TRANSFER")}
-                          className="w-4 h-4 accent-[#4C050C]"
+                          className="w-4 h-4 accent-[#1A1A1A]"
                         />
-                        <span className="text-sm text-[#4C050C] font-medium">계좌이체</span>
+                        <span className="text-sm text-[#1A1A1A] font-medium">계좌이체</span>
                       </label>
                     </div>
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full py-3 bg-[#4C050C] text-white font-bold rounded-lg hover:opacity-80 transition-opacity mt-6"
+                    className="w-full py-3 bg-[#1A1A1A] text-white font-bold rounded-lg hover:opacity-80 transition-opacity mt-6"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "처리중..." : "주문하기"}
@@ -400,25 +400,25 @@ export function CartCheckoutModal() {
 
               {/* Order Summary */}
               <div className="lg:col-span-1 lg:order-1">
-                <div className="bg-white/50 border border-[#4C050C]/20 rounded-lg p-4 sticky top-20">
-                  <h3 className="font-bold text-[#4C050C] mb-4">주문 요약</h3>
+                <div className="bg-white/50 border border-[#1A1A1A]/20 rounded-lg p-4 sticky top-20">
+                  <h3 className="font-bold text-[#1A1A1A] mb-4">주문 요약</h3>
 
                   <div className="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2">
                     {items.map((item, i) => (
-                      <div key={i} className="flex gap-3 border-b border-[#4C050C]/20 pb-3">
+                      <div key={i} className="flex gap-3 border-b border-[#1A1A1A]/20 pb-3">
                         <div className="relative w-12 h-12 rounded overflow-hidden flex-shrink-0">
                           <Image src={item.image} alt={item.name} fill className="object-cover" />
                         </div>
                         <div className="flex-1 flex flex-col justify-center">
-                          <p className="text-xs text-[#4C050C] font-medium line-clamp-2">{item.name}</p>
+                          <p className="text-xs text-[#1A1A1A] font-medium line-clamp-2">{item.name}</p>
                           <div className="flex justify-between items-center mt-1">
-                            <p className="text-xs text-[#4C050C]/70">x {item.quantity || 1}</p>
-                            <p className="text-xs text-[#4C050C] font-bold">{item.price}</p>
+                            <p className="text-xs text-[#1A1A1A]/70">x {item.quantity || 1}</p>
+                            <p className="text-xs text-[#1A1A1A] font-bold">{item.price}</p>
                           </div>
                         </div>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className="text-[#4C050C]/50 hover:text-[#4C050C] transition-colors p-1 flex-shrink-0 self-start"
+                          className="text-[#1A1A1A]/50 hover:text-[#1A1A1A] transition-colors p-1 flex-shrink-0 self-start"
                         >
                           <X size={14} />
                         </button>
@@ -427,19 +427,19 @@ export function CartCheckoutModal() {
                   </div>
 
                   <div className="pt-2 space-y-3">
-                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
+                    <div className="flex justify-between font-medium text-[#1A1A1A] text-sm">
                       <span>총 상품 개수:</span>
                       <span>{totalQuantity}개</span>
                     </div>
-                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
+                    <div className="flex justify-between font-medium text-[#1A1A1A] text-sm">
                       <span>상품 총액:</span>
                       <span>{totalPrice.toLocaleString()}원</span>
                     </div>
-                    <div className="flex justify-between font-medium text-[#4C050C] text-sm">
+                    <div className="flex justify-between font-medium text-[#1A1A1A] text-sm">
                       <span>부가세 (10%):</span>
                       <span>{vat.toLocaleString()}원</span>
                     </div>
-                    <div className="flex justify-between font-bold text-[#4C050C] text-lg border-t border-[#4C050C]/10 pt-3">
+                    <div className="flex justify-between font-bold text-[#1A1A1A] text-lg border-t border-[#1A1A1A]/10 pt-3">
                       <span>총 결제 금액:</span>
                       <span>{totalAmountWithVat.toLocaleString()}원</span>
                     </div>

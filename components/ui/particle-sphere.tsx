@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useMemo } from "react"
+import { useRef, useMemo, useEffect } from "react"
 import { useFrame } from "@react-three/fiber"
 import { useTexture } from "@react-three/drei"
 import * as THREE from "three"
@@ -12,37 +12,40 @@ export function ParticleSphere() {
     const SPHERE_RADIUS = 9
     const POSITION_RANDOMNESS = 4
     const ROTATION_SPEED_X = 0.0
-    const ROTATION_SPEED_Y = 0.0005
+    const ROTATION_SPEED_Y = 0.001
     const PARTICLE_OPACITY = 1
 
-    const IMAGE_COUNT = 24
-    const IMAGE_SIZE = 1.5 // Increased image size to make them more visible
+    const textureUrls = useMemo(() => [
+        "/images/04gallery01.jpg",
+        "/images/04gallery02.jpg",
+        "/images/04gallery03.jpg",
+        "/images/04gallery04.jpg",
+        "/images/04gallery05.jpg",
+        "/images/04gallery06.jpg",
+        "/images/05gallery01.png",
+        "/images/05gallery02.png",
+        "/images/05gallery03.png",
+        "/images/05gallery04.png",
+        "/images/02-main-image01.png",
+        "/images/6collection01.png",
+        "/images/6collection02.png",
+        "/images/6collection03.png",
+    ], [])
+
+    const IMAGE_COUNT = textureUrls.length
+    const IMAGE_SIZE = 2.5
 
     const groupRef = useRef<THREE.Group>(null)
 
-    const textures = useTexture([
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-        "/images/collection/goldenhour/goldenhour4.jpg",
-    ])
+    const textures = useTexture(textureUrls)
 
-    useMemo(() => {
+    useEffect(() => {
         textures.forEach((texture) => {
             if (texture) {
                 texture.wrapS = THREE.ClampToEdgeWrapping
                 texture.wrapT = THREE.ClampToEdgeWrapping
                 texture.flipY = false
+                texture.needsUpdate = true
             }
         })
     }, [textures])
@@ -63,7 +66,7 @@ export function ParticleSphere() {
             const z = radiusVariation * Math.sin(theta) * Math.sin(phi)
 
             particles.push({
-                position: [x, y, z],
+                position: [x, y, z] as [number, number, number],
                 scale: Math.random() * (PARTICLE_SIZE_MAX - PARTICLE_SIZE_MIN) + PARTICLE_SIZE_MIN,
                 color: new THREE.Color().setHSL(
                     Math.random() * 0.1 + 0.05, // Yellow-orange hues
@@ -83,7 +86,7 @@ export function ParticleSphere() {
         for (let i = 0; i < IMAGE_COUNT; i++) {
             const angle = (i / IMAGE_COUNT) * Math.PI * 2
             const x = SPHERE_RADIUS * Math.cos(angle)
-            const y = 0 // All images aligned on X-axis
+            const y = 0.5
             const z = SPHERE_RADIUS * Math.sin(angle)
 
             const position = new THREE.Vector3(x, y, z)
@@ -99,8 +102,8 @@ export function ParticleSphere() {
             euler.z += Math.PI
 
             images.push({
-                position: [x, y, z],
-                rotation: [euler.x, euler.y, euler.z],
+                position: [x, y, z] as [number, number, number],
+                rotation: [euler.x, euler.y, euler.z] as [number, number, number],
                 textureIndex: i % textures.length,
                 color: new THREE.Color().setHSL(Math.random(), 0.7, 0.6), // Added random colors
             })

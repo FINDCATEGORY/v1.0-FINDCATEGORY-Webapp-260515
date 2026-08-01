@@ -14,10 +14,10 @@ function replaceInFile(filePath) {
   let originalContent = content;
 
   // Replacements
-  content = content.replace(BG_BLACK_REGEX, 'bg-[#EBEBDF]');
-  content = content.replace(BG_BLACK_OPACITY_REGEX, 'bg-[#EBEBDF]/$1');
-  content = content.replace(TEXT_WHITE_REGEX, 'text-[#4C050C]');
-  content = content.replace(TEXT_WHITE_OPACITY_REGEX, 'text-[#4C050C]/$1');
+  content = content.replace(BG_BLACK_REGEX, 'bg-white');
+  content = content.replace(BG_BLACK_OPACITY_REGEX, 'bg-white/$1');
+  content = content.replace(TEXT_WHITE_REGEX, 'text-[#1A1A1A]');
+  content = content.replace(TEXT_WHITE_OPACITY_REGEX, 'text-[#1A1A1A]/$1');
 
   if (content !== originalContent) {
     fs.writeFileSync(filePath, content, 'utf-8');

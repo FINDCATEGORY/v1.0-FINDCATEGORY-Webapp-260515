@@ -21,7 +21,7 @@ export function SignUpForm({ onSubmit, isLoading, password, setPassword }: SignU
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-3">
-        <Label htmlFor="name" className="text-[#4C050C] font-medium flex items-center gap-2 text-base font-sans">
+        <Label htmlFor="name" className="text-[#1A1A1A] font-medium flex items-center gap-2 text-base font-sans">
           <User className="w-4 h-4 text-[#8e8e93]" />
           Full Name
         </Label>
@@ -30,11 +30,11 @@ export function SignUpForm({ onSubmit, isLoading, password, setPassword }: SignU
           type="text"
           placeholder="Enter your full name"
           required
-          className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#4C050C] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 text-base font-sans"
+          className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#1A1A1A] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 text-base font-sans"
         />
       </div>
       <div className="space-y-3">
-        <Label htmlFor="signup-email" className="text-[#4C050C] font-medium flex items-center gap-2 text-base font-sans">
+        <Label htmlFor="signup-email" className="text-[#1A1A1A] font-medium flex items-center gap-2 text-base font-sans">
           <Mail className="w-4 h-4 text-[#8e8e93]" />
           Email
         </Label>
@@ -43,11 +43,11 @@ export function SignUpForm({ onSubmit, isLoading, password, setPassword }: SignU
           type="email"
           placeholder="Enter your email"
           required
-          className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#4C050C] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 text-base font-sans"
+          className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#1A1A1A] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 text-base font-sans"
         />
       </div>
       <div className="space-y-3">
-        <Label htmlFor="signup-password" className="text-[#4C050C] font-medium flex items-center gap-2 text-base font-sans">
+        <Label htmlFor="signup-password" className="text-[#1A1A1A] font-medium flex items-center gap-2 text-base font-sans">
           <Lock className="w-4 h-4 text-[#8e8e93]" />
           Password
         </Label>
@@ -59,13 +59,13 @@ export function SignUpForm({ onSubmit, isLoading, password, setPassword }: SignU
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#4C050C] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 pr-14 text-base font-sans"
+            className="bg-[#2c2c2e] border border-[#3a3a3c] text-[#1A1A1A] placeholder:text-[#8e8e93] focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20 transition-all duration-200 rounded-2xl h-14 pr-14 text-base font-sans"
           />
           <Button
             type="button"
             variant="ghost"
             size="sm"
-            className="absolute right-0 top-0 h-full px-4 text-[#8e8e93] hover:text-[#4C050C] hover:bg-transparent"
+            className="absolute right-0 top-0 h-full px-4 text-[#8e8e93] hover:text-[#1A1A1A] hover:bg-transparent"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -75,7 +75,7 @@ export function SignUpForm({ onSubmit, isLoading, password, setPassword }: SignU
 
       <Button
         type="submit"
-        className="w-full bg-[#007aff] hover:bg-[#0056cc] text-[#4C050C] font-medium transition-all duration-200 transform hover:scale-[1.01] shadow-lg rounded-2xl h-14 mt-8 text-base font-sans"
+        className="w-full bg-[#007aff] hover:bg-[#0056cc] text-[#1A1A1A] font-medium transition-all duration-200 transform hover:scale-[1.01] shadow-lg rounded-2xl h-14 mt-8 text-base font-sans"
         disabled={isLoading}
       >
         {isLoading ? (

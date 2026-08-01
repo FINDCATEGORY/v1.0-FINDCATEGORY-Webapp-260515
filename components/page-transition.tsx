@@ -32,7 +32,7 @@ export function PageTransition() {
             {[0, 1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="w-1.5 rounded-full bg-[#4C050C] animate-wave"
+                className="w-1.5 rounded-full bg-[#1A1A1A] animate-wave"
                 style={{
                   animationDelay: `${i * 0.1}s`,
                 }}

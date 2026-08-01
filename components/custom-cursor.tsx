@@ -142,9 +142,9 @@ export function CustomCursor() {
         >
           <div className="relative flex h-10 w-10 items-center justify-center">
             {/* Outer pulsating circle */}
-            <div className="absolute h-full w-full animate-ping rounded-full bg-[#4C050C]/20" />
+            <div className="absolute h-full w-full animate-ping rounded-full bg-[#1A1A1A]/20" />
             {/* Inner solid circle */}
-            <div className={`h-4 w-4 rounded-full bg-[#4C050C] transition-colors duration-200 ${isHovered ? "bg-[#4C050C]/80" : ""}`} />
+            <div className={`h-4 w-4 rounded-full bg-[#1A1A1A] transition-colors duration-200 ${isHovered ? "bg-[#1A1A1A]/80" : ""}`} />
           </div>
         </div>
       )}
@@ -154,7 +154,7 @@ export function CustomCursor() {
         ripples.map((ripple) => (
           <div
             key={ripple.id}
-            className="ripple-pc-wave pointer-events-none fixed z-[99998] h-10 w-10 rounded-full border-2 border-[#4C050C] opacity-75"
+            className="ripple-pc-wave pointer-events-none fixed z-[99998] h-10 w-10 rounded-full border-2 border-[#1A1A1A] opacity-75"
             style={{
               left: ripple.x,
               top: ripple.y,
@@ -174,8 +174,8 @@ export function CustomCursor() {
             }}
           >
             <div className="relative h-10 w-10">
-              <div className="absolute inset-0 animate-ping rounded-full border-4 border-[#4C050C] opacity-75" />
-              <div className="absolute inset-2 animate-ping rounded-full border-2 border-[#4C050C] opacity-50 [animation-delay:0.2s]" />
+              <div className="absolute inset-0 animate-ping rounded-full border-4 border-[#1A1A1A] opacity-75" />
+              <div className="absolute inset-2 animate-ping rounded-full border-2 border-[#1A1A1A] opacity-50 [animation-delay:0.2s]" />
             </div>
           </div>
         ))}

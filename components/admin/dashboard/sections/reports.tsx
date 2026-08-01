@@ -37,10 +37,10 @@ const responseTimeData = [
 ];
 
 const categoryData = [
-  { name: "상품 문의", value: 45, color: "#4C050C" },
+  { name: "상품 문의", value: 45, color: "#1A1A1A" },
   { name: "배송/교환", value: 30, color: "rgba(76, 5, 12, 0.7)" },
   { name: "결제/환불", value: 15, color: "rgba(76, 5, 12, 0.4)" },
-  { name: "기타", value: 10, color: "#EBEBDF" },
+  { name: "기타", value: 10, color: "#FFFFFF" },
 ];
 
 const inquiries = [
@@ -68,15 +68,15 @@ function StatCard({
 }) {
   return (
     <div
-      className="group bg-white border border-[#4C050C]/10 rounded-[24px] p-6 hover:-translate-y-1 hover:shadow-md transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+      className="group bg-white border border-[#1A1A1A]/10 rounded-[24px] p-6 hover:-translate-y-1 hover:shadow-md transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
       style={{ animationDelay: `${index * 100}ms`, animationFillMode: "both" }}
     >
-      <div className={cn("w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-[#EBEBDF]")}>
-        <Icon className={cn("w-6 h-6 text-[#4C050C]", color)} />
+      <div className={cn("w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-white")}>
+        <Icon className={cn("w-6 h-6 text-[#1A1A1A]", color)} />
       </div>
-      <h3 className="text-sm font-bold text-[#4C050C]/60 font-sans mb-1">{title}</h3>
-      <div className="text-3xl font-black text-[#4C050C] font-sans mb-2">{value}</div>
-      <p className="text-xs font-bold text-[#4C050C]/50 font-sans">{description}</p>
+      <h3 className="text-sm font-bold text-[#1A1A1A]/60 font-sans mb-1">{title}</h3>
+      <div className="text-3xl font-black text-[#1A1A1A] font-sans mb-2">{value}</div>
+      <p className="text-xs font-bold text-[#1A1A1A]/50 font-sans">{description}</p>
     </div>
   );
 }
@@ -94,13 +94,13 @@ export function ReportsSection() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
-          <h2 className="text-2xl font-black text-[#4C050C] font-sans">1:1 문의 관리</h2>
-          <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">
+          <h2 className="text-2xl font-black text-[#1A1A1A] font-sans">1:1 문의 관리</h2>
+          <p className="text-sm font-bold text-[#1A1A1A]/60 mt-1 font-sans">
             고객 문의 사항을 신속하게 처리하고 서비스 품질을 관리합니다.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-[#4C050C]/20 text-[#4C050C] rounded-full text-sm font-bold hover:bg-[#EBEBDF] transition-colors duration-200 font-sans">
+          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-[#1A1A1A]/20 text-[#1A1A1A] rounded-full text-sm font-bold hover:bg-white transition-colors duration-200 font-sans">
             <Filter className="w-4 h-4" />
             필터
           </button>
@@ -122,7 +122,7 @@ export function ReportsSection() {
           value="45분"
           description="최근 7일 평균"
           icon={Clock}
-          color="text-[#4C050C]"
+          color="text-[#1A1A1A]"
           index={1}
         />
         <StatCard
@@ -146,50 +146,50 @@ export function ReportsSection() {
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Response time trend */}
-        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
+        <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-black text-[#4C050C] font-sans">주간 응답 시간 추이</h3>
-              <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">요일별 평균 답변 소요 시간 (분)</p>
+              <h3 className="text-xl font-black text-[#1A1A1A] font-sans">주간 응답 시간 추이</h3>
+              <p className="text-sm font-bold text-[#1A1A1A]/60 mt-1 font-sans">요일별 평균 답변 소요 시간 (분)</p>
             </div>
           </div>
           <div className={`h-[280px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={responseTimeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#4C050C" strokeOpacity={0.1} vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1A1A1A" strokeOpacity={0.1} vertical={false} />
                 <XAxis
                   dataKey="day"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#4C050C", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
+                  tick={{ fill: "#1A1A1A", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
                   dy={10}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#4C050C", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
+                  tick={{ fill: "#1A1A1A", opacity: 0.7, fontSize: 12, fontWeight: 700 }}
                   tickFormatter={(value) => `${value}m`}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#EBEBDF",
+                    backgroundColor: "#FFFFFF",
                     border: "1px solid rgba(76, 5, 12, 0.1)",
                     borderRadius: "12px",
                     fontSize: "12px",
                     fontWeight: 800,
-                    color: "#4C050C",
+                    color: "#1A1A1A",
                     fontFamily: "sans-serif"
                   }}
-                  itemStyle={{ color: "#4C050C" }}
+                  itemStyle={{ color: "#1A1A1A" }}
                   formatter={(value: number) => [`${value}분`, "응답 시간"]}
                 />
                 <Line
                   type="monotone"
                   dataKey="time"
-                  stroke="#4C050C"
+                  stroke="#1A1A1A"
                   strokeWidth={3}
-                  dot={{ r: 4, fill: "#EBEBDF", stroke: "#4C050C", strokeWidth: 2 }}
-                  activeDot={{ r: 6, fill: "#4C050C", stroke: "#EBEBDF", strokeWidth: 2 }}
+                  dot={{ r: 4, fill: "#FFFFFF", stroke: "#1A1A1A", strokeWidth: 2 }}
+                  activeDot={{ r: 6, fill: "#1A1A1A", stroke: "#FFFFFF", strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -197,10 +197,10 @@ export function ReportsSection() {
         </div>
 
         {/* Inquiry Categories pie chart */}
-        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+        <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
           <div className="mb-6">
-            <h3 className="text-xl font-black text-[#4C050C] font-sans">문의 유형 분류</h3>
-            <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">전체 문의 유형 비율</p>
+            <h3 className="text-xl font-black text-[#1A1A1A] font-sans">문의 유형 분류</h3>
+            <p className="text-sm font-bold text-[#1A1A1A]/60 mt-1 font-sans">전체 문의 유형 비율</p>
           </div>
           <div className="flex items-center gap-8 h-[250px]">
             <div className={`w-[200px] h-[200px] transition-opacity duration-700 ${chartsLoaded ? 'opacity-100' : 'opacity-0'}`}>
@@ -221,8 +221,8 @@ export function ReportsSection() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    contentStyle={{ borderRadius: "12px", fontWeight: "bold", border: "none", backgroundColor: "#EBEBDF", color: "#4C050C" }}
-                    itemStyle={{ color: "#4C050C" }}
+                    contentStyle={{ borderRadius: "12px", fontWeight: "bold", border: "none", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+                    itemStyle={{ color: "#1A1A1A" }}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -236,9 +236,9 @@ export function ReportsSection() {
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: category.color }} />
-                    <span className="text-sm font-bold text-[#4C050C] font-sans">{category.name}</span>
+                    <span className="text-sm font-bold text-[#1A1A1A] font-sans">{category.name}</span>
                   </div>
-                  <span className="text-sm font-black text-[#4C050C] font-sans">{category.value}%</span>
+                  <span className="text-sm font-black text-[#1A1A1A] font-sans">{category.value}%</span>
                 </div>
               ))}
             </div>
@@ -247,26 +247,26 @@ export function ReportsSection() {
       </div>
 
       {/* Inquiry List */}
-      <div className="bg-white border border-[#4C050C]/10 rounded-[24px] overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
-        <div className="flex items-center justify-between p-6 border-b border-[#4C050C]/10">
+      <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
+        <div className="flex items-center justify-between p-6 border-b border-[#1A1A1A]/10">
           <div>
-            <h3 className="text-xl font-black text-[#4C050C] font-sans">최근 접수 문의</h3>
-            <p className="text-sm font-bold text-[#4C050C]/60 mt-1 font-sans">실시간 접수 현황</p>
+            <h3 className="text-xl font-black text-[#1A1A1A] font-sans">최근 접수 문의</h3>
+            <p className="text-sm font-bold text-[#1A1A1A]/60 mt-1 font-sans">실시간 접수 현황</p>
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 text-[#4C050C]/40 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#1A1A1A]/40 absolute left-3 top-1/2 -translate-y-1/2" />
             <input 
               type="text" 
               placeholder="문의 검색..." 
-              className="pl-9 pr-4 py-2 bg-[#EBEBDF]/30 border border-[#4C050C]/10 rounded-full text-sm font-bold text-[#4C050C] placeholder:text-[#4C050C]/40 focus:outline-none focus:border-[#4C050C]/30 focus:ring-1 focus:ring-[#4C050C]/30 w-[200px]"
+              className="pl-9 pr-4 py-2 bg-white/30 border border-[#1A1A1A]/10 rounded-full text-sm font-bold text-[#1A1A1A] placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#1A1A1A]/30 focus:ring-1 focus:ring-[#1A1A1A]/30 w-[200px]"
             />
           </div>
         </div>
-        <div className="divide-y divide-[#4C050C]/5">
+        <div className="divide-y divide-[#1A1A1A]/5">
           {inquiries.map((inquiry, index) => (
             <div
               key={inquiry.id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between p-6 hover:bg-[#EBEBDF]/20 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
+              className="flex flex-col sm:flex-row sm:items-center justify-between p-6 hover:bg-white/20 transition-colors duration-150 cursor-pointer animate-in fade-in slide-in-from-left-2"
               style={{ animationDelay: `${(index + 6) * 50}ms`, animationFillMode: "both" }}
             >
               <div className="flex items-start gap-4 mb-4 sm:mb-0">
@@ -280,22 +280,22 @@ export function ReportsSection() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <p className="text-base font-black text-[#4C050C] font-sans">{inquiry.title}</p>
+                    <p className="text-base font-black text-[#1A1A1A] font-sans">{inquiry.title}</p>
                     {inquiry.status === "pending" && (
                       <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-[#4C050C]/60 font-sans">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-[#1A1A1A]/60 font-sans">
                     <span>{inquiry.customer}</span>
-                    <span className="w-1 h-1 rounded-full bg-[#4C050C]/20" />
+                    <span className="w-1 h-1 rounded-full bg-[#1A1A1A]/20" />
                     <span>{inquiry.category}</span>
-                    <span className="w-1 h-1 rounded-full bg-[#4C050C]/20" />
+                    <span className="w-1 h-1 rounded-full bg-[#1A1A1A]/20" />
                     <span>{inquiry.date}</span>
                   </div>
                 </div>
               </div>
               <div className="flex items-center justify-end sm:justify-start w-full sm:w-auto">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-[#4C050C] hover:bg-[#EBEBDF] transition-all duration-200 font-sans w-full justify-center sm:w-auto">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-[#1A1A1A] hover:bg-white transition-all duration-200 font-sans w-full justify-center sm:w-auto">
                   {inquiry.status === "resolved" ? "답변 보기" : "답변 하기"}
                   <ChevronRight className="w-4 h-4" />
                 </button>

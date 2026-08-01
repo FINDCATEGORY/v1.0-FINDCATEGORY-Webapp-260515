@@ -28,7 +28,7 @@ export function CollectionSection() {
     <section id="accessories" className="bg-background">
       {/* Section Title */}
       <div className="px-6 py-20 md:px-12 lg:px-20 md:py-10">
-        <h2 className="text-3xl tracking-tight md:text-4xl text-center text-[#4C050C]">
+        <h2 className="text-3xl tracking-tight md:text-4xl text-center text-[#1A1A1A]">
           FIND your CATEGORY
         </h2>
       </div>
@@ -52,11 +52,11 @@ export function CollectionSection() {
               {/* Content */}
               <div className="py-6 text-center">
                 <div className="flex flex-col items-center justify-center gap-2">
-                  <h3 className="text-2xl font-medium leading-snug text-[#4C050C] whitespace-pre-line">
+                  <h3 className="text-2xl font-medium leading-snug text-[#1A1A1A] whitespace-pre-line">
                     {accessory.name}
                   </h3>
                   {accessory.description && (
-                    <p className="mt-1 text-base text-[#4C050C]/70 whitespace-pre-line font-medium">
+                    <p className="mt-1 text-base text-[#1A1A1A]/70 whitespace-pre-line font-medium">
                       {accessory.description}
                     </p>
                   )}
@@ -83,11 +83,11 @@ export function CollectionSection() {
               {/* Content */}
               <div className="py-6 text-center">
                 <div className="flex flex-col items-center justify-center gap-2">
-                  <h3 className="text-2xl font-medium leading-snug text-[#4C050C] whitespace-pre-line">
+                  <h3 className="text-2xl font-medium leading-snug text-[#1A1A1A] whitespace-pre-line">
                     {accessory.name}
                   </h3>
                   {accessory.description && (
-                    <p className="mt-1 text-base text-[#4C050C]/70 whitespace-pre-line font-medium">
+                    <p className="mt-1 text-base text-[#1A1A1A]/70 whitespace-pre-line font-medium">
                       {accessory.description}
                     </p>
                   )}

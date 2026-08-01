@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import { products } from '@/components/category/product';
+import { products } from '@/components/product/product';
 
 export async function GET() {
   try {

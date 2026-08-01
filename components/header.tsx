@@ -39,52 +39,52 @@ export function Header() {
   }
 
   const headerBgClass = isMenuOpen
-    ? "bg-[#EBEBDF]/95 backdrop-blur-md rounded-2xl shadow-lg"
+    ? "bg-white/95 backdrop-blur-md rounded-2xl shadow-lg"
     : isScrolled
-      ? "bg-[#EBEBDF]/80 backdrop-blur-md rounded-full shadow-md"
+      ? "bg-white/80 backdrop-blur-md rounded-full shadow-md"
       : "bg-transparent rounded-full";
 
   return (
     <header className={`fixed left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl transition-all duration-300 ease-in-out flex flex-col ${headerBgClass} ${isVisible ? "top-4 opacity-100" : "top-0 opacity-0 pointer-events-none"}`}>
       <div className="flex items-center justify-between px-5 py-3">
-        <Link href="/" className="text-lg font-medium tracking-tight text-[#4C050C]">FINDCATEGORYⓇ</Link>
+        <Link href="/" className="text-lg font-medium tracking-tight text-[#1A1A1A]">FINDCATEGORYⓇ</Link>
 
-        <nav className="hidden md:flex items-center gap-10">
-          <Link href="/category" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">제품안내</Link>
-          <Link href="/project" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">협업</Link>
-          <Link href="/membership" className="text-sm text-[#4C050C]/70 hover:text-[#4C050C]">로그인 / 마이페이지</Link>
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="/shop" className="text-sm font-bold tracking-wider text-[#1A1A1A]/90 hover:text-[#1A1A1A]">쇼핑</Link>
+          <Link href="/project" className="text-sm text-[#1A1A1A]/70 hover:text-[#1A1A1A]">협업</Link>
+          <Link href="/membership" className="text-sm text-[#1A1A1A]/70 hover:text-[#1A1A1A]">로그인 / 마이페이지</Link>
         </nav>
 
         <div className="hidden md:flex items-center">
           {/* 모달 대신 페이지 이동으로 변경 */}
           <button
             onClick={() => router.push('/chat')}
-            className="px-4 py-2 text-sm rounded-full bg-[#4C050C] text-[#EBEBDF] hover:opacity-80 transition-opacity"
+            className="px-4 py-2 text-sm rounded-full bg-[#1A1A1A] text-white hover:opacity-80 transition-opacity"
           >
             Talk to AI
           </button>
         </div>
 
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-[#4C050C]">
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-[#1A1A1A]">
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden border-t border-[#4C050C]/10 px-6 py-6">
-          <nav className="flex flex-col gap-6 text-[#4C050C]">
-            <Link href="/category" onClick={() => setIsMenuOpen(false)} className="font-medium">제품안내</Link>
+        <div className="md:hidden border-t border-[#1A1A1A]/10 px-6 py-6">
+          <nav className="flex flex-col gap-6 text-[#1A1A1A]">
+            <Link href="/shop" onClick={() => setIsMenuOpen(false)} className="font-bold tracking-wider">쇼핑</Link>
             <Link href="/project" onClick={() => setIsMenuOpen(false)} className="font-medium">협업</Link>
             <Link href="/membership" onClick={() => setIsMenuOpen(false)} className="font-medium">로그인 / 마이페이지</Link>
 
-            <div className="w-full h-px bg-[#4C050C]/10 my-2" />
+            <div className="w-full h-px bg-[#1A1A1A]/10 my-2" />
 
             <button
               onClick={() => {
                 setIsMenuOpen(false);
                 router.push('/chat');
               }}
-              className="w-full py-3 text-sm font-medium rounded-full bg-[#4C050C] text-[#EBEBDF] hover:opacity-80 transition-opacity"
+              className="w-full py-3 text-sm font-medium rounded-full bg-[#1A1A1A] text-white hover:opacity-80 transition-opacity"
             >
               Talk to AI
             </button>

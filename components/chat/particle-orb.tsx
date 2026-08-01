@@ -36,8 +36,8 @@ function DottedSphere({ radius = 1.2, dotCount = 50, dotSize = 0.025 }) {
         <mesh key={i} position={pos}>
           <sphereGeometry args={[dotSize, 8, 8]} />
           <meshStandardMaterial
-            color="#4C050C"
-            emissive="#4C050C"
+            color="#1A1A1A"
+            emissive="#1A1A1A"
             emissiveIntensity={1.2}
             metalness={0.7}
             roughness={0.2}
@@ -69,11 +69,11 @@ export function ParticleOrb() {
   return (
     <div className="w-48 h-48 relative flex items-center justify-center">
       {/* Outer glow effect */}
-      <div className="absolute inset-[-30%] bg-gradient-radial from-[#4C050C]/20 via-[#4C050C]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-[-30%] bg-gradient-radial from-[#1A1A1A]/20 via-[#1A1A1A]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
       
       {/* Center Text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-        <span className="text-[#4C050C] font-bold text-xl font-sans tracking-wide">Talk to AI</span>
+        <span className="text-[#1A1A1A] font-bold text-xl font-sans tracking-wide">Talk to AI</span>
       </div>
 
       <Canvas

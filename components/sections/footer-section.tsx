@@ -33,14 +33,14 @@ export function FooterSection() {
   return (
     <footer className="bg-background">
       {/* Main Footer Content */}
-      <div className="border-t border-[#4C050C] px-6 py-16 md:px-12 md:py-20 lg:px-20">
+      <div className="border-t border-[#1A1A1A] px-6 py-16 md:px-12 md:py-20 lg:px-20">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
-            <Link href="#hero" className="text-lg font-medium text-[#4C050C]">
+            <Link href="#hero" className="text-lg font-medium text-[#1A1A1A]">
               FINDCATEGORYⓇ
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#4C050C]/70">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#1A1A1A]/70">
               지속 가능한 라이프스타일 시나리오를 통해 <br></br>
               파인드카테고리를 만나보세요.
               <br></br>
@@ -58,13 +58,13 @@ export function FooterSection() {
 
           {/* Explore */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-[#4C050C]">Explore</h4>
+            <h4 className="mb-4 text-sm font-medium text-[#1A1A1A]">Explore</h4>
             <ul className="space-y-3">
               {footerLinks.explore.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[#4C050C]/70 transition-colors hover:text-[#4C050C]"
+                    className="text-sm text-[#1A1A1A]/70 transition-colors hover:text-[#1A1A1A]"
                   >
                     {link.label}
                   </Link>
@@ -75,13 +75,13 @@ export function FooterSection() {
 
           {/* About */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-[#4C050C]">About</h4>
+            <h4 className="mb-4 text-sm font-medium text-[#1A1A1A]">About</h4>
             <ul className="space-y-3">
               {footerLinks.about.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[#4C050C]/70 transition-colors hover:text-[#4C050C]"
+                    className="text-sm text-[#1A1A1A]/70 transition-colors hover:text-[#1A1A1A]"
                   >
                     {link.label}
                   </Link>
@@ -92,22 +92,22 @@ export function FooterSection() {
 
           {/* Service */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-[#4C050C]">Service</h4>
+            <h4 className="mb-4 text-sm font-medium text-[#1A1A1A]">Service</h4>
             <ul className="space-y-3">
               {footerLinks.service.map((link) => (
                 <li key={link.label}>
                   {link.label === "이용약관" || link.label === "환불정책" || link.label === "개인정보처리방침" ? (
                     <Dialog>
                       <DialogTrigger
-                        className={`text-sm transition-colors hover:text-[#4C050C] text-left"
+                        className={`text-sm transition-colors hover:text-[#1A1A1A] text-left"
                           }`}
                       >
                         {link.label}
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-3xl max-h-[80vh] overflow-y-auto bg-background p-6 sm:rounded-xl shadow-lg border border-[#4C050C]/10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                      <DialogContent className="sm:max-w-3xl max-h-[80vh] overflow-y-auto bg-background p-6 sm:rounded-xl shadow-lg border border-[#1A1A1A]/10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                         <DialogHeader>
-                          <DialogTitle className="text-[#4C050C] text-xl">{link.label}</DialogTitle>
-                          <DialogDescription className="mt-4 space-y-4 text-sm text-[#4C050C] whitespace-pre-line text-left">
+                          <DialogTitle className="text-[#1A1A1A] text-xl">{link.label}</DialogTitle>
+                          <DialogDescription className="mt-4 space-y-4 text-sm text-[#1A1A1A] whitespace-pre-line text-left">
                             {link.label === "이용약관" ? `파인드카테고리 이용약관
 
 제 1 조 (목적)
@@ -219,7 +219,7 @@ export function FooterSection() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="text-sm text-[#4C050C]/70 transition-colors hover:text-[#4C050C]"
+                      className="text-sm text-[#1A1A1A]/70 transition-colors hover:text-[#1A1A1A]"
                     >
                       {link.label}
                     </Link>
@@ -232,9 +232,9 @@ export function FooterSection() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-[#4C050C] px-6 py-6 md:px-12 lg:px-20">
+      <div className="border-t border-[#1A1A1A] px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs text-[#4C050C]">
+          <p className="text-xs text-[#1A1A1A]">
             2026 FINDCATEGORYⓇ. All rights reserved.
           </p>
 
@@ -242,13 +242,13 @@ export function FooterSection() {
           <div className="flex items-center gap-4">
             <Link
               href="#"
-              className="text-xs transition-colors hover:text-[#4C050C]"
+              className="text-xs transition-colors hover:text-[#1A1A1A]"
             >
               Instagram
             </Link>
             <Link
               href="#"
-              className="text-xs transition-colors hover:text-[#4C050C]"
+              className="text-xs transition-colors hover:text-[#1A1A1A]"
             >
 
             </Link>

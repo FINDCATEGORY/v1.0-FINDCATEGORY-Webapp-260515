@@ -31,7 +31,7 @@ export default function LatestArticles() {
     <section id="blog" className="py-10 px-0">
       <div className="mx-auto max-w-7xl">
         {/* 상단 ACME 디자인 섹션 추가 */}
-        <div className="bg-transparent rounded-3xl p-8 md:p-12 shadow-sm border border-[#4C050C] mb-10 flex flex-col md:flex-row items-center gap-5">
+        <div className="bg-transparent rounded-3xl p-8 md:p-12 shadow-sm border border-[#1A1A1A] mb-10 flex flex-col md:flex-row items-center gap-5">
           {/* 왼쪽 이미지 */}
           <div className="w-full md:w-1/2 aspect-[5/6] rounded-2xl overflow-hidden relative">
             <Image
@@ -44,17 +44,17 @@ export default function LatestArticles() {
 
           {/* 오른쪽 텍스트 및 버튼 */}
           <div className="w-full md:w-1/2 flex flex-col items-start md:items-start text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-semibold text-[#4C050C] leading-tight mb-18">
+            <h1 className="text-4xl md:text-5xl font-semibold text-[#1A1A1A] leading-tight mb-18">
               What did you think of our service?
             </h1>
             
-            <p className="text-lg text-[#4C050C]/80 mb-12 max-w-md">
+            <p className="text-lg text-[#1A1A1A]/80 mb-12 max-w-md">
               파인드카테고리의 스타일링을 경험해보세요
             </p>
             
             <div className="w-full flex flex-col items-center md:items-start gap-4">
-              <span className="text-sm text-[#4C050C]/60">Takes less than 2 minutes</span>
-              <button className="w-full bg-[#4C050C] text-[#EBEBDF] font-medium py-4 rounded-xl hover:bg-[#4C050C]/90 transition-colors">
+              <span className="text-sm text-[#1A1A1A]/60">Takes less than 2 minutes</span>
+              <button className="w-full bg-[#1A1A1A] text-white font-medium py-4 rounded-xl hover:bg-[#1A1A1A]/90 transition-colors">
                 Incomplete Setup
               </button>
             </div>
@@ -66,7 +66,7 @@ export default function LatestArticles() {
           <span className="text-center font-medium text-foreground/70"> Get Ready : Coming soon</span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl text-[#4C050C] text-center mb-12">출시예정 콘텐츠</h2>
+        <h2 className="text-3xl md:text-4xl text-[#1A1A1A] text-center mb-12">출시예정 콘텐츠</h2>
 
         {/* Articles Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
@@ -76,12 +76,12 @@ export default function LatestArticles() {
                 <Image src={article.image} alt={article.title} width={400} height={250} style={{ width: "100%", height: "208px", objectFit: "cover" }} />
               </div>
               <div style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
-                <span style={{ fontSize: "12px", background: "#4C050C", color: "#EBEBDF", padding: "4px 12px", borderRadius: "99px" }}>
+                <span style={{ fontSize: "12px", background: "#1A1A1A", color: "#FFFFFF", padding: "4px 12px", borderRadius: "99px" }}>
                   {article.category}
                 </span>
                 <span style={{ fontSize: "12px", color: "#888" }}>{article.date}</span>
               </div>
-              <h3 style={{ fontSize: "18px", color: "#4C050C" }}>{article.title}</h3>
+              <h3 style={{ fontSize: "18px", color: "#1A1A1A" }}>{article.title}</h3>
             </div>
           ))}
         </div>

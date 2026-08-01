@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
-import { products as staticProducts, Product } from "@/components/category/product";
+import { products as staticProducts, Product } from "@/components/product/product";
 
 export async function getProducts() {
   try {

@@ -181,14 +181,14 @@ export function InventorySection() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-[#4C050C] font-sans">상품 관리</h2>
-          <p className="text-[#4C050C]/60 text-sm mt-1 font-medium font-sans">
+          <h2 className="text-2xl font-black text-[#1A1A1A] font-sans">상품 관리</h2>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1 font-medium font-sans">
             개별 상품 및 원자재 라이브러리를 관리합니다.
           </p>
         </div>
         <button
           onClick={openAddModal}
-          className="bg-[#4C050C] text-[#EBEBDF] px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-[#4C050C]/90 transition-colors shadow-sm"
+          className="bg-[#1A1A1A] text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-[#1A1A1A]/90 transition-colors shadow-sm"
         >
           <Plus className="w-5 h-5" />
           <span>상품 등록</span>
@@ -198,7 +198,7 @@ export function InventorySection() {
       {/* Toast Notification */}
       {toast && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[200] animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className={`px-6 py-3 rounded-full shadow-lg font-bold font-sans text-sm ${toast.type === 'success' ? 'bg-[#4C050C] text-white' : 'bg-red-500 text-white'}`}>
+          <div className={`px-6 py-3 rounded-full shadow-lg font-bold font-sans text-sm ${toast.type === 'success' ? 'bg-[#1A1A1A] text-white' : 'bg-red-500 text-white'}`}>
             {toast.message}
           </div>
         </div>
@@ -213,32 +213,32 @@ export function InventorySection() {
       {/* Toolbar */}
       <div className="flex gap-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#4C050C]/40" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1A1A1A]/40" />
           <input
             type="text"
             placeholder="상품명 또는 카테고리 검색..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#4C050C]/10 bg-white focus:outline-none focus:ring-2 focus:ring-[#4C050C]/20 font-sans"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#1A1A1A]/10 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 font-sans"
           />
         </div>
       </div>
 
       {/* Product Grid */}
       {loading ? (
-        <div className="py-20 text-center text-[#4C050C]/60 font-medium">로딩 중...</div>
+        <div className="py-20 text-center text-[#1A1A1A]/60 font-medium">로딩 중...</div>
       ) : products.length === 0 ? (
-        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm p-12 flex flex-col items-center justify-center text-center">
-          <div className="w-16 h-16 bg-[#EBEBDF] rounded-full flex items-center justify-center mb-4">
-            <PackageOpen className="w-8 h-8 text-[#4C050C]/40" />
+        <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] shadow-sm p-12 flex flex-col items-center justify-center text-center">
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
+            <PackageOpen className="w-8 h-8 text-[#1A1A1A]/40" />
           </div>
-          <h3 className="text-xl font-bold text-[#4C050C] mb-2 font-sans">등록된 상품이 없습니다</h3>
-          <p className="text-[#4C050C]/60 text-sm font-sans">우측 상단의 버튼을 눌러 첫 상품을 등록해보세요.</p>
+          <h3 className="text-xl font-bold text-[#1A1A1A] mb-2 font-sans">등록된 상품이 없습니다</h3>
+          <p className="text-[#1A1A1A]/60 text-sm font-sans">우측 상단의 버튼을 눌러 첫 상품을 등록해보세요.</p>
         </div>
       ) : (
-        <div className="bg-white border border-[#4C050C]/10 rounded-[24px] shadow-sm overflow-hidden">
+        <div className="bg-white border border-[#1A1A1A]/10 rounded-[24px] shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#EBEBDF]/30 border-b border-[#4C050C]/10 text-[#4C050C]/60 text-[11px] font-black uppercase tracking-wider font-sans">
+                <tr className="bg-white/30 border-b border-[#1A1A1A]/10 text-[#1A1A1A]/60 text-[11px] font-black uppercase tracking-wider font-sans">
                   <th className="px-5 py-3.5">카테고리</th>
                   <th className="px-5 py-3.5">상품 정보</th>
                   <th className="px-5 py-3.5 text-right">원가 (¥)</th>
@@ -246,42 +246,42 @@ export function InventorySection() {
                   <th className="px-5 py-3.5 text-center">관리</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#4C050C]/5">
+              <tbody className="divide-y divide-[#1A1A1A]/5">
                 {products.map((product) => {
                   const categoryArray = Array.isArray(product.categories) ? product.categories : (product.categories ? [product.categories] : []);
                   const mainCategory = categoryArray.find((c: string) => !c.includes("컬렉션") && !c.includes("콜렉션")) || (categoryArray[0] || "지정 안됨");
                   
                   return (
-                    <tr key={product.id} className="hover:bg-[#EBEBDF]/20 transition-colors group">
+                    <tr key={product.id} className="hover:bg-white/20 transition-colors group">
                       <td className="px-5 py-3.5">
-                        <span className="inline-flex items-center px-2 py-1 rounded border border-[#4C050C]/10 bg-white text-[10px] font-black text-[#4C050C]/70">
+                        <span className="inline-flex items-center px-2 py-1 rounded border border-[#1A1A1A]/10 bg-white text-[10px] font-black text-[#1A1A1A]/70">
                           {mainCategory}
                         </span>
                       </td>
                       <td className="px-5 py-3.5 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#EBEBDF]/50 flex-shrink-0 flex items-center justify-center border border-[#4C050C]/10">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/50 flex-shrink-0 flex items-center justify-center border border-[#1A1A1A]/10">
                           {product.image ? (
                             <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                           ) : (
-                            <ImageIcon className="w-4 h-4 text-[#4C050C]/20" />
+                            <ImageIcon className="w-4 h-4 text-[#1A1A1A]/20" />
                           )}
                         </div>
                         <div>
                           <div 
-                            className="font-bold text-[#4C050C] text-sm font-sans mb-0.5 group-hover:underline decoration-2 underline-offset-4 decoration-[#4C050C]/30 cursor-pointer" 
+                            className="font-bold text-[#1A1A1A] text-sm font-sans mb-0.5 group-hover:underline decoration-2 underline-offset-4 decoration-[#1A1A1A]/30 cursor-pointer" 
                             onClick={() => openEditModal(product)}
                           >
                             {product.name}
                           </div>
-                          <div className="text-[11px] text-[#4C050C]/40 truncate max-w-[200px] font-medium">{product.description || "설명 없음"}</div>
+                          <div className="text-[11px] text-[#1A1A1A]/40 truncate max-w-[200px] font-medium">{product.description || "설명 없음"}</div>
                         </div>
                       </td>
                       <td className="px-5 py-3.5 text-right">
-                        <span className="text-xs font-bold text-[#4C050C]/60">
+                        <span className="text-xs font-bold text-[#1A1A1A]/60">
                           {product.cny_price ? `¥${product.cny_price}` : "-"}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5 text-right font-black text-[#4C050C] text-sm font-sans">
+                      <td className="px-5 py-3.5 text-right font-black text-[#1A1A1A] text-sm font-sans">
                         {product.price || "-"}
                       </td>
                       <td className="px-5 py-3.5 text-center">
@@ -289,7 +289,7 @@ export function InventorySection() {
                           <button 
                             type="button"
                             onClick={() => openEditModal(product)} 
-                            className="p-1.5 text-[#4C050C]/40 hover:text-[#4C050C] hover:bg-[#4C050C]/10 rounded-lg transition-colors inline-flex items-center justify-center"
+                            className="p-1.5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/10 rounded-lg transition-colors inline-flex items-center justify-center"
                             title="수정"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -319,16 +319,16 @@ export function InventorySection() {
           <div className="bg-white rounded-3xl w-full max-w-xl max-h-[80vh] overflow-y-auto shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-5 right-5 text-[#4C050C]/40 hover:text-[#4C050C] transition-colors"
+              className="absolute top-5 right-5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="p-6 sm:p-8">
-              <h3 className="text-xl font-black text-[#4C050C] mb-1 font-sans">
+              <h3 className="text-xl font-black text-[#1A1A1A] mb-1 font-sans">
                 {editingProduct ? "상품 수정" : "상품 등록"}
               </h3>
-              <p className="text-[#4C050C]/60 text-xs mb-5 font-sans">
+              <p className="text-[#1A1A1A]/60 text-xs mb-5 font-sans">
                 {editingProduct ? "선택한 상품의 정보를 수정합니다." : "새로운 상품을 라이브러리에 추가합니다."}
               </p>
 
@@ -336,15 +336,15 @@ export function InventorySection() {
                 {editingProduct && <input type="hidden" name="existingImage" value={editingProduct.image || ""} />}
 
                 <div>
-                  <label className="block text-xs font-bold text-[#4C050C] mb-1.5">상품명 <span className="text-red-500">*</span></label>
-                  <input name="name" defaultValue={editingProduct?.name} required type="text" className="w-full px-3 py-2.5 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/30 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/30 font-sans text-sm" placeholder="예: 골든아워 플라워 냅킨" />
+                  <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">상품명 <span className="text-red-500">*</span></label>
+                  <input name="name" defaultValue={editingProduct?.name} required type="text" className="w-full px-3 py-2.5 rounded-xl border border-[#1A1A1A]/20 bg-white/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/30 font-sans text-sm" placeholder="예: 골든아워 플라워 냅킨" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-[#4C050C] mb-1.5 flex justify-between">
+                    <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5 flex justify-between">
                       <span>원가 (¥)</span>
-                      <span className="font-medium text-[#4C050C]/40">1¥={exchangeRate.toFixed(1)}₩</span>
+                      <span className="font-medium text-[#1A1A1A]/40">1¥={exchangeRate.toFixed(1)}₩</span>
                     </label>
                     <input 
                       name="cnyPrice" 
@@ -352,12 +352,12 @@ export function InventorySection() {
                       onChange={(e) => setCnyInput(e.target.value)} 
                       type="number" 
                       step="0.01" 
-                      className="w-full px-3 py-2.5 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/30 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/30 font-sans text-sm" 
+                      className="w-full px-3 py-2.5 rounded-xl border border-[#1A1A1A]/20 bg-white/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/30 font-sans text-sm" 
                       placeholder="위안화 입력" 
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-[#4C050C] mb-1.5">판매가 (₩) <span className="text-red-500">*</span></label>
+                    <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">판매가 (₩) <span className="text-red-500">*</span></label>
                     <input 
                       name="price" 
                       value={cnyInput ? (Math.ceil(Number(cnyInput) * exchangeRate * 4 / 1000) * 1000).toLocaleString() : priceInput} 
@@ -365,13 +365,13 @@ export function InventorySection() {
                       readOnly={!!cnyInput}
                       required 
                       type="text" 
-                      className="w-full px-3 py-2.5 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/30 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/30 font-sans text-sm" 
+                      className="w-full px-3 py-2.5 rounded-xl border border-[#1A1A1A]/20 bg-white/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/30 font-sans text-sm" 
                       placeholder="자동 계산" 
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-[#4C050C] mb-1.5">품목 <span className="text-red-500">*</span></label>
-                    <select name="itemType" defaultValue={editingProduct ? (Array.isArray(editingProduct.categories) ? editingProduct.categories.find((c: string) => !c.includes("컬렉션") && !c.includes("콜렉션")) || editingProduct.categories[0] : (editingProduct.categories?.includes("컬렉션") || editingProduct.categories?.includes("콜렉션") ? "" : editingProduct.categories)) : ""} required className="w-full px-3 py-2.5 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/30 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/30 font-sans text-sm appearance-none">
+                    <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">품목 <span className="text-red-500">*</span></label>
+                    <select name="itemType" defaultValue={editingProduct ? (Array.isArray(editingProduct.categories) ? editingProduct.categories.find((c: string) => !c.includes("컬렉션") && !c.includes("콜렉션")) || editingProduct.categories[0] : (editingProduct.categories?.includes("컬렉션") || editingProduct.categories?.includes("콜렉션") ? "" : editingProduct.categories)) : ""} required className="w-full px-3 py-2.5 rounded-xl border border-[#1A1A1A]/20 bg-white/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/30 font-sans text-sm appearance-none">
                       <option value="">품목 선택</option>
                       <optgroup label="플레이트">
                         <option value="플레이트">플레이트 (공통)</option>
@@ -406,24 +406,24 @@ export function InventorySection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#4C050C] mb-1.5">상세 설명</label>
-                  <textarea name="description" defaultValue={editingProduct?.description} rows={2} className="w-full px-3 py-2.5 rounded-xl border border-[#4C050C]/20 bg-[#EBEBDF]/30 focus:outline-none focus:ring-2 focus:ring-[#4C050C]/30 font-sans resize-none text-sm" placeholder="상품에 대한 상세 설명을 입력하세요." />
+                  <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">상세 설명</label>
+                  <textarea name="description" defaultValue={editingProduct?.description} rows={2} className="w-full px-3 py-2.5 rounded-xl border border-[#1A1A1A]/20 bg-white/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/30 font-sans resize-none text-sm" placeholder="상품에 대한 상세 설명을 입력하세요." />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#4C050C] mb-1.5">대표 이미지</label>
-                  <div className="w-full px-4 py-4 border-2 border-dashed border-[#4C050C]/20 rounded-xl bg-[#EBEBDF]/10 flex flex-col items-center justify-center hover:bg-[#EBEBDF]/30 transition-colors cursor-pointer relative overflow-hidden">
+                  <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">대표 이미지</label>
+                  <div className="w-full px-4 py-4 border-2 border-dashed border-[#1A1A1A]/20 rounded-xl bg-white/10 flex flex-col items-center justify-center hover:bg-white/30 transition-colors cursor-pointer relative overflow-hidden">
                     <input type="file" name="image" accept="image/*" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                     {editingProduct?.image ? (
                       <>
                         <div className="absolute inset-0 opacity-20 bg-cover bg-center filter blur-sm" style={{ backgroundImage: `url(${editingProduct.image})` }} />
-                        <ImageIcon className="w-6 h-6 text-[#4C050C]/80 mb-1 relative z-10" />
-                        <span className="text-xs font-bold text-[#4C050C] font-sans relative z-10">클릭하여 이미지 변경</span>
+                        <ImageIcon className="w-6 h-6 text-[#1A1A1A]/80 mb-1 relative z-10" />
+                        <span className="text-xs font-bold text-[#1A1A1A] font-sans relative z-10">클릭하여 이미지 변경</span>
                       </>
                     ) : (
                       <>
-                        <ImageIcon className="w-6 h-6 text-[#4C050C]/40 mb-1" />
-                        <span className="text-xs font-medium text-[#4C050C]/60 font-sans">파일 선택 또는 드래그</span>
+                        <ImageIcon className="w-6 h-6 text-[#1A1A1A]/40 mb-1" />
+                        <span className="text-xs font-medium text-[#1A1A1A]/60 font-sans">파일 선택 또는 드래그</span>
                       </>
                     )}
                   </div>
@@ -435,10 +435,10 @@ export function InventorySection() {
                       삭제
                     </button>
                   )}
-                  <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-3 rounded-xl font-bold text-[#4C050C] bg-[#EBEBDF] hover:bg-[#EBEBDF]/80 transition-colors text-sm">
+                  <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-3 rounded-xl font-bold text-[#1A1A1A] bg-white hover:bg-white/80 transition-colors text-sm">
                     취소
                   </button>
-                  <button type="submit" disabled={isSubmitting} className="flex-1 py-3 rounded-xl font-bold text-white bg-[#4C050C] hover:bg-[#4C050C]/90 transition-colors disabled:opacity-50 text-sm">
+                  <button type="submit" disabled={isSubmitting} className="flex-1 py-3 rounded-xl font-bold text-white bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 transition-colors disabled:opacity-50 text-sm">
                     {isSubmitting ? "처리 중..." : (editingProduct ? "수정하기" : "등록하기")}
                   </button>
                 </div>

@@ -58,7 +58,7 @@ export async function addCollection(formData: FormData) {
         {
           name,
           theme,
-          image_color: imageColor || "bg-[#EBEBDF] text-[#4C050C]",
+          image_color: imageColor || "bg-white text-[#1A1A1A]",
           target_sales: 500,
           items: items,
           image_url: imageUrl,

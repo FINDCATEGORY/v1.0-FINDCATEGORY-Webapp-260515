@@ -77,8 +77,7 @@ export async function POST(req: NextRequest) {
         requireUserVerification: false,
       });
     } catch (error: any) {
-      console.error(error);
-      require('fs').writeFileSync('/Users/chohyeonwoo/Documents/2.웹앱/v1.0-FINDCATEGORY-Webapp-260515/v1.0-FINDCATEGORY-Webapp-260515-main/webauthn_error.log', JSON.stringify({ step: 'verify', msg: error.message, stack: error.stack }));
+      console.error("WebAuthn verification error:", error);
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
@@ -88,8 +87,13 @@ export async function POST(req: NextRequest) {
       const { credentialDeviceType, credentialBackedUp } = registrationInfo;
       const { id, publicKey, counter } = registrationInfo.credential;
 
+      const rawPublicKey = publicKey || (registrationInfo as any).credentialPublicKey;
+      if (!rawPublicKey) {
+        return NextResponse.json({ error: "Public key is missing from registration info" }, { status: 400 });
+      }
+
       const credentialIDStr = id;
-      const publicKeyStr = Buffer.from(publicKey).toString('base64');
+      const publicKeyStr = Buffer.from(rawPublicKey).toString('base64');
 
       // DB 저장
       const { error: dbError } = await supabase
@@ -107,7 +111,6 @@ export async function POST(req: NextRequest) {
 
       if (dbError) {
         console.error("DB Insert Error:", dbError);
-        require('fs').writeFileSync('/Users/chohyeonwoo/Documents/2.웹앱/v1.0-FINDCATEGORY-Webapp-260515/v1.0-FINDCATEGORY-Webapp-260515-main/webauthn_error.log', JSON.stringify({ step: 'db', error: dbError }));
         return NextResponse.json({ error: "Failed to save passkey to database" }, { status: 500 });
       }
 
@@ -120,7 +123,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ verified: false, error: "Verification failed" }, { status: 400 });
   } catch (error: any) {
     console.error("Registration Verification Error:", error);
-    require('fs').writeFileSync('/Users/chohyeonwoo/Documents/2.웹앱/v1.0-FINDCATEGORY-Webapp-260515/v1.0-FINDCATEGORY-Webapp-260515-main/webauthn_error.log', JSON.stringify({ step: 'catch_all', msg: error.message, stack: error.stack }));
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

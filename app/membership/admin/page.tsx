@@ -42,7 +42,7 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="flex min-h-screen bg-[#EBEBDF] text-[#4C050C]">
+        <div className="flex min-h-screen bg-white text-[#1A1A1A]">
             <Sidebar
                 activeSection={activeSection}
                 onSectionChange={setActiveSection}

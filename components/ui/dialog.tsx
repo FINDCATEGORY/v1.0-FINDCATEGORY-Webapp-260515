@@ -26,7 +26,7 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<typeof Dial
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-[#EBEBDF]/50 backdrop-blur-sm',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-white/50 backdrop-blur-sm',
         className,
       )}
       {...props}
@@ -51,7 +51,7 @@ function DialogContent({
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none text-[#4C050C] hover:bg-[#4C050C]/10 p-2">
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none text-[#1A1A1A] hover:bg-[#1A1A1A]/10 p-2">
           <X className="h-6 w-6" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>

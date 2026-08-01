@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/detail/ui/cart-context'
 import { CartSidebar } from '@/components/detail/ui/cart-sidebar'
-import { CartCheckoutModal } from '@/components/detail/ui/cart-checkout-modal'
 import { CustomCursor } from '@/components/custom-cursor'
 import { PageTransition } from '@/components/page-transition'
 import './globals.css'
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PageTransition />
           </React.Suspense>
           <CartSidebar />
-          <CartCheckoutModal />
           {children}
         </CartProvider>
         <Analytics />

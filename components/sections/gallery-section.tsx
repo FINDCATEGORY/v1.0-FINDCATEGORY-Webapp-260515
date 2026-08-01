@@ -22,7 +22,6 @@ export function GallerySection() {
     { src: "/images/collection/goldenhour/goldenhour1.jpg", alt: "Modern architecture at sunrise" },
     { src: "/images/collection/goldenhour/goldenhour2.jpg", alt: "Modern architecture in daylight" },
     { src: "/images/collection/goldenhour/goldenhour3.jpg", alt: "Modern architecture at dusk" },
-    ,
   ];
 
   const updateTransform = useCallback(() => {
@@ -82,7 +81,7 @@ export function GallerySection() {
               transition: 'opacity 0.5s ease',
             }}
           >
-            <h2 className="text-4xl md:text-6xl font-light text-[#4C050C] text-center">
+            <h2 className="text-4xl md:text-6xl font-light text-[#1A1A1A] text-center">
 
             </h2>
           </div>
@@ -150,7 +149,7 @@ export function GallerySection() {
         }
       }}>
         <DialogContent className="max-w-[95vw] p-0 overflow-hidden sm:max-w-[80vw]">
-          <div className="relative bg-[#EBEBDF] min-h-[60vh] sm:min-h-[70vh]">
+          <div className="relative bg-white min-h-[60vh] sm:min-h-[70vh]">
             {previewImage ? (
               <Image
                 src={previewImage.src}

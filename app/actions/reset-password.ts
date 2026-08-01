@@ -64,12 +64,12 @@ export async function submitResetPassword(formData: FormData) {
       subject: "[FINDCATEGORY] 임시 비밀번호 발급 안내",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-          <h2 style="color: #4C050C; margin-bottom: 20px;">FINDCATEGORY 임시 비밀번호 안내</h2>
+          <h2 style="color: #1A1A1A; margin-bottom: 20px;">FINDCATEGORY 임시 비밀번호 안내</h2>
           <p>안녕하세요, <strong>${user.name}</strong>님.</p>
           <p>요청하신 계정(<strong>${username}</strong>)의 임시 비밀번호가 발급되었습니다.</p>
           <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; text-align: center;">
             <p style="margin: 0; font-size: 14px; color: #666;">임시 비밀번호</p>
-            <p style="margin: 10px 0 0 0; font-size: 24px; font-weight: bold; letter-spacing: 2px; color: #4C050C;">
+            <p style="margin: 10px 0 0 0; font-size: 24px; font-weight: bold; letter-spacing: 2px; color: #1A1A1A;">
               ${tempPassword}
             </p>
           </div>

@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS public.b2b_collections (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name TEXT NOT NULL,
     theme TEXT NOT NULL,
-    image_color TEXT DEFAULT 'bg-[#EBEBDF] text-[#4C050C]',
+    image_color TEXT DEFAULT 'bg-[#EBEBDF] text-[#1A1A1A]',
     status TEXT DEFAULT '판매중',
     target_sales INTEGER DEFAULT 500,
     items TEXT[] DEFAULT '{}',

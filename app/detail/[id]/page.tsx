@@ -1,10 +1,10 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { products } from "@/components/category/product"
+import { products } from "@/components/product/product"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import { ProductDetailModal } from "@/components/category/product-detail-modal"
+import { ProductDetailModal } from "@/components/product/product-detail-modal"
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -20,12 +20,12 @@ export default function DetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#EBEBDF]">
+    <div className="min-h-screen bg-white">
       {/* 뒤로가기 버튼 */}
       <div className="px-4 pt-6 sm:px-6 lg:px-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#4C050C] transition-colors"
+          className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#1A1A1A] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           뒤로가기

@@ -112,18 +112,18 @@ export function Sidebar({
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 group relative",
                     hasActiveItem
-                      ? "bg-[#4C050C]/5 text-[#4C050C]"
-                      : "text-muted-foreground hover:text-[#4C050C] hover:bg-sidebar-accent/50"
+                      ? "bg-[#1A1A1A]/5 text-[#1A1A1A]"
+                      : "text-muted-foreground hover:text-[#1A1A1A] hover:bg-sidebar-accent/50"
                   )}
                   title={collapsed ? group.groupLabel : undefined}
                 >
                   {hasActiveItem && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-r-full bg-[#4C050C] transition-all" />
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-r-full bg-[#1A1A1A] transition-all" />
                   )}
                   <GroupIcon
                     className={cn(
                       "w-5 h-5 shrink-0 transition-transform duration-200",
-                      hasActiveItem ? "text-[#4C050C]" : "group-hover:scale-110"
+                      hasActiveItem ? "text-[#1A1A1A]" : "group-hover:scale-110"
                     )}
                   />
                   <span
@@ -194,12 +194,12 @@ export function Sidebar({
                         className={cn(
                           "w-full text-left px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 relative font-sans",
                           isActive
-                            ? "bg-[#4C050C]/5 text-[#4C050C] font-bold"
-                            : "text-muted-foreground hover:text-[#4C050C] hover:bg-sidebar-accent/50"
+                            ? "bg-[#1A1A1A]/5 text-[#1A1A1A] font-bold"
+                            : "text-muted-foreground hover:text-[#1A1A1A] hover:bg-sidebar-accent/50"
                         )}
                       >
                         {isActive && (
-                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4C050C] transition-all" />
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#1A1A1A] transition-all" />
                         )}
                         <span className={cn("transition-transform duration-200 block", isActive ? "translate-x-1" : "")}>
                           {item.label}

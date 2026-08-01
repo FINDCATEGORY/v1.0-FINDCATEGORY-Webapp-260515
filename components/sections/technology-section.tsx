@@ -36,7 +36,7 @@ function ScrollRevealText({ text }: { text: string }) {
   return (
     <p
       ref={containerRef}
-      className="text-2xl leading-snug text-[#4C050C] md:text-4xl lg:text-4xl text-center"
+      className="text-2xl leading-snug text-[#1A1A1A] md:text-4xl lg:text-4xl text-center"
       style={{ whiteSpace: "pre-line" }}
     >
       {lines.map((line, lineIndex) => {
@@ -236,7 +236,7 @@ export function TechnologySection() {
                   return (
                     <h2
                       key={cycleIndex}
-                      className="absolute z-50max-w-3xl font-light leading-tight tracking-tight text-[#4C050C] md:text-5xl lg:text-7xl text-3xl"
+                      className="absolute z-50max-w-3xl font-light leading-tight tracking-tight text-[#1A1A1A] md:text-5xl lg:text-7xl text-3xl"
                     >
                       {words.map((word, wordIndex) => {
                         let wordOpacity = 0;
@@ -307,8 +307,8 @@ export function TechnologySection() {
         </div>
       </div>
 
-      {/* Scroll space to enable animation - increased for 3 text cycles */}
-      <div className="h-[200vh]" />
+      {/* Scroll space to enable animation */}
+      <div className="h-[50vh]" />
 
 
     </section>

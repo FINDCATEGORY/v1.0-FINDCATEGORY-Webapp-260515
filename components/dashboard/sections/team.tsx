@@ -1,1 +1,1 @@
-export function TeamSection() { return <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100"><h2 className="text-xl font-bold text-[#4C050C]">TeamSection</h2><p className="text-gray-500 mt-2">이 페이지는 아직 준비 중입니다.</p></div>; }
+export function TeamSection() { return <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100"><h2 className="text-xl font-bold text-[#1A1A1A]">TeamSection</h2><p className="text-gray-500 mt-2">이 페이지는 아직 준비 중입니다.</p></div>; }
