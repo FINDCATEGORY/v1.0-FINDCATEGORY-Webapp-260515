@@ -1,15 +1,14 @@
+import { Suspense } from "react"
 import { cookies } from "next/headers"
 import LoginForm from "./login-form"
 import MembershipDashboard from "./dashboard-client"
 import { supabase } from "@/lib/supabase"
-
 import { redirect } from "next/navigation"
 
-export default async function MembershipPage() {
+async function MembershipContent() {
   const cookieStore = await cookies()
   const sessionCookie = cookieStore.get("membership_session")
 
-  // 세션 쿠키가 없으면 로그인 페이지 렌더링
   if (!sessionCookie || !sessionCookie.value) {
     return <LoginForm />
   }
@@ -34,10 +33,17 @@ export default async function MembershipPage() {
     username = "회원";
   }
 
-  // 관리자 등급 로그인 시 관리자 페이지로 리다이렉트
   if (tier === "admin" || username === "findcategoryadmin" || username === "admin") {
     redirect("/membership/admin");
   }
   
   return <MembershipDashboard username={username} email={email} grade={tier.toUpperCase() as any} />
+}
+
+export default function MembershipPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <MembershipContent />
+    </Suspense>
+  )
 }
