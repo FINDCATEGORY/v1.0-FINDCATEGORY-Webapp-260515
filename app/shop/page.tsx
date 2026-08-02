@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Plus, ArrowRight, Sparkles } from "lucide-react";
 import { useCart } from "@/components/detail/ui/cart-context";
 import { getProducts } from "@/app/actions/product";
-import { Product, products as staticProducts } from "@/components/category/product";
-import { ProductDetailModal } from "@/components/category/product-detail-modal";
+import { Product, products as staticProducts } from "@/components/product/product";
+import { ProductDetailModal } from "@/components/product/product-detail-modal";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const shopCategories = [
