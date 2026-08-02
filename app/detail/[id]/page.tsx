@@ -1,14 +1,12 @@
 "use client"
 
-export const dynamic = 'force-dynamic'
-
+import { Suspense } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { products } from "@/components/product/product"
-import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { ProductDetailModal } from "@/components/product/product-detail-modal"
 
-export default function DetailPage() {
+function DetailContent() {
   const { id } = useParams()
   const router = useRouter()
   const product = products.find((p) => p.id === Number(id))
@@ -40,5 +38,13 @@ export default function DetailPage() {
         </div>
       </section>
     </div>
+  )
+}
+
+export default function DetailPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <DetailContent />
+    </Suspense>
   )
 }
