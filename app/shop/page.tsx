@@ -84,13 +84,13 @@ export default function ShopPage() {
     const totalCartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-[#F7F7F4] text-[#1A1A1A] font-sans antialiased selection:bg-[#1A1A1A] selection:text-white">
+        <div className="flex flex-col md:flex-row min-h-screen bg-white text-[#1A1A1A] font-sans antialiased selection:bg-[#1A1A1A] selection:text-white">
             {/* 
         ========================================================
         LEFT SIDEBAR : FIXED / STICKY AREA
         ========================================================
       */}
-            <aside className="w-full md:w-[320px] lg:w-[380px] xl:w-[420px] md:h-screen md:sticky md:top-0 p-8 md:p-12 lg:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1A1A1A]/10 bg-[#F7F7F4] z-20 flex-shrink-0">
+            <aside className="w-full md:w-[320px] lg:w-[380px] xl:w-[420px] md:h-screen md:sticky md:top-0 p-8 md:p-12 lg:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1A1A1A]/10 bg-white z-20 flex-shrink-0">
                 <div>
                     {/* Logo & Brand Identity */}
                     <Link href="/" className="inline-block group">
@@ -147,11 +147,11 @@ export default function ShopPage() {
         RIGHT AREA : SCROLLABLE PRODUCT SHOWCASE FEED
         ========================================================
       */}
-            <main className="flex-1 relative bg-[#F2F2ED] min-h-screen">
+            <main className="flex-1 relative bg-white min-h-screen">
                 {/* Floating / Sticky Top Bar */}
                 <header className="sticky top-0 z-30 flex items-center justify-between p-6 md:p-8 lg:p-12 pointer-events-none">
                     <div className="pointer-events-auto">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md border border-[#1A1A1A]/15 bg-[#F7F7F4]/90 backdrop-blur-md text-[11px] font-bold tracking-wider uppercase text-[#1A1A1A] shadow-sm">
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md border border-[#1A1A1A]/15 bg-white/90 backdrop-blur-md text-[11px] font-bold tracking-wider uppercase text-[#1A1A1A] shadow-sm">
                             <Sparkles className="w-3 h-3 text-amber-600 animate-spin" style={{ animationDuration: '4s' }} />
                             <span>LATEST DROP</span>
                         </span>
