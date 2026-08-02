@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/detail/ui/cart-context'
+import { CartProvider as ShopifyCartProvider } from '@/components/cart/cart-context'
 import { CartSidebar } from '@/components/detail/ui/cart-sidebar'
 import { CustomCursor } from '@/components/custom-cursor'
 import { PageTransition } from '@/components/page-transition'
@@ -36,14 +37,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <CartProvider>
-          <CustomCursor />
-          <React.Suspense fallback={null}>
-            <PageTransition />
-          </React.Suspense>
-          <CartSidebar />
-          {children}
-        </CartProvider>
+        <ShopifyCartProvider>
+          <CartProvider>
+            <CustomCursor />
+            <React.Suspense fallback={null}>
+              <PageTransition />
+            </React.Suspense>
+            <CartSidebar />
+            {children}
+          </CartProvider>
+        </ShopifyCartProvider>
         <Analytics />
       </body>
     </html>
