@@ -6,6 +6,7 @@ import { CartProvider as ShopifyCartProvider } from '@/components/cart/cart-cont
 import { CartSidebar } from '@/components/detail/ui/cart-sidebar'
 import { CustomCursor } from '@/components/custom-cursor'
 import { PageTransition } from '@/components/page-transition'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -37,16 +38,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <ShopifyCartProvider>
-          <CartProvider>
-            <CustomCursor />
-            <React.Suspense fallback={null}>
-              <PageTransition />
-            </React.Suspense>
-            <CartSidebar />
-            {children}
-          </CartProvider>
-        </ShopifyCartProvider>
+        <NuqsAdapter>
+          <ShopifyCartProvider>
+            <CartProvider>
+              <CustomCursor />
+              <React.Suspense fallback={null}>
+                <PageTransition />
+              </React.Suspense>
+              <CartSidebar />
+              {children}
+            </CartProvider>
+          </ShopifyCartProvider>
+        </NuqsAdapter>
         <Analytics />
       </body>
     </html>
